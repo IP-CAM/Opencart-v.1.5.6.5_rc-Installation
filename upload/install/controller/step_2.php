@@ -49,8 +49,8 @@ class ControllerStep2 extends Controller {
 			$this->error['warning'] = 'Warning: OpenCart will not work with session.auto_start enabled!';
 		}
 
-		if (!extension_loaded('mysql')) {
-			$this->error['warning'] = 'Warning: MySQL extension needs to be loaded for OpenCart to work!';
+		if (!extension_loaded('mysqli')) {
+			$this->error['warning'] = 'Warning: MySQLI extension needs to be loaded for OpenCart to work!';
 		}
 
 		if (!extension_loaded('gd')) {
@@ -61,8 +61,8 @@ class ControllerStep2 extends Controller {
 			$this->error['warning'] = 'Warning: CURL extension needs to be loaded for OpenCart to work!';
 		}
 
-		if (!function_exists('mcrypt_encrypt')) {
-			$this->error['warning'] = 'Warning: mCrypt extension needs to be loaded for OpenCart to work!';
+		if (!function_exists('openssl_encrypt')) {
+			$this->error['warning'] = $this->language->get('error_openssl');
 		}
 
 		if (!extension_loaded('zlib')) {

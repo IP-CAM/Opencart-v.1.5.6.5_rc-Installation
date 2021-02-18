@@ -20,7 +20,6 @@
           <td>Database Driver:</td>
           <td><select name="db_driver">
               <option value="mysqli">MySQLi</option>
-              <option value="mysql">MySQL</option>
             </select>
             <br />
             <?php if ($error_db_driver) { ?>
