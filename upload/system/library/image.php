@@ -35,12 +35,12 @@ class Image {
 		}
 	}
 
-	public function save($file, $quality = 90) {
+	public function save($file, int $quality = 90) {
 		$info = pathinfo($file);
 
 		$extension = strtolower($info['extension']);
 
-		if (is_resource($this->image)) {
+		if (is_resource($this->image) || is_object($this->image)) {
 			if ($extension == 'jpeg' || $extension == 'jpg') {
 				imagejpeg($this->image, $file, $quality);
 			} elseif($extension == 'png') {
@@ -53,7 +53,7 @@ class Image {
 		}
 	}
 
-	public function resize($width = 0, $height = 0, $default = '') {
+	public function resize($width = 0, int $height = 0, int $default = '') {
 		if (!$this->info['width'] || !$this->info['height']) {
 			return;
 		}
