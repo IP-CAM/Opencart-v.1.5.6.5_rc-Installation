@@ -106,7 +106,7 @@
   </div>
 </div>
 <script type="text/javascript"><!--
-$('#payment-address input[name=\'customer_group_id\']:checked').live('change', function() {
+$('#payment-address input[name=\'customer_group_id\']:checked').on('change', function() {
 	var customer_group = [];
 	
 <?php foreach ($customer_groups as $customer_group) { ?>
@@ -147,7 +147,7 @@ $('#payment-address input[name=\'customer_group_id\']:checked').live('change', f
 $('#payment-address input[name=\'customer_group_id\']:checked').trigger('change');
 //--></script> 
 <script type="text/javascript"><!--
-$('#payment-address select[name=\'country_id\']').bind('change', function() {
+$('#payment-address select[name=\'country_id\']').on('change', function() {
 	if (this.value == '') return;
 	$.ajax({
 		url: 'index.php?route=checkout/checkout/country&country_id=' + this.value,
