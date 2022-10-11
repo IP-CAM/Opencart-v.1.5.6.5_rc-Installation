@@ -51,7 +51,7 @@ $('#checkout .checkout-content input[name=\'account\']').live('change', function
 	}
 });
 
-$('.checkout-heading a').on('click', function() {
+$('.checkout-heading a').live('click', function() {
 	$('.checkout-content').slideUp('slow');
 	
 	$(this).parent().parent().find('.checkout-content').slideDown('slow');
@@ -98,7 +98,7 @@ $(document).ready(function() {
 <?php } ?>
 
 // Checkout
-$('#button-account').on('click', function() {
+$('#button-account').live('click', function() {
 	$.ajax({
 		url: 'index.php?route=checkout/' + $('input[name=\'account\']:checked').attr('value'),
 		dataType: 'html',
@@ -130,7 +130,7 @@ $('#button-account').on('click', function() {
 });
 
 // Login
-$('#button-login').on('click', function() {
+$('#button-login').live('click', function() {
 	$.ajax({
 		url: 'index.php?route=checkout/login/validate',
 		type: 'post',
@@ -162,7 +162,7 @@ $('#button-login').on('click', function() {
 });
 
 // Register
-$('#button-register').on('click', function() {
+$('#button-register').live('click', function() {
 	$.ajax({
 		url: 'index.php?route=checkout/register/validate',
 		type: 'post',
@@ -346,7 +346,7 @@ $('#button-register').on('click', function() {
 });
 
 // Payment Address	
-$('#button-payment-address').on('click', function() {
+$('#button-payment-address').live('click', function() {
 	$.ajax({
 		url: 'index.php?route=checkout/payment_address/validate',
 		type: 'post',
@@ -475,7 +475,7 @@ $('#button-payment-address').on('click', function() {
 });
 
 // Shipping Address			
-$('#button-shipping-address').on('click', function() {
+$('#button-shipping-address').live('click', function() {
 	$.ajax({
 		url: 'index.php?route=checkout/shipping_address/validate',
 		type: 'post',
@@ -588,7 +588,7 @@ $('#button-shipping-address').on('click', function() {
 });
 
 // Guest
-$('#button-guest').on('click', function() {
+$('#button-guest').live('click', function() {
 	$.ajax({
 		url: 'index.php?route=checkout/guest/validate',
 		type: 'post',
@@ -748,7 +748,7 @@ $('#button-guest').on('click', function() {
 });
 
 // Guest Shipping
-$('#button-guest-shipping').on('click', function() {
+$('#button-guest-shipping').live('click', function() {
 	$.ajax({
 		url: 'index.php?route=checkout/guest_shipping/validate',
 		type: 'post',
@@ -830,7 +830,7 @@ $('#button-guest-shipping').on('click', function() {
 	});	
 });
 
-$('#button-shipping-method').on('click', function() {
+$('#button-shipping-method').live('click', function() {
 	$.ajax({
 		url: 'index.php?route=checkout/shipping_method/validate',
 		type: 'post',
@@ -883,7 +883,7 @@ $('#button-shipping-method').on('click', function() {
 	});	
 });
 
-$('#button-payment-method').on('click', function() {
+$('#button-payment-method').live('click', function() {
 	$.ajax({
 		url: 'index.php?route=checkout/payment_method/validate', 
 		type: 'post',
