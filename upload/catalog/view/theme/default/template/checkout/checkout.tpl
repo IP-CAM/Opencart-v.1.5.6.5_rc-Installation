@@ -43,7 +43,7 @@
   </div>
   <?php echo $content_bottom; ?></div>
 <script type="text/javascript"><!--
-$('#checkout .checkout-content input[name=\'account\']').live('change', function() {
+$(document).on('change', '#checkout .checkout-content input[name=\'account\']', function() {
 	if ($(this).attr('value') == 'register') {
 		$('#payment-address .checkout-heading span').html('<?php echo $text_checkout_account; ?>');
 	} else {
@@ -51,7 +51,7 @@ $('#checkout .checkout-content input[name=\'account\']').live('change', function
 	}
 });
 
-$('.checkout-heading a').live('click', function() {
+$(document).on('click', '.checkout-heading a', function() {
 	$('.checkout-content').slideUp('slow');
 	
 	$(this).parent().parent().find('.checkout-content').slideDown('slow');
@@ -98,7 +98,7 @@ $(document).ready(function() {
 <?php } ?>
 
 // Checkout
-$('#button-account').live('click', function() {
+$(document).on('click', '#button-account', function() {
 	$.ajax({
 		url: 'index.php?route=checkout/' + $('input[name=\'account\']:checked').attr('value'),
 		dataType: 'html',
@@ -130,7 +130,7 @@ $('#button-account').live('click', function() {
 });
 
 // Login
-$('#button-login').live('click', function() {
+$(document).on('click', '#button-login', function() {
 	$.ajax({
 		url: 'index.php?route=checkout/login/validate',
 		type: 'post',
@@ -162,7 +162,7 @@ $('#button-login').live('click', function() {
 });
 
 // Register
-$('#button-register').live('click', function() {
+$(document).on('click', '#button-register', function() {
 	$.ajax({
 		url: 'index.php?route=checkout/register/validate',
 		type: 'post',
@@ -346,7 +346,7 @@ $('#button-register').live('click', function() {
 });
 
 // Payment Address	
-$('#button-payment-address').live('click', function() {
+$(document).on('click', '#button-payment-address', function() {
 	$.ajax({
 		url: 'index.php?route=checkout/payment_address/validate',
 		type: 'post',
@@ -474,8 +474,8 @@ $('#button-payment-address').live('click', function() {
 	});	
 });
 
-// Shipping Address			
-$('#button-shipping-address').live('click', function() {
+// Shipping Address
+$(document).on('click', '#button-shipping-address', function() {
 	$.ajax({
 		url: 'index.php?route=checkout/shipping_address/validate',
 		type: 'post',
@@ -588,7 +588,7 @@ $('#button-shipping-address').live('click', function() {
 });
 
 // Guest
-$('#button-guest').live('click', function() {
+$(document).on('click', '#button-guest', function() {
 	$.ajax({
 		url: 'index.php?route=checkout/guest/validate',
 		type: 'post',
@@ -748,7 +748,7 @@ $('#button-guest').live('click', function() {
 });
 
 // Guest Shipping
-$('#button-guest-shipping').live('click', function() {
+$(document).on('click', '#button-guest-shipping', function() {
 	$.ajax({
 		url: 'index.php?route=checkout/guest_shipping/validate',
 		type: 'post',
@@ -830,7 +830,7 @@ $('#button-guest-shipping').live('click', function() {
 	});	
 });
 
-$('#button-shipping-method').live('click', function() {
+$(document).on('click', '#button-shipping-method', function() {
 	$.ajax({
 		url: 'index.php?route=checkout/shipping_method/validate',
 		type: 'post',
@@ -883,7 +883,7 @@ $('#button-shipping-method').live('click', function() {
 	});	
 });
 
-$('#button-payment-method').live('click', function() {
+$(document).on('click', '#button-payment-method', function() {
 	$.ajax({
 		url: 'index.php?route=checkout/payment_method/validate', 
 		type: 'post',
