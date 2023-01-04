@@ -11,7 +11,7 @@ class ModelToolImage extends Model {
 	*				h = fill according to height
 	*	
 	*/
-	public function resize($filename, $width, $height, $type = "") {
+	public function resize($filename, int $width, int $height, $type = "") {
 		if (!file_exists(DIR_IMAGE . $filename) || !is_file(DIR_IMAGE . $filename)) {
 			return;
 		} 
