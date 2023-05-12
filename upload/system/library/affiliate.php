@@ -7,6 +7,10 @@ class Affiliate {
 	private $telephone;
 	private $fax;
 	private $code;
+	private $config;
+	private $db;
+	private $request;
+	private $session;
 
 	public function __construct($registry) {
 		$this->config = $registry->get('config');

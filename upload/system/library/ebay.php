@@ -4,6 +4,15 @@ final class Ebay {
 	private $url    = 'https://uk.openbaypro.com/';
 	private $noLog  = array('notification/getPublicNotifications/','setup/getEbayCategories/','item/getItemAllList/', 'account/validate/', 'item/getItemListLimited/');
 
+	private $token;
+	private $secret;
+	private $logging;
+	private $tax;
+	private $server;
+	private $lasterror;
+	private $lastmsg;
+	private $logger;
+
 	public function __construct($registry) {
 		$this->registry = $registry;
 		$this->token = $this->config->get('openbaypro_token');

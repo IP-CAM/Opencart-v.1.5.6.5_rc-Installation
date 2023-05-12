@@ -3,6 +3,10 @@ final class Openbay {
 	private $registry;
 	private $installed_modules = array();
 
+	private $ebay;
+	private $amazon;
+	private $amazonus;
+
 	public function __construct($registry) {
 		$this->registry = $registry;
 		$this->ebay = new Ebay($registry);
