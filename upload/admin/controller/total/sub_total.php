@@ -1,8 +1,8 @@
-<?php 
-class ControllerTotalSubTotal extends Controller { 
-	private $error = array(); 
+<?php
+class ControllerTotalSubTotal extends Controller {
+	private $error = array();
 
-	public function index() { 
+	public function index() {
 		$this->language->load('total/sub_total');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -44,7 +44,7 @@ class ControllerTotalSubTotal extends Controller {
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_total'),
-			'href'      => $this->url->link('extension/total', 'token=' . $this->session->data['token'], 'SSL'),      		
+			'href'      => $this->url->link('extension/total', 'token=' . $this->session->data['token'], 'SSL'),
 			'separator' => ' :: '
 		);
 
@@ -88,7 +88,6 @@ class ControllerTotalSubTotal extends Controller {
 			return true;
 		} else {
 			return false;
-		}	
+		}
 	}
 }
-?>

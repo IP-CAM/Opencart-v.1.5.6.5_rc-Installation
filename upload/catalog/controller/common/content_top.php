@@ -1,4 +1,4 @@
-<?php  
+<?php
 class ControllerCommonContentTop extends Controller {
 	protected function index() {
 		$this->load->model('design/layout');
@@ -17,7 +17,7 @@ class ControllerCommonContentTop extends Controller {
 		if ($route == 'product/category' && isset($this->request->get['path'])) {
 			$path = explode('_', (string)$this->request->get['path']);
 
-			$layout_id = $this->model_catalog_category->getCategoryLayoutId(end($path));			
+			$layout_id = $this->model_catalog_category->getCategoryLayoutId(end($path));
 		}
 
 		if ($route == 'product/product' && isset($this->request->get['product_id'])) {
@@ -40,7 +40,7 @@ class ControllerCommonContentTop extends Controller {
 
 		$this->load->model('setting/extension');
 
-		$extensions = $this->model_setting_extension->getExtensions('module');		
+		$extensions = $this->model_setting_extension->getExtensions('module');
 
 		foreach ($extensions as $extension) {
 			$modules = $this->config->get($extension['code'] . '_module');
@@ -52,13 +52,13 @@ class ControllerCommonContentTop extends Controller {
 							'code'       => $extension['code'],
 							'setting'    => $module,
 							'sort_order' => $module['sort_order']
-						);				
+						);
 					}
 				}
 			}
 		}
 
-		$sort_order = array(); 
+		$sort_order = array();
 
 		foreach ($module_data as $key => $value) {
 			$sort_order[$key] = $value['sort_order'];
@@ -85,4 +85,3 @@ class ControllerCommonContentTop extends Controller {
 		$this->render();
 	}
 }
-?>

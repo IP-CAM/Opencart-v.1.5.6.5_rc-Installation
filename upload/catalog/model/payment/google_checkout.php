@@ -1,4 +1,4 @@
-<?php 
+<?php
 class ModelPaymentGoogleCheckout extends Model {
 	public function getMethod($address, $total) {
 		$this->language->load('payment/google_checkout');
@@ -9,11 +9,11 @@ class ModelPaymentGoogleCheckout extends Model {
 			$status = false;
 		} elseif (!$this->config->get('google_checkout_geo_zone_id')) {
 			$status = true;
-		} elseif ($query->num_rows) {	
+		} elseif ($query->num_rows) {
 			$status = true;
 		} else {
 			$status = false;
-		}	
+		}
 
 		$currencies = array(
 			'AUD',
@@ -44,11 +44,11 @@ class ModelPaymentGoogleCheckout extends Model {
 
 		if (!in_array(strtoupper($this->currency->getCode()), $currencies)) {
 			$status = false;
-		}	
+		}
 
 		$method_data = array();
 
-		if ($status) {  
+		if ($status) {
 			$method_data = array(
 				'code'       => 'google_checkout',
 				'title'      => $this->language->get('text_title'),
@@ -59,4 +59,3 @@ class ModelPaymentGoogleCheckout extends Model {
 		return $method_data;
 	}
 }
-?>

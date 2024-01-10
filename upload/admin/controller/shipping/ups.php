@@ -1,6 +1,6 @@
 <?php
 class ControllerShippingUPS extends Controller {
-	private $error = array(); 
+	private $error = array();
 
 	public function index() {
 		$this->language->load('shipping/ups');
@@ -10,7 +10,7 @@ class ControllerShippingUPS extends Controller {
 		$this->load->model('setting/setting');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-			$this->model_setting_setting->editSetting('ups', $this->request->post);		
+			$this->model_setting_setting->editSetting('ups', $this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -22,9 +22,9 @@ class ControllerShippingUPS extends Controller {
 		$this->data['text_enabled'] = $this->language->get('text_enabled');
 		$this->data['text_disabled'] = $this->language->get('text_disabled');
 		$this->data['text_yes'] = $this->language->get('text_yes');
-		$this->data['text_no'] = $this->language->get('text_no');		
+		$this->data['text_no'] = $this->language->get('text_no');
 		$this->data['text_select_all'] = $this->language->get('text_select_all');
-		$this->data['text_unselect_all'] = $this->language->get('text_unselect_all');		
+		$this->data['text_unselect_all'] = $this->language->get('text_unselect_all');
 		$this->data['text_all_zones'] = $this->language->get('text_all_zones');
 		$this->data['text_none'] = $this->language->get('text_none');
 		$this->data['text_next_day_air'] = $this->language->get('text_next_day_air');
@@ -77,7 +77,6 @@ class ControllerShippingUPS extends Controller {
 
 		$this->data['button_save'] = $this->language->get('button_save');
 		$this->data['button_cancel'] = $this->language->get('button_cancel');
-
 
 		if (isset($this->error['warning'])) {
 			$this->data['error_warning'] = $this->error['warning'];
@@ -200,17 +199,17 @@ class ControllerShippingUPS extends Controller {
 		$this->data['pickups'][] = array(
 			'value' => '19',
 			'text'  => $this->language->get('text_letter_center')
-		);		
+		);
 
 		$this->data['pickups'][] = array(
 			'value' => '20',
 			'text'  => $this->language->get('text_air_service_center')
-		);	
+		);
 
 		$this->data['pickups'][] = array(
 			'value' => '11',
 			'text'  => $this->language->get('text_suggested_retail_rates')
-		);	
+		);
 
 		if (isset($this->request->post['ups_packaging'])) {
 			$this->data['ups_packaging'] = $this->request->post['ups_packaging'];
@@ -243,17 +242,17 @@ class ControllerShippingUPS extends Controller {
 		$this->data['packages'][] = array(
 			'value' => '21',
 			'text'  => $this->language->get('text_ups_express_box')
-		);		
+		);
 
 		$this->data['packages'][] = array(
 			'value' => '24',
 			'text'  => $this->language->get('text_ups_25kg_box')
-		);	
+		);
 
 		$this->data['packages'][] = array(
 			'value' => '25',
 			'text'  => $this->language->get('text_ups_10kg_box')
-		);	
+		);
 
 		if (isset($this->request->post['ups_classification'])) {
 			$this->data['ups_classification'] = $this->request->post['ups_classification'];
@@ -264,23 +263,23 @@ class ControllerShippingUPS extends Controller {
 		$this->data['classifications'][] = array(
 			'value' => '01',
 			'text'  => '01'
-		);		
+		);
 
 		$this->data['classifications'][] = array(
 			'value' => '03',
 			'text'  => '03'
-		);	
+		);
 
 		$this->data['classifications'][] = array(
 			'value' => '04',
 			'text'  => '04'
-		);			
+		);
 
 		if (isset($this->request->post['ups_origin'])) {
 			$this->data['ups_origin'] = $this->request->post['ups_origin'];
 		} else {
 			$this->data['ups_origin'] = $this->config->get('ups_origin');
-		}			
+		}
 
 		$this->data['origins'] = array();
 
@@ -307,12 +306,12 @@ class ControllerShippingUPS extends Controller {
 		$this->data['origins'][] = array(
 			'value' => 'MX',
 			'text'  => $this->language->get('text_mx')
-		);		
+		);
 
 		$this->data['origins'][] = array(
 			'value' => 'other',
 			'text'  => $this->language->get('text_other')
-		);	
+		);
 
 		if (isset($this->request->post['ups_city'])) {
 			$this->data['ups_city'] = $this->request->post['ups_city'];
@@ -342,13 +341,13 @@ class ControllerShippingUPS extends Controller {
 			$this->data['ups_test'] = $this->request->post['ups_test'];
 		} else {
 			$this->data['ups_test'] = $this->config->get('ups_test');
-		}		
+		}
 
 		if (isset($this->request->post['ups_quote_type'])) {
 			$this->data['ups_quote_type'] = $this->request->post['ups_quote_type'];
 		} else {
 			$this->data['ups_quote_type'] = $this->config->get('ups_quote_type');
-		}		
+		}
 
 		$this->data['quote_types'] = array();
 
@@ -367,55 +366,55 @@ class ControllerShippingUPS extends Controller {
 			$this->data['ups_us_01'] = $this->request->post['ups_us_01'];
 		} else {
 			$this->data['ups_us_01'] = $this->config->get('ups_us_01');
-		}				
+		}
 
 		if (isset($this->request->post['ups_us_02'])) {
 			$this->data['ups_us_02'] = $this->request->post['ups_us_02'];
 		} else {
 			$this->data['ups_us_02'] = $this->config->get('ups_us_02');
-		}			
+		}
 
 		if (isset($this->request->post['ups_us_03'])) {
 			$this->data['ups_us_03'] = $this->request->post['ups_us_03'];
 		} else {
 			$this->data['ups_us_03'] = $this->config->get('ups_us_03');
-		}	
+		}
 
 		if (isset($this->request->post['ups_us_07'])) {
 			$this->data['ups_us_07'] = $this->request->post['ups_us_07'];
 		} else {
 			$this->data['ups_us_07'] = $this->config->get('ups_us_07');
-		}	
+		}
 
 		if (isset($this->request->post['ups_us_08'])) {
 			$this->data['ups_us_08'] = $this->request->post['ups_us_08'];
 		} else {
 			$this->data['ups_us_08'] = $this->config->get('ups_us_08');
-		}	
+		}
 
 		if (isset($this->request->post['ups_us_11'])) {
 			$this->data['ups_us_11'] = $this->request->post['ups_us_11'];
 		} else {
 			$this->data['ups_us_11'] = $this->config->get('ups_us_11');
-		}	
+		}
 
 		if (isset($this->request->post['ups_us_12'])) {
 			$this->data['ups_us_12'] = $this->request->post['ups_us_12'];
 		} else {
 			$this->data['ups_us_12'] = $this->config->get('ups_us_12');
-		}	
+		}
 
 		if (isset($this->request->post['ups_us_13'])) {
 			$this->data['ups_us_13'] = $this->request->post['ups_us_13'];
 		} else {
 			$this->data['ups_us_13'] = $this->config->get('ups_us_13');
-		}	
+		}
 
 		if (isset($this->request->post['ups_us_14'])) {
 			$this->data['ups_us_14'] = $this->request->post['ups_us_14'];
 		} else {
 			$this->data['ups_us_14'] = $this->config->get('ups_us_14');
-		}	
+		}
 
 		if (isset($this->request->post['ups_us_54'])) {
 			$this->data['ups_us_54'] = $this->request->post['ups_us_54'];
@@ -427,26 +426,26 @@ class ControllerShippingUPS extends Controller {
 			$this->data['ups_us_59'] = $this->request->post['ups_us_59'];
 		} else {
 			$this->data['ups_us_59'] = $this->config->get('ups_us_59');
-		}	
+		}
 
 		if (isset($this->request->post['ups_us_65'])) {
 			$this->data['ups_us_65'] = $this->request->post['ups_us_65'];
 		} else {
 			$this->data['ups_us_65'] = $this->config->get('ups_us_65');
-		}	
+		}
 
 		// Puerto Rico
 		if (isset($this->request->post['ups_pr_01'])) {
 			$this->data['ups_pr_01'] = $this->request->post['ups_pr_01'];
 		} else {
 			$this->data['ups_pr_01'] = $this->config->get('ups_pr_01');
-		}	
+		}
 
 		if (isset($this->request->post['ups_pr_02'])) {
 			$this->data['ups_pr_02'] = $this->request->post['ups_pr_02'];
 		} else {
 			$this->data['ups_pr_02'] = $this->config->get('ups_pr_02');
-		}	
+		}
 
 		if (isset($this->request->post['ups_pr_03'])) {
 			$this->data['ups_pr_03'] = $this->request->post['ups_pr_03'];
@@ -666,13 +665,13 @@ class ControllerShippingUPS extends Controller {
 			$this->data['ups_display_weight'] = $this->request->post['ups_display_weight'];
 		} else {
 			$this->data['ups_display_weight'] = $this->config->get('ups_display_weight');
-		}	
+		}
 
 		if (isset($this->request->post['ups_insurance'])) {
 			$this->data['ups_insurance'] = $this->request->post['ups_insurance'];
 		} else {
 			$this->data['ups_insurance'] = $this->config->get('ups_insurance');
-		}	
+		}
 
 		if (isset($this->request->post['ups_weight_class_id'])) {
 			$this->data['ups_weight_class_id'] = $this->request->post['ups_weight_class_id'];
@@ -710,7 +709,7 @@ class ControllerShippingUPS extends Controller {
 			$this->data['ups_width'] = $this->request->post['ups_width'];
 		} else {
 			$this->data['ups_width'] = $this->config->get('ups_width');
-		}		
+		}
 
 		if (isset($this->request->post['ups_height'])) {
 			$this->data['ups_height'] = $this->request->post['ups_height'];
@@ -810,7 +809,6 @@ class ControllerShippingUPS extends Controller {
 			return true;
 		} else {
 			return false;
-		}	
+		}
 	}
 }
-?>

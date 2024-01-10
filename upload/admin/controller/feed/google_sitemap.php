@@ -1,6 +1,6 @@
-<?php 
+<?php
 class ControllerFeedGoogleSitemap extends Controller {
-	private $error = array(); 
+	private $error = array();
 
 	public function index() {
 		$this->language->load('feed/google_sitemap');
@@ -10,7 +10,7 @@ class ControllerFeedGoogleSitemap extends Controller {
 		$this->load->model('setting/setting');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-			$this->model_setting_setting->editSetting('google_sitemap', $this->request->post);				
+			$this->model_setting_setting->editSetting('google_sitemap', $this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -46,7 +46,7 @@ class ControllerFeedGoogleSitemap extends Controller {
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_feed'),
-			'href'      => $this->url->link('extension/feed', 'token=' . $this->session->data['token'], 'SSL'),       		
+			'href'      => $this->url->link('extension/feed', 'token=' . $this->session->data['token'], 'SSL'),
 			'separator' => ' :: '
 		);
 
@@ -75,7 +75,7 @@ class ControllerFeedGoogleSitemap extends Controller {
 		);
 
 		$this->response->setOutput($this->render());
-	} 
+	}
 
 	protected function validate() {
 		if (!$this->user->hasPermission('modify', 'feed/google_sitemap')) {
@@ -86,7 +86,6 @@ class ControllerFeedGoogleSitemap extends Controller {
 			return true;
 		} else {
 			return false;
-		}	
-	}	
+		}
+	}
 }
-?>

@@ -1,4 +1,4 @@
-<?php 
+<?php
 class ModelLocalisationReturnAction extends Model {
 	public function addReturnAction($data) {
 		foreach ($data['return_action'] as $language_id => $value) {
@@ -40,7 +40,7 @@ class ModelLocalisationReturnAction extends Model {
 		if ($data) {
 			$sql = "SELECT * FROM " . DB_PREFIX . "return_action WHERE language_id = '" . (int)$this->config->get('config_language_id') . "'";
 
-			$sql .= " ORDER BY name";	
+			$sql .= " ORDER BY name";
 
 			if (isset($data['order']) && ($data['order'] == 'DESC')) {
 				$sql .= " DESC";
@@ -51,14 +51,14 @@ class ModelLocalisationReturnAction extends Model {
 			if (isset($data['start']) || isset($data['limit'])) {
 				if ($data['start'] < 0) {
 					$data['start'] = 0;
-				}				
+				}
 
 				if ($data['limit'] < 1) {
 					$data['limit'] = 20;
-				}	
+				}
 
 				$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
-			}	
+			}
 
 			$query = $this->db->query($sql);
 
@@ -72,9 +72,9 @@ class ModelLocalisationReturnAction extends Model {
 				$return_action_data = $query->rows;
 
 				$this->cache->set('return_action.' . (int)$this->config->get('config_language_id'), $return_action_data);
-			}	
+			}
 
-			return $return_action_data;				
+			return $return_action_data;
 		}
 	}
 
@@ -94,6 +94,5 @@ class ModelLocalisationReturnAction extends Model {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "return_action WHERE language_id = '" . (int)$this->config->get('config_language_id') . "'");
 
 		return $query->row['total'];
-	}	
+	}
 }
-?>

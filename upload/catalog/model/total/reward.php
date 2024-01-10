@@ -15,7 +15,7 @@ class ModelTotalReward extends Model {
 					if ($product['points']) {
 						$points_total += $product['points'];
 					}
-				}	
+				}
 
 				$points = min($points, $points_total);
 
@@ -32,7 +32,7 @@ class ModelTotalReward extends Model {
 								if ($tax_rate['type'] == 'P') {
 									$taxes[$tax_rate['tax_rate_id']] -= $tax_rate['amount'];
 								}
-							}	
+							}
 						}
 					}
 
@@ -48,7 +48,7 @@ class ModelTotalReward extends Model {
 				);
 
 				$total -= $discount_total;
-			} 
+			}
 		}
 	}
 
@@ -60,13 +60,12 @@ class ModelTotalReward extends Model {
 		$start = strpos($order_total['title'], '(') + 1;
 		$end = strrpos($order_total['title'], ')');
 
-		if ($start && $end) {  
+		if ($start && $end) {
 			$points = substr($order_total['title'], $start, $end - $start);
-		}	
+		}
 
 		if ($points) {
-			$this->db->query("INSERT INTO " . DB_PREFIX . "customer_reward SET customer_id = '" . (int)$order_info['customer_id'] . "', description = '" . $this->db->escape(sprintf($this->language->get('text_order_id'), (int)$order_info['order_id'])) . "', points = '" . (float)-$points . "', date_added = NOW()");				
+			$this->db->query("INSERT INTO " . DB_PREFIX . "customer_reward SET customer_id = '" . (int)$order_info['customer_id'] . "', description = '" . $this->db->escape(sprintf($this->language->get('text_order_id'), (int)$order_info['order_id'])) . "', points = '" . (float)-$points . "', date_added = NOW()");
 		}
-	}		
+	}
 }
-?>

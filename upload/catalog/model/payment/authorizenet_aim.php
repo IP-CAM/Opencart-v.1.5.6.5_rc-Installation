@@ -1,4 +1,4 @@
-<?php 
+<?php
 class ModelPaymentAuthorizeNetAim extends Model {
 	public function getMethod($address, $total) {
 		$this->language->load('payment/authorizenet_aim');
@@ -13,11 +13,11 @@ class ModelPaymentAuthorizeNetAim extends Model {
 			$status = true;
 		} else {
 			$status = false;
-		}	
+		}
 
 		$method_data = array();
 
-		if ($status) {  
+		if ($status) {
 			$method_data = array(
 				'code'       => 'authorizenet_aim',
 				'title'      => $this->language->get('text_title'),
@@ -28,4 +28,3 @@ class ModelPaymentAuthorizeNetAim extends Model {
 		return $method_data;
 	}
 }
-?>

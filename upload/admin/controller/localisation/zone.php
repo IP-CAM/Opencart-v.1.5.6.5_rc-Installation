@@ -1,6 +1,6 @@
-<?php 
+<?php
 class ControllerLocalisationZone extends Controller {
-	private $error = array(); 
+	private $error = array();
 
 	public function index() {
 		$this->language->load('localisation/zone');
@@ -52,7 +52,7 @@ class ControllerLocalisationZone extends Controller {
 		$this->load->model('localisation/zone');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
-			$this->model_localisation_zone->editZone($this->request->get['zone_id'], $this->request->post);			
+			$this->model_localisation_zone->editZone($this->request->get['zone_id'], $this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -86,7 +86,7 @@ class ControllerLocalisationZone extends Controller {
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
 			foreach ($this->request->post['selected'] as $zone_id) {
 				$this->model_localisation_zone->deleteZone($zone_id);
-			}			
+			}
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -187,7 +187,7 @@ class ControllerLocalisationZone extends Controller {
 				'name'     => $result['name'] . (($result['zone_id'] == $this->config->get('config_zone_id')) ? $this->language->get('text_default') : null),
 				'code'     => $result['code'],
 				'selected' => isset($this->request->post['selected']) && in_array($result['zone_id'], $this->request->post['selected']),
-				'action'   => $action			
+				'action'   => $action
 			);
 		}
 
@@ -198,7 +198,7 @@ class ControllerLocalisationZone extends Controller {
 		$this->data['column_country'] = $this->language->get('column_country');
 		$this->data['column_name'] = $this->language->get('column_name');
 		$this->data['column_code'] = $this->language->get('column_code');
-		$this->data['column_action'] = $this->language->get('column_action');	
+		$this->data['column_action'] = $this->language->get('column_action');
 
 		$this->data['button_insert'] = $this->language->get('button_insert');
 		$this->data['button_delete'] = $this->language->get('button_delete');
@@ -308,7 +308,7 @@ class ControllerLocalisationZone extends Controller {
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_home'),
-			'href'      => $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL'),  		
+			'href'      => $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL'),
 			'separator' => false
 		);
 
@@ -438,4 +438,3 @@ class ControllerLocalisationZone extends Controller {
 		}
 	}
 }
-?>

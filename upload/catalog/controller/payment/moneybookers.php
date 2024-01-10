@@ -16,7 +16,7 @@ class ControllerPaymentMoneybookers extends Controller {
 		$this->data['return_url'] = $this->url->link('checkout/success');
 		$this->data['cancel_url'] = $this->url->link('checkout/checkout', '', 'SSL');
 		$this->data['status_url'] = $this->url->link('payment/moneybookers/callback');
-		$this->data['language'] = $this->session->data['language'];		
+		$this->data['language'] = $this->session->data['language'];
 		$this->data['logo'] = $this->config->get('config_url') . 'image/' . $this->config->get('config_logo');
 
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
@@ -48,7 +48,7 @@ class ControllerPaymentMoneybookers extends Controller {
 			$this->template = $this->config->get('config_template') . '/template/payment/moneybookers.tpl';
 		} else {
 			$this->template = 'default/template/payment/moneybookers.tpl';
-		}	
+		}
 
 		$this->render();
 	}
@@ -87,7 +87,7 @@ class ControllerPaymentMoneybookers extends Controller {
 			}
 
 			if ($verified) {
-				switch($this->request->post['status']) {
+				switch ($this->request->post['status']) {
 					case '2':
 						$this->model_checkout_order->update($order_id, $this->config->get('moneybookers_order_status_id'), '', true);
 						break;
@@ -110,4 +110,3 @@ class ControllerPaymentMoneybookers extends Controller {
 		}
 	}
 }
-?>

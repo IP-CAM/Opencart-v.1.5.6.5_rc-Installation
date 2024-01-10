@@ -27,19 +27,19 @@ class ControllerAccountEdit extends Controller {
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_home'),
-			'href'      => $this->url->link('common/home'),     	
+			'href'      => $this->url->link('common/home'),
 			'separator' => false
 		);
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_account'),
-			'href'      => $this->url->link('account/account', '', 'SSL'),        	
+			'href'      => $this->url->link('account/account', '', 'SSL'),
 			'separator' => $this->language->get('text_separator')
 		);
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_edit'),
-			'href'      => $this->url->link('account/edit', '', 'SSL'),       	
+			'href'      => $this->url->link('account/edit', '', 'SSL'),
 			'separator' => $this->language->get('text_separator')
 		);
 
@@ -78,13 +78,13 @@ class ControllerAccountEdit extends Controller {
 			$this->data['error_email'] = $this->error['email'];
 		} else {
 			$this->data['error_email'] = '';
-		}	
+		}
 
 		if (isset($this->error['telephone'])) {
 			$this->data['error_telephone'] = $this->error['telephone'];
 		} else {
 			$this->data['error_telephone'] = '';
-		}	
+		}
 
 		$this->data['action'] = $this->url->link('account/edit', '', 'SSL');
 
@@ -146,10 +146,10 @@ class ControllerAccountEdit extends Controller {
 			'common/content_top',
 			'common/content_bottom',
 			'common/footer',
-			'common/header'	
+			'common/header'
 		);
 
-		$this->response->setOutput($this->render());	
+		$this->response->setOutput($this->render());
 	}
 
 	protected function validate() {
@@ -180,4 +180,3 @@ class ControllerAccountEdit extends Controller {
 		}
 	}
 }
-?>

@@ -1,9 +1,9 @@
-<?php 
+<?php
 class ControllerAffiliateLogin extends Controller {
 	private $error = array();
 
 	public function index() {
-		if ($this->affiliate->isLogged()) {  
+		if ($this->affiliate->isLogged()) {
 			$this->redirect($this->url->link('affiliate/account', '', 'SSL'));
 		}
 
@@ -19,14 +19,14 @@ class ControllerAffiliateLogin extends Controller {
 				$this->redirect(str_replace('&amp;', '&', $this->request->post['redirect']));
 			} else {
 				$this->redirect($this->url->link('affiliate/account', '', 'SSL'));
-			} 
+			}
 		}
 
 		$this->data['breadcrumbs'] = array();
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_home'),
-			'href'      => $this->url->link('common/home'),       	
+			'href'      => $this->url->link('common/home'),
 			'separator' => false
 		);
 
@@ -38,7 +38,7 @@ class ControllerAffiliateLogin extends Controller {
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_login'),
-			'href'      => $this->url->link('affiliate/login', '', 'SSL'),      	
+			'href'      => $this->url->link('affiliate/login', '', 'SSL'),
 			'separator' => $this->language->get('text_separator')
 		);
 
@@ -72,7 +72,7 @@ class ControllerAffiliateLogin extends Controller {
 		} elseif (isset($this->session->data['redirect'])) {
 			$this->data['redirect'] = $this->session->data['redirect'];
 
-			unset($this->session->data['redirect']);		  	
+			unset($this->session->data['redirect']);
 		} else {
 			$this->data['redirect'] = '';
 		}
@@ -109,7 +109,7 @@ class ControllerAffiliateLogin extends Controller {
 			'common/content_top',
 			'common/content_bottom',
 			'common/footer',
-			'common/header'	
+			'common/header'
 		);
 
 		$this->response->setOutput($this->render());
@@ -133,4 +133,3 @@ class ControllerAffiliateLogin extends Controller {
 		}
 	}
 }
-?>

@@ -76,7 +76,7 @@ class ControllerUserUserPermission extends Controller {
 		$this->getForm();
 	}
 
-	public function delete() { 
+	public function delete() {
 		$this->language->load('user/user_group');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -85,7 +85,7 @@ class ControllerUserUserPermission extends Controller {
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
 			foreach ($this->request->post['selected'] as $user_group_id) {
-				$this->model_user_user_group->deleteUserGroup($user_group_id);	
+				$this->model_user_user_group->deleteUserGroup($user_group_id);
 			}
 
 			$this->session->data['success'] = $this->language->get('text_success');
@@ -137,7 +137,7 @@ class ControllerUserUserPermission extends Controller {
 
 		if (isset($this->request->get['order'])) {
 			$url .= '&order=' . $this->request->get['order'];
-		}	
+		}
 
 		if (isset($this->request->get['page'])) {
 			$url .= '&page=' . $this->request->get['page'];
@@ -158,7 +158,7 @@ class ControllerUserUserPermission extends Controller {
 		);
 
 		$this->data['insert'] = $this->url->link('user/user_permission/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
-		$this->data['delete'] = $this->url->link('user/user_permission/delete', 'token=' . $this->session->data['token'] . $url, 'SSL');	
+		$this->data['delete'] = $this->url->link('user/user_permission/delete', 'token=' . $this->session->data['token'] . $url, 'SSL');
 
 		$this->data['user_groups'] = array();
 
@@ -179,7 +179,7 @@ class ControllerUserUserPermission extends Controller {
 			$action[] = array(
 				'text' => $this->language->get('text_edit'),
 				'href' => $this->url->link('user/user_permission/update', 'token=' . $this->session->data['token'] . '&user_group_id=' . $result['user_group_id'] . $url, 'SSL')
-			);		
+			);
 
 			$this->data['user_groups'][] = array(
 				'user_group_id' => $result['user_group_id'],
@@ -187,7 +187,7 @@ class ControllerUserUserPermission extends Controller {
 				'selected'      => isset($this->request->post['selected']) && in_array($result['user_group_id'], $this->request->post['selected']),
 				'action'        => $action
 			);
-		}	
+		}
 
 		$this->data['heading_title'] = $this->language->get('heading_title');
 
@@ -244,9 +244,9 @@ class ControllerUserUserPermission extends Controller {
 		$pagination->text = $this->language->get('text_pagination');
 		$pagination->url = $this->url->link('user/user_permission', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL');
 
-		$this->data['pagination'] = $pagination->render();				
+		$this->data['pagination'] = $pagination->render();
 
-		$this->data['sort'] = $sort; 
+		$this->data['sort'] = $sort;
 		$this->data['order'] = $order;
 
 		$this->template = 'user/user_group_list.tpl';
@@ -337,7 +337,7 @@ class ControllerUserUserPermission extends Controller {
 			'common/login',
 			'common/logout',
 			'common/forgotten',
-			'common/reset',			
+			'common/reset',
 			'error/not_found',
 			'error/permission',
 			'common/footer',
@@ -362,7 +362,7 @@ class ControllerUserUserPermission extends Controller {
 			$this->data['access'] = $this->request->post['permission']['access'];
 		} elseif (isset($user_group_info['permission']['access'])) {
 			$this->data['access'] = $user_group_info['permission']['access'];
-		} else { 
+		} else {
 			$this->data['access'] = array();
 		}
 
@@ -370,7 +370,7 @@ class ControllerUserUserPermission extends Controller {
 			$this->data['modify'] = $this->request->post['permission']['modify'];
 		} elseif (isset($user_group_info['permission']['modify'])) {
 			$this->data['modify'] = $user_group_info['permission']['modify'];
-		} else { 
+		} else {
 			$this->data['modify'] = array();
 		}
 
@@ -421,4 +421,3 @@ class ControllerUserUserPermission extends Controller {
 		}
 	}
 }
-?>

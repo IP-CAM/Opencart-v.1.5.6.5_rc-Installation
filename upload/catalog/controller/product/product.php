@@ -64,7 +64,7 @@ class ControllerProductProduct extends Controller {
 
 				$this->data['breadcrumbs'][] = array(
 					'text'      => $category_info['name'],
-					'href'      => $this->url->link('product/category', 'path=' . $this->request->get['path'].$url),
+					'href'      => $this->url->link('product/category', 'path=' . $this->request->get['path'] . $url),
 					'separator' => $this->language->get('text_separator')
 				);
 			}
@@ -101,8 +101,8 @@ class ControllerProductProduct extends Controller {
 
 			if ($manufacturer_info) {
 				$this->data['breadcrumbs'][] = array(
-					'text'	    => $manufacturer_info['name'],
-					'href'	    => $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $this->request->get['manufacturer_id'] . $url),
+					'text'      => $manufacturer_info['name'],
+					'href'      => $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $this->request->get['manufacturer_id'] . $url),
 					'separator' => $this->language->get('text_separator')
 				);
 			}
@@ -428,13 +428,13 @@ class ControllerProductProduct extends Controller {
 
 				$this->data['products'][] = array(
 					'product_id' => $result['product_id'],
-					'thumb'   	 => $image,
-					'name'    	 => $result['name'],
-					'price'   	 => $price,
-					'special' 	 => $special,
+					'thumb'      => $image,
+					'name'       => $result['name'],
+					'price'      => $price,
+					'special'    => $special,
 					'rating'     => $rating,
 					'reviews'    => sprintf($this->language->get('text_reviews'), (int)$result['reviews']),
-					'href'    	 => $this->url->link('product/product', 'product_id=' . $result['product_id'])
+					'href'       => $this->url->link('product/product', 'product_id=' . $result['product_id'])
 				);
 			}
 
@@ -639,11 +639,11 @@ class ControllerProductProduct extends Controller {
 
 			if (!$json) {
 				$frequencies = array(
-					'day' => $this->language->get('text_day'),
-					'week' => $this->language->get('text_week'),
+					'day'        => $this->language->get('text_day'),
+					'week'       => $this->language->get('text_week'),
 					'semi_month' => $this->language->get('text_semi_month'),
-					'month' => $this->language->get('text_month'),
-					'year' => $this->language->get('text_year'),
+					'month'      => $this->language->get('text_month'),
+					'year'       => $this->language->get('text_year'),
 				);
 
 				if ($profile_info['trial_status'] == 1) {
@@ -694,7 +694,7 @@ class ControllerProductProduct extends Controller {
 
 			if (!isset($json['error'])) {
 				unset($this->session->data['captcha']);
-				
+
 				$this->model_catalog_review->addReview($this->request->get['product_id'], $this->request->post);
 
 				$json['success'] = $this->language->get('text_success');
@@ -780,4 +780,3 @@ class ControllerProductProduct extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 }
-?>

@@ -3,7 +3,7 @@ class ControllerExtensionPayment extends Controller {
 	public function index() {
 		$this->language->load('extension/payment');
 
-		$this->document->setTitle($this->language->get('heading_title')); 
+		$this->document->setTitle($this->language->get('heading_title'));
 
 		$this->data['breadcrumbs'] = array();
 
@@ -117,7 +117,7 @@ class ControllerExtensionPayment extends Controller {
 		$this->language->load('extension/payment');
 
 		if (!$this->user->hasPermission('modify', 'extension/payment')) {
-			$this->session->data['error'] = $this->language->get('error_permission'); 
+			$this->session->data['error'] = $this->language->get('error_permission');
 
 			$this->redirect($this->url->link('extension/payment', 'token=' . $this->session->data['token'], 'SSL'));
 		} else {
@@ -147,10 +147,10 @@ class ControllerExtensionPayment extends Controller {
 		$this->language->load('extension/payment');
 
 		if (!$this->user->hasPermission('modify', 'extension/payment')) {
-			$this->session->data['error'] = $this->language->get('error_permission'); 
+			$this->session->data['error'] = $this->language->get('error_permission');
 
 			$this->redirect($this->url->link('extension/payment', 'token=' . $this->session->data['token'], 'SSL'));
-		} else {		
+		} else {
 			$this->load->model('setting/extension');
 			$this->load->model('setting/setting');
 
@@ -167,8 +167,7 @@ class ControllerExtensionPayment extends Controller {
 				$class->uninstall();
 			}
 
-			$this->redirect($this->url->link('extension/payment', 'token=' . $this->session->data['token'], 'SSL'));	
-		}			
+			$this->redirect($this->url->link('extension/payment', 'token=' . $this->session->data['token'], 'SSL'));
+		}
 	}
 }
-?>

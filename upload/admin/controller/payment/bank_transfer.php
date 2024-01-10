@@ -1,6 +1,6 @@
-<?php 
+<?php
 class ControllerPaymentBankTransfer extends Controller {
-	private $error = array(); 
+	private $error = array();
 
 	public function index() {
 		$this->language->load('payment/bank_transfer');
@@ -10,7 +10,7 @@ class ControllerPaymentBankTransfer extends Controller {
 		$this->load->model('setting/setting');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-			$this->model_setting_setting->editSetting('bank_transfer', $this->request->post);				
+			$this->model_setting_setting->editSetting('bank_transfer', $this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -24,8 +24,8 @@ class ControllerPaymentBankTransfer extends Controller {
 		$this->data['text_all_zones'] = $this->language->get('text_all_zones');
 
 		$this->data['entry_bank'] = $this->language->get('entry_bank');
-		$this->data['entry_total'] = $this->language->get('entry_total');	
-		$this->data['entry_order_status'] = $this->language->get('entry_order_status');		
+		$this->data['entry_total'] = $this->language->get('entry_total');
+		$this->data['entry_order_status'] = $this->language->get('entry_order_status');
 		$this->data['entry_geo_zone'] = $this->language->get('entry_geo_zone');
 		$this->data['entry_status'] = $this->language->get('entry_status');
 		$this->data['entry_sort_order'] = $this->language->get('entry_sort_order');
@@ -90,14 +90,14 @@ class ControllerPaymentBankTransfer extends Controller {
 		if (isset($this->request->post['bank_transfer_total'])) {
 			$this->data['bank_transfer_total'] = $this->request->post['bank_transfer_total'];
 		} else {
-			$this->data['bank_transfer_total'] = $this->config->get('bank_transfer_total'); 
-		} 
+			$this->data['bank_transfer_total'] = $this->config->get('bank_transfer_total');
+		}
 
 		if (isset($this->request->post['bank_transfer_order_status_id'])) {
 			$this->data['bank_transfer_order_status_id'] = $this->request->post['bank_transfer_order_status_id'];
 		} else {
-			$this->data['bank_transfer_order_status_id'] = $this->config->get('bank_transfer_order_status_id'); 
-		} 
+			$this->data['bank_transfer_order_status_id'] = $this->config->get('bank_transfer_order_status_id');
+		}
 
 		$this->load->model('localisation/order_status');
 
@@ -106,8 +106,8 @@ class ControllerPaymentBankTransfer extends Controller {
 		if (isset($this->request->post['bank_transfer_geo_zone_id'])) {
 			$this->data['bank_transfer_geo_zone_id'] = $this->request->post['bank_transfer_geo_zone_id'];
 		} else {
-			$this->data['bank_transfer_geo_zone_id'] = $this->config->get('bank_transfer_geo_zone_id'); 
-		} 
+			$this->data['bank_transfer_geo_zone_id'] = $this->config->get('bank_transfer_geo_zone_id');
+		}
 
 		$this->load->model('localisation/geo_zone');
 
@@ -124,7 +124,6 @@ class ControllerPaymentBankTransfer extends Controller {
 		} else {
 			$this->data['bank_transfer_sort_order'] = $this->config->get('bank_transfer_sort_order');
 		}
-
 
 		$this->template = 'payment/bank_transfer.tpl';
 		$this->children = array(
@@ -146,7 +145,7 @@ class ControllerPaymentBankTransfer extends Controller {
 
 		foreach ($languages as $language) {
 			if (!$this->request->post['bank_transfer_bank_' . $language['language_id']]) {
-				$this->error['bank_' .  $language['language_id']] = $this->language->get('error_bank');
+				$this->error['bank_' . $language['language_id']] = $this->language->get('error_bank');
 			}
 		}
 
@@ -154,7 +153,6 @@ class ControllerPaymentBankTransfer extends Controller {
 			return true;
 		} else {
 			return false;
-		}	
+		}
 	}
 }
-?>

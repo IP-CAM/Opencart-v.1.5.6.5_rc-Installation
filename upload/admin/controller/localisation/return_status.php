@@ -1,5 +1,5 @@
-<?php 
-class ControllerLocalisationReturnStatus extends Controller { 
+<?php
+class ControllerLocalisationReturnStatus extends Controller {
 	private $error = array();
 
 	public function index() {
@@ -158,7 +158,7 @@ class ControllerLocalisationReturnStatus extends Controller {
 		);
 
 		$this->data['insert'] = $this->url->link('localisation/return_status/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
-		$this->data['delete'] = $this->url->link('localisation/return_status/delete', 'token=' . $this->session->data['token'] . $url, 'SSL');	
+		$this->data['delete'] = $this->url->link('localisation/return_status/delete', 'token=' . $this->session->data['token'] . $url, 'SSL');
 
 		$this->data['return_statuses'] = array();
 
@@ -183,18 +183,18 @@ class ControllerLocalisationReturnStatus extends Controller {
 
 			$this->data['return_statuses'][] = array(
 				'return_status_id' => $result['return_status_id'],
-				'name'          => $result['name'] . (($result['return_status_id'] == $this->config->get('config_return_status_id')) ? $this->language->get('text_default') : null),
-				'selected'      => isset($this->request->post['selected']) && in_array($result['return_status_id'], $this->request->post['selected']),
-				'action'        => $action
+				'name'             => $result['name'] . (($result['return_status_id'] == $this->config->get('config_return_status_id')) ? $this->language->get('text_default') : null),
+				'selected'         => isset($this->request->post['selected']) && in_array($result['return_status_id'], $this->request->post['selected']),
+				'action'           => $action
 			);
-		}	
+		}
 
 		$this->data['heading_title'] = $this->language->get('heading_title');
 
 		$this->data['text_no_results'] = $this->language->get('text_no_results');
 
 		$this->data['column_name'] = $this->language->get('column_name');
-		$this->data['column_action'] = $this->language->get('column_action');		
+		$this->data['column_action'] = $this->language->get('column_action');
 
 		$this->data['button_insert'] = $this->language->get('button_insert');
 		$this->data['button_delete'] = $this->language->get('button_delete');
@@ -332,7 +332,7 @@ class ControllerLocalisationReturnStatus extends Controller {
 			'common/footer'
 		);
 
-		$this->response->setOutput($this->render());	
+		$this->response->setOutput($this->render());
 	}
 
 	protected function validateForm() {
@@ -363,26 +363,25 @@ class ControllerLocalisationReturnStatus extends Controller {
 		foreach ($this->request->post['selected'] as $return_status_id) {
 			if ($this->config->get('config_return_status_id') == $return_status_id) {
 				$this->error['warning'] = $this->language->get('error_default');
-			}  
+			}
 
 			$return_total = $this->model_sale_return->getTotalReturnsByReturnStatusId($return_status_id);
 
 			if ($return_total) {
 				$this->error['warning'] = sprintf($this->language->get('error_return'), $return_total);
-			}  
+			}
 
 			$return_total = $this->model_sale_return->getTotalReturnHistoriesByReturnStatusId($return_status_id);
 
 			if ($return_total) {
 				$this->error['warning'] = sprintf($this->language->get('error_return'), $return_total);
-			}  			
+			}
 		}
 
-		if (!$this->error) { 
+		if (!$this->error) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 }
-?>

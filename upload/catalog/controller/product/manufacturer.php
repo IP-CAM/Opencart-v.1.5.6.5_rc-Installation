@@ -1,11 +1,11 @@
-<?php 
-class ControllerProductManufacturer extends Controller {  
-	public function index() { 
+<?php
+class ControllerProductManufacturer extends Controller {
+	public function index() {
 		$this->language->load('product/manufacturer');
 
 		$this->load->model('catalog/manufacturer');
 
-		$this->load->model('tool/image');		
+		$this->load->model('tool/image');
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
@@ -57,7 +57,7 @@ class ControllerProductManufacturer extends Controller {
 			$this->template = $this->config->get('config_template') . '/template/product/manufacturer_list.tpl';
 		} else {
 			$this->template = 'default/template/product/manufacturer_list.tpl';
-		}			
+		}
 
 		$this->children = array(
 			'common/column_left',
@@ -68,7 +68,7 @@ class ControllerProductManufacturer extends Controller {
 			'common/header'
 		);
 
-		$this->response->setOutput($this->render());										
+		$this->response->setOutput($this->render());
 	}
 
 	public function info() {
@@ -78,25 +78,25 @@ class ControllerProductManufacturer extends Controller {
 
 		$this->load->model('catalog/product');
 
-		$this->load->model('tool/image'); 
+		$this->load->model('tool/image');
 
 		if (isset($this->request->get['manufacturer_id'])) {
 			$manufacturer_id = (int)$this->request->get['manufacturer_id'];
 		} else {
 			$manufacturer_id = 0;
-		} 
+		}
 
 		if (isset($this->request->get['sort'])) {
 			$sort = $this->request->get['sort'];
 		} else {
 			$sort = 'p.sort_order';
-		} 
+		}
 
 		if (isset($this->request->get['order'])) {
 			$order = $this->request->get['order'];
 		} else {
 			$order = 'ASC';
-		} 
+		}
 
 		if (isset($this->request->get['page'])) {
 			$page = $this->request->get['page'];
@@ -118,7 +118,7 @@ class ControllerProductManufacturer extends Controller {
 			'separator' => false
 		);
 
-		$this->data['breadcrumbs'][] = array( 
+		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_brand'),
 			'href'      => $this->url->link('product/manufacturer'),
 			'separator' => $this->language->get('text_separator')
@@ -134,7 +134,7 @@ class ControllerProductManufacturer extends Controller {
 
 			if (isset($this->request->get['sort'])) {
 				$url .= '&sort=' . $this->request->get['sort'];
-			}	
+			}
 
 			if (isset($this->request->get['order'])) {
 				$url .= '&order=' . $this->request->get['order'];
@@ -142,7 +142,7 @@ class ControllerProductManufacturer extends Controller {
 
 			if (isset($this->request->get['page'])) {
 				$url .= '&page=' . $this->request->get['page'];
-			}	
+			}
 
 			if (isset($this->request->get['limit'])) {
 				$url .= '&limit=' . $this->request->get['limit'];
@@ -166,7 +166,7 @@ class ControllerProductManufacturer extends Controller {
 			$this->data['text_compare'] = sprintf($this->language->get('text_compare'), (isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0));
 			$this->data['text_display'] = $this->language->get('text_display');
 			$this->data['text_list'] = $this->language->get('text_list');
-			$this->data['text_grid'] = $this->language->get('text_grid');			
+			$this->data['text_grid'] = $this->language->get('text_grid');
 			$this->data['text_sort'] = $this->language->get('text_sort');
 			$this->data['text_limit'] = $this->language->get('text_limit');
 
@@ -180,7 +180,7 @@ class ControllerProductManufacturer extends Controller {
 			$this->data['products'] = array();
 
 			$data = array(
-				'filter_manufacturer_id' => $manufacturer_id, 
+				'filter_manufacturer_id' => $manufacturer_id,
 				'sort'                   => $sort,
 				'order'                  => $order,
 				'start'                  => ($page - 1) * $limit,
@@ -208,13 +208,13 @@ class ControllerProductManufacturer extends Controller {
 					$special = $this->currency->format($this->tax->calculate($result['special'], $result['tax_class_id'], $this->config->get('config_tax')));
 				} else {
 					$special = false;
-				}	
+				}
 
 				if ($this->config->get('config_tax')) {
 					$tax = $this->currency->format((float)$result['special'] ? $result['special'] : $result['price']);
 				} else {
 					$tax = false;
-				}				
+				}
 
 				if ($this->config->get('config_review_status')) {
 					$rating = (int)$result['rating'];
@@ -254,7 +254,7 @@ class ControllerProductManufacturer extends Controller {
 				'text'  => $this->language->get('text_name_asc'),
 				'value' => 'pd.name-ASC',
 				'href'  => $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $this->request->get['manufacturer_id'] . '&sort=pd.name&order=ASC' . $url)
-			); 
+			);
 
 			$this->data['sorts'][] = array(
 				'text'  => $this->language->get('text_name_desc'),
@@ -266,20 +266,20 @@ class ControllerProductManufacturer extends Controller {
 				'text'  => $this->language->get('text_price_asc'),
 				'value' => 'p.price-ASC',
 				'href'  => $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $this->request->get['manufacturer_id'] . '&sort=p.price&order=ASC' . $url)
-			); 
+			);
 
 			$this->data['sorts'][] = array(
 				'text'  => $this->language->get('text_price_desc'),
 				'value' => 'p.price-DESC',
 				'href'  => $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $this->request->get['manufacturer_id'] . '&sort=p.price&order=DESC' . $url)
-			); 
+			);
 
 			if ($this->config->get('config_review_status')) {
 				$this->data['sorts'][] = array(
 					'text'  => $this->language->get('text_rating_desc'),
 					'value' => 'rating-DESC',
 					'href'  => $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $this->request->get['manufacturer_id'] . '&sort=rating&order=DESC' . $url)
-				); 
+				);
 
 				$this->data['sorts'][] = array(
 					'text'  => $this->language->get('text_rating_asc'),
@@ -292,7 +292,7 @@ class ControllerProductManufacturer extends Controller {
 				'text'  => $this->language->get('text_model_asc'),
 				'value' => 'p.model-ASC',
 				'href'  => $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $this->request->get['manufacturer_id'] . '&sort=p.model&order=ASC' . $url)
-			); 
+			);
 
 			$this->data['sorts'][] = array(
 				'text'  => $this->language->get('text_model_desc'),
@@ -304,7 +304,7 @@ class ControllerProductManufacturer extends Controller {
 
 			if (isset($this->request->get['sort'])) {
 				$url .= '&sort=' . $this->request->get['sort'];
-			}	
+			}
 
 			if (isset($this->request->get['order'])) {
 				$url .= '&order=' . $this->request->get['order'];
@@ -316,7 +316,7 @@ class ControllerProductManufacturer extends Controller {
 
 			sort($limits);
 
-			foreach($limits as $value){
+			foreach ($limits as $value) {
 				$this->data['limits'][] = array(
 					'text'  => $value,
 					'value' => $value,
@@ -328,7 +328,7 @@ class ControllerProductManufacturer extends Controller {
 
 			if (isset($this->request->get['sort'])) {
 				$url .= '&sort=' . $this->request->get['sort'];
-			}	
+			}
 
 			if (isset($this->request->get['order'])) {
 				$url .= '&order=' . $this->request->get['order'];
@@ -343,7 +343,7 @@ class ControllerProductManufacturer extends Controller {
 			$pagination->page = $page;
 			$pagination->limit = $limit;
 			$pagination->text = $this->language->get('text_pagination');
-			$pagination->url = $this->url->link('product/manufacturer/info','manufacturer_id=' . $this->request->get['manufacturer_id'] .  $url . '&page={page}');
+			$pagination->url = $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $this->request->get['manufacturer_id'] . $url . '&page={page}');
 
 			$this->data['pagination'] = $pagination->render();
 
@@ -378,7 +378,7 @@ class ControllerProductManufacturer extends Controller {
 
 			if (isset($this->request->get['sort'])) {
 				$url .= '&sort=' . $this->request->get['sort'];
-			}	
+			}
 
 			if (isset($this->request->get['order'])) {
 				$url .= '&order=' . $this->request->get['order'];
@@ -429,4 +429,3 @@ class ControllerProductManufacturer extends Controller {
 		}
 	}
 }
-?>

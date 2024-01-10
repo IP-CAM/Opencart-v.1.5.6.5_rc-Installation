@@ -1,4 +1,4 @@
-<?php 
+<?php
 class ControllerDesignLayout extends Controller {
 	private $error = array();
 
@@ -184,7 +184,7 @@ class ControllerDesignLayout extends Controller {
 			$this->data['layouts'][] = array(
 				'layout_id' => $result['layout_id'],
 				'name'      => $result['name'],
-				'selected'  => isset($this->request->post['selected']) && in_array($result['layout_id'], $this->request->post['selected']),				
+				'selected'  => isset($this->request->post['selected']) && in_array($result['layout_id'], $this->request->post['selected']),
 				'action'    => $action
 			);
 		}
@@ -194,7 +194,7 @@ class ControllerDesignLayout extends Controller {
 		$this->data['text_no_results'] = $this->language->get('text_no_results');
 
 		$this->data['column_name'] = $this->language->get('column_name');
-		$this->data['column_action'] = $this->language->get('column_action');	
+		$this->data['column_action'] = $this->language->get('column_action');
 
 		$this->data['button_insert'] = $this->language->get('button_insert');
 		$this->data['button_delete'] = $this->language->get('button_delete');
@@ -312,7 +312,7 @@ class ControllerDesignLayout extends Controller {
 			'separator' => ' :: '
 		);
 
-		if (!isset($this->request->get['layout_id'])) { 
+		if (!isset($this->request->get['layout_id'])) {
 			$this->data['action'] = $this->url->link('design/layout/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
 		} else {
 			$this->data['action'] = $this->url->link('design/layout/update', 'token=' . $this->session->data['token'] . '&layout_id=' . $this->request->get['layout_id'] . $url, 'SSL');
@@ -342,7 +342,7 @@ class ControllerDesignLayout extends Controller {
 			$this->data['layout_routes'] = $this->model_design_layout->getLayoutRoutes($this->request->get['layout_id']);
 		} else {
 			$this->data['layout_routes'] = array();
-		}	
+		}
 
 		$this->template = 'design/layout_form.tpl';
 		$this->children = array(
@@ -416,4 +416,3 @@ class ControllerDesignLayout extends Controller {
 		}
 	}
 }
-?>

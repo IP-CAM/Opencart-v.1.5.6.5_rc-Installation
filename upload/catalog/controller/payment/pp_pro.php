@@ -20,40 +20,40 @@ class ControllerPaymentPPPro extends Controller {
 		$this->data['cards'] = array();
 
 		$this->data['cards'][] = array(
-			'text'  => 'Visa', 
+			'text'  => 'Visa',
 			'value' => 'VISA'
 		);
 
 		$this->data['cards'][] = array(
-			'text'  => 'MasterCard', 
+			'text'  => 'MasterCard',
 			'value' => 'MASTERCARD'
 		);
 
 		$this->data['cards'][] = array(
-			'text'  => 'Discover Card', 
+			'text'  => 'Discover Card',
 			'value' => 'DISCOVER'
 		);
 
 		$this->data['cards'][] = array(
-			'text'  => 'American Express', 
+			'text'  => 'American Express',
 			'value' => 'AMEX'
 		);
 
 		$this->data['cards'][] = array(
-			'text'  => 'Maestro', 
+			'text'  => 'Maestro',
 			'value' => 'SWITCH'
 		);
 
 		$this->data['cards'][] = array(
-			'text'  => 'Solo', 
+			'text'  => 'Solo',
 			'value' => 'SOLO'
-		);		
+		);
 
 		$this->data['months'] = array();
 
 		for ($i = 1; $i <= 12; $i++) {
 			$this->data['months'][] = array(
-				'text'  => strftime('%B', mktime(0, 0, 0, $i, 1, 2000)), 
+				'text'  => strftime('%B', mktime(0, 0, 0, $i, 1, 2000)),
 				'value' => sprintf('%02d', $i)
 			);
 		}
@@ -62,9 +62,9 @@ class ControllerPaymentPPPro extends Controller {
 
 		$this->data['year_valid'] = array();
 
-		for ($i = $today['year'] - 10; $i < $today['year'] + 1; $i++) {	
+		for ($i = $today['year'] - 10; $i < $today['year'] + 1; $i++) {
 			$this->data['year_valid'][] = array(
-				'text'  => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)), 
+				'text'  => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)),
 				'value' => strftime('%Y', mktime(0, 0, 0, 1, 1, $i))
 			);
 		}
@@ -74,7 +74,7 @@ class ControllerPaymentPPPro extends Controller {
 		for ($i = $today['year']; $i < $today['year'] + 11; $i++) {
 			$this->data['year_expire'][] = array(
 				'text'  => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)),
-				'value' => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)) 
+				'value' => strftime('%Y', mktime(0, 0, 0, 1, 1, $i))
 			);
 		}
 
@@ -82,14 +82,14 @@ class ControllerPaymentPPPro extends Controller {
 			$this->template = $this->config->get('config_template') . '/template/payment/pp_pro.tpl';
 		} else {
 			$this->template = 'default/template/payment/pp_pro.tpl';
-		}	
+		}
 
-		$this->render();		
+		$this->render();
 	}
 
 	public function send() {
 		if (!$this->config->get('pp_pro_transaction')) {
-			$payment_type = 'Authorization';	
+			$payment_type = 'Authorization';
 		} else {
 			$payment_type = 'Sale';
 		}
@@ -112,7 +112,7 @@ class ControllerPaymentPPPro extends Controller {
 		$request .= '&EXPDATE=' . urlencode($this->request->post['cc_expire_date_month'] . $this->request->post['cc_expire_date_year']);
 		$request .= '&CVV2=' . urlencode($this->request->post['cc_cvv2']);
 
-		if ($this->request->post['cc_type'] == 'SWITCH' || $this->request->post['cc_type'] == 'SOLO') { 
+		if ($this->request->post['cc_type'] == 'SWITCH' || $this->request->post['cc_type'] == 'SOLO') {
 			$request .= '&ISSUENUMBER=' . urlencode($this->request->post['cc_issue']);
 		}
 
@@ -141,8 +141,8 @@ class ControllerPaymentPPPro extends Controller {
 			$request .= '&SHIPTOCITY=' . urlencode($order_info['payment_city']);
 			$request .= '&SHIPTOSTATE=' . urlencode(($order_info['payment_iso_code_2'] != 'US') ? $order_info['payment_zone'] : $order_info['payment_zone_code']);
 			$request .= '&SHIPTOCOUNTRYCODE=' . urlencode($order_info['payment_iso_code_2']);
-			$request .= '&SHIPTOZIP=' . urlencode($order_info['payment_postcode']);			
-		}		
+			$request .= '&SHIPTOZIP=' . urlencode($order_info['payment_postcode']);
+		}
 
 		if (!$this->config->get('pp_pro_test')) {
 			$curl = curl_init('https://api-3t.paypal.com/nvp');
@@ -200,4 +200,3 @@ class ControllerPaymentPPPro extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 }
-?>

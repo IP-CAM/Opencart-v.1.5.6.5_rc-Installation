@@ -116,4 +116,3 @@ class ControllerCommonReset extends Controller {
 		}
 	}
 }
-?>

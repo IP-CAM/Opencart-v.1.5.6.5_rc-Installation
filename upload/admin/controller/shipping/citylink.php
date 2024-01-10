@@ -1,8 +1,8 @@
 <?php
 class ControllerShippingCitylink extends Controller {
-	private $error = array(); 
+	private $error = array();
 
-	public function index() {   
+	public function index() {
 		$this->language->load('shipping/citylink');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -10,7 +10,7 @@ class ControllerShippingCitylink extends Controller {
 		$this->load->model('setting/setting');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-			$this->model_setting_setting->editSetting('citylink', $this->request->post);		
+			$this->model_setting_setting->editSetting('citylink', $this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -68,7 +68,7 @@ class ControllerShippingCitylink extends Controller {
 		} elseif ($this->config->get('citylink_rate')) {
 			$this->data['citylink_rate'] = $this->config->get('citylink_rate');
 		} else {
-			$this->data['citylink_rate'] = '10:11.6,15:14.1,20:16.60,25:19.1,30:21.6,35:24.1,40:26.6,45:29.1,50:31.6,55:34.1,60:36.6,65:39.1,70:41.6,75:44.1,80:46.6,100:56.6,125:69.1,150:81.6,200:106.6';	
+			$this->data['citylink_rate'] = '10:11.6,15:14.1,20:16.60,25:19.1,30:21.6,35:24.1,40:26.6,45:29.1,50:31.6,55:34.1,60:36.6,65:39.1,70:41.6,75:44.1,80:46.6,100:56.6,125:69.1,150:81.6,200:106.6';
 		}
 
 		if (isset($this->request->post['citylink_tax_class_id'])) {
@@ -101,7 +101,7 @@ class ControllerShippingCitylink extends Controller {
 			$this->data['citylink_sort_order'] = $this->request->post['citylink_sort_order'];
 		} else {
 			$this->data['citylink_sort_order'] = $this->config->get('citylink_sort_order');
-		}				
+		}
 
 		$this->template = 'shipping/citylink.tpl';
 		$this->children = array(
@@ -121,7 +121,6 @@ class ControllerShippingCitylink extends Controller {
 			return true;
 		} else {
 			return false;
-		}	
+		}
 	}
 }
-?>

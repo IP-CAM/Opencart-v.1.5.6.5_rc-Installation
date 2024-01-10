@@ -1,4 +1,4 @@
-<?php 
+<?php
 class ModelPaymentWebPaymentSoftware extends Model {
 	public function getMethod($address, $total) {
 		$this->language->load('payment/web_payment_software');
@@ -13,11 +13,11 @@ class ModelPaymentWebPaymentSoftware extends Model {
 			$status = true;
 		} else {
 			$status = false;
-		}	
+		}
 
 		$method_data = array();
 
-		if ($status) {  
+		if ($status) {
 			$method_data = array(
 				'code'       => 'web_payment_software',
 				'title'      => $this->language->get('text_title'),
@@ -28,4 +28,3 @@ class ModelPaymentWebPaymentSoftware extends Model {
 		return $method_data;
 	}
 }
-?>

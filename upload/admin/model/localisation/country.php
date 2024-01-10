@@ -32,12 +32,12 @@ class ModelLocalisationCountry extends Model {
 				'name',
 				'iso_code_2',
 				'iso_code_3'
-			);	
+			);
 
 			if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-				$sql .= " ORDER BY " . $data['sort'];	
+				$sql .= " ORDER BY " . $data['sort'];
 			} else {
-				$sql .= " ORDER BY name";	
+				$sql .= " ORDER BY name";
 			}
 
 			if (isset($data['order']) && ($data['order'] == 'DESC')) {
@@ -49,14 +49,14 @@ class ModelLocalisationCountry extends Model {
 			if (isset($data['start']) || isset($data['limit'])) {
 				if ($data['start'] < 0) {
 					$data['start'] = 0;
-				}					
+				}
 
 				if ($data['limit'] < 1) {
 					$data['limit'] = 20;
-				}	
+				}
 
 				$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
-			}		
+			}
 
 			$query = $this->db->query($sql);
 
@@ -72,14 +72,13 @@ class ModelLocalisationCountry extends Model {
 				$this->cache->set('country', $country_data);
 			}
 
-			return $country_data;			
-		}	
+			return $country_data;
+		}
 	}
 
 	public function getTotalCountries() {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "country");
 
 		return $query->row['total'];
-	}	
+	}
 }
-?>

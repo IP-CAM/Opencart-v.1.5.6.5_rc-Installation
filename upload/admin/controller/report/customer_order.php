@@ -1,6 +1,6 @@
 <?php
 class ControllerReportCustomerOrder extends Controller {
-	public function index() {     
+	public function index() {
 		$this->language->load('report/customer_order');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -21,7 +21,7 @@ class ControllerReportCustomerOrder extends Controller {
 			$filter_order_status_id = $this->request->get['filter_order_status_id'];
 		} else {
 			$filter_order_status_id = 0;
-		}	
+		}
 
 		if (isset($this->request->get['page'])) {
 			$page = $this->request->get['page'];
@@ -66,14 +66,14 @@ class ControllerReportCustomerOrder extends Controller {
 		$this->data['customers'] = array();
 
 		$data = array(
-			'filter_date_start'	     => $filter_date_start, 
-			'filter_date_end'	     => $filter_date_end, 
+			'filter_date_start'      => $filter_date_start,
+			'filter_date_end'        => $filter_date_end,
 			'filter_order_status_id' => $filter_order_status_id,
 			'start'                  => ($page - 1) * $this->config->get('config_admin_limit'),
 			'limit'                  => $this->config->get('config_admin_limit')
 		);
 
-		$customer_total = $this->model_report_customer->getTotalOrders($data); 
+		$customer_total = $this->model_report_customer->getTotalOrders($data);
 
 		$results = $this->model_report_customer->getOrders($data);
 
@@ -147,7 +147,7 @@ class ControllerReportCustomerOrder extends Controller {
 		$this->data['pagination'] = $pagination->render();
 
 		$this->data['filter_date_start'] = $filter_date_start;
-		$this->data['filter_date_end'] = $filter_date_end;		
+		$this->data['filter_date_end'] = $filter_date_end;
 		$this->data['filter_order_status_id'] = $filter_order_status_id;
 
 		$this->template = 'report/customer_order.tpl';
@@ -159,4 +159,3 @@ class ControllerReportCustomerOrder extends Controller {
 		$this->response->setOutput($this->render());
 	}
 }
-?>

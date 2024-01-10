@@ -10,7 +10,7 @@ class ControllerCatalogReview extends Controller {
 		$this->load->model('catalog/review');
 
 		$this->getList();
-	} 
+	}
 
 	public function insert() {
 		$this->language->load('catalog/review');
@@ -76,7 +76,7 @@ class ControllerCatalogReview extends Controller {
 		$this->getForm();
 	}
 
-	public function delete() { 
+	public function delete() {
 		$this->language->load('catalog/review');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -158,7 +158,7 @@ class ControllerCatalogReview extends Controller {
 		);
 
 		$this->data['insert'] = $this->url->link('catalog/review/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
-		$this->data['delete'] = $this->url->link('catalog/review/delete', 'token=' . $this->session->data['token'] . $url, 'SSL');	
+		$this->data['delete'] = $this->url->link('catalog/review/delete', 'token=' . $this->session->data['token'] . $url, 'SSL');
 
 		$this->data['reviews'] = array();
 
@@ -191,7 +191,7 @@ class ControllerCatalogReview extends Controller {
 				'selected'   => isset($this->request->post['selected']) && in_array($result['review_id'], $this->request->post['selected']),
 				'action'     => $action
 			);
-		}	
+		}
 
 		$this->data['heading_title'] = $this->language->get('heading_title');
 
@@ -202,7 +202,7 @@ class ControllerCatalogReview extends Controller {
 		$this->data['column_rating'] = $this->language->get('column_rating');
 		$this->data['column_status'] = $this->language->get('column_status');
 		$this->data['column_date_added'] = $this->language->get('column_date_added');
-		$this->data['column_action'] = $this->language->get('column_action');		
+		$this->data['column_action'] = $this->language->get('column_action');
 
 		$this->data['button_insert'] = $this->language->get('button_insert');
 		$this->data['button_delete'] = $this->language->get('button_delete');
@@ -347,7 +347,7 @@ class ControllerCatalogReview extends Controller {
 			'separator' => ' :: '
 		);
 
-		if (!isset($this->request->get['review_id'])) { 
+		if (!isset($this->request->get['review_id'])) {
 			$this->data['action'] = $this->url->link('catalog/review/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
 		} else {
 			$this->data['action'] = $this->url->link('catalog/review/update', 'token=' . $this->session->data['token'] . '&review_id=' . $this->request->get['review_id'] . $url, 'SSL');
@@ -458,6 +458,5 @@ class ControllerCatalogReview extends Controller {
 		} else {
 			return false;
 		}
-	}	
+	}
 }
-?>

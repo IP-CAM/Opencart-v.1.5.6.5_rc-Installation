@@ -3,7 +3,7 @@ class ControllerExtensionManager extends Controller {
 	public function index() {
 		$this->language->load('extension/manager');
 
-		$this->document->setTitle($this->language->get('heading_title')); 
+		$this->document->setTitle($this->language->get('heading_title'));
 
 		$this->data['breadcrumbs'] = array();
 
@@ -122,10 +122,10 @@ class ControllerExtensionManager extends Controller {
 								echo 'made directory ' . $destination . '<br />';
 							}
 						}
-					}	
+					}
 
 					if (is_file($file)) {
-						if (ftp_put($connection, $destination, $file, FTP_ASCII)) {		
+						if (ftp_put($connection, $destination, $file, FTP_ASCII)) {
 							echo 'Successfully uploaded ' . $file . '<br />';
 						}
 					}
@@ -144,7 +144,7 @@ class ControllerExtensionManager extends Controller {
 				if (is_file($file)) {
 					unlink($file);
 				} elseif (is_dir($file)) {
-					rmdir($file);	
+					rmdir($file);
 				}
 			}
 
@@ -153,10 +153,9 @@ class ControllerExtensionManager extends Controller {
 			}
 
 			$json['success'] = $this->language->get('text_success');
-		}	
+		}
 
 		$this->response->setOutput(json_encode($json));
 		*/
-	}			
+	}
 }
-?>

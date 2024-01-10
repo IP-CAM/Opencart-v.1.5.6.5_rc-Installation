@@ -3,7 +3,7 @@ class ControllerExtensionModule extends Controller {
 	public function index() {
 		$this->language->load('extension/module');
 
-		$this->document->setTitle($this->language->get('heading_title')); 
+		$this->document->setTitle($this->language->get('heading_title'));
 
 		$this->data['breadcrumbs'] = array();
 
@@ -104,7 +104,7 @@ class ControllerExtensionModule extends Controller {
 		$this->language->load('extension/module');
 
 		if (!$this->user->hasPermission('modify', 'extension/module')) {
-			$this->session->data['error'] = $this->language->get('error_permission'); 
+			$this->session->data['error'] = $this->language->get('error_permission');
 
 			$this->redirect($this->url->link('extension/module', 'token=' . $this->session->data['token'], 'SSL'));
 		} else {
@@ -134,10 +134,10 @@ class ControllerExtensionModule extends Controller {
 		$this->language->load('extension/module');
 
 		if (!$this->user->hasPermission('modify', 'extension/module')) {
-			$this->session->data['error'] = $this->language->get('error_permission'); 
+			$this->session->data['error'] = $this->language->get('error_permission');
 
 			$this->redirect($this->url->link('extension/module', 'token=' . $this->session->data['token'], 'SSL'));
-		} else {		
+		} else {
 			$this->load->model('setting/extension');
 			$this->load->model('setting/setting');
 
@@ -154,8 +154,7 @@ class ControllerExtensionModule extends Controller {
 				$class->uninstall();
 			}
 
-			$this->redirect($this->url->link('extension/module', 'token=' . $this->session->data['token'], 'SSL'));	
+			$this->redirect($this->url->link('extension/module', 'token=' . $this->session->data['token'], 'SSL'));
 		}
 	}
 }
-?>

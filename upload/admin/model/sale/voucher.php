@@ -38,12 +38,12 @@ class ModelSaleVoucher extends Model {
 			'v.amount',
 			'v.status',
 			'v.date_added'
-		);	
+		);
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-			$sql .= " ORDER BY " . $data['sort'];	
+			$sql .= " ORDER BY " . $data['sort'];
 		} else {
-			$sql .= " ORDER BY v.date_added";	
+			$sql .= " ORDER BY v.date_added";
 		}
 
 		if (isset($data['order']) && ($data['order'] == 'DESC')) {
@@ -55,14 +55,14 @@ class ModelSaleVoucher extends Model {
 		if (isset($data['start']) || isset($data['limit'])) {
 			if ($data['start'] < 0) {
 				$data['start'] = 0;
-			}			
+			}
 
 			if ($data['limit'] < 1) {
 				$data['limit'] = 20;
-			}	
+			}
 
 			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
-		}		
+		}
 
 		$query = $this->db->query($sql);
 
@@ -88,11 +88,11 @@ class ModelSaleVoucher extends Model {
 				$this->load->model('localisation/language');
 
 				$language = new Language($order_info['language_directory']);
-				$language->load($order_info['language_filename']);	
+				$language->load($order_info['language_filename']);
 				$language->load('mail/voucher');
 
 				// HTML Mail
-				$template = new Template();				
+				$template = new Template();
 
 				$template->data['title'] = sprintf($language->get('text_subject'), $voucher_info['from_name']);
 
@@ -100,7 +100,7 @@ class ModelSaleVoucher extends Model {
 				$template->data['text_from'] = sprintf($language->get('text_from'), $voucher_info['from_name']);
 				$template->data['text_message'] = $language->get('text_message');
 				$template->data['text_redeem'] = sprintf($language->get('text_redeem'), $voucher_info['code']);
-				$template->data['text_footer'] = $language->get('text_footer');	
+				$template->data['text_footer'] = $language->get('text_footer');
 
 				$this->load->model('sale/voucher_theme');
 
@@ -116,26 +116,26 @@ class ModelSaleVoucher extends Model {
 				$template->data['store_url'] = $order_info['store_url'];
 				$template->data['message'] = nl2br($voucher_info['message']);
 
-				$mail = new Mail(); 
+				$mail = new Mail();
 				$mail->protocol = $this->config->get('config_mail_protocol');
 				$mail->parameter = $this->config->get('config_mail_parameter');
 				$mail->hostname = $this->config->get('config_smtp_host');
 				$mail->username = $this->config->get('config_smtp_username');
 				$mail->password = $this->config->get('config_smtp_password');
 				$mail->port = $this->config->get('config_smtp_port');
-				$mail->timeout = $this->config->get('config_smtp_timeout');			
+				$mail->timeout = $this->config->get('config_smtp_timeout');
 				$mail->setTo($voucher_info['to_email']);
 				$mail->setFrom($this->config->get('config_email'));
 				$mail->setSender($order_info['store_name']);
 				$mail->setSubject(html_entity_decode(sprintf($language->get('text_subject'), $voucher_info['from_name']), ENT_QUOTES, 'UTF-8'));
-				$mail->setHtml($template->fetch('mail/voucher.tpl'));				
+				$mail->setHtml($template->fetch('mail/voucher.tpl'));
 				$mail->send();
 
-			// If voucher does not belong to an order				
-			}  else {
+				// If voucher does not belong to an order
+			} else {
 				$this->language->load('mail/voucher');
 
-				$template = new Template();		
+				$template = new Template();
 
 				$template->data['title'] = sprintf($this->language->get('text_subject'), $voucher_info['from_name']);
 
@@ -143,7 +143,7 @@ class ModelSaleVoucher extends Model {
 				$template->data['text_from'] = sprintf($this->language->get('text_from'), $voucher_info['from_name']);
 				$template->data['text_message'] = $this->language->get('text_message');
 				$template->data['text_redeem'] = sprintf($this->language->get('text_redeem'), $voucher_info['code']);
-				$template->data['text_footer'] = $this->language->get('text_footer');					
+				$template->data['text_footer'] = $this->language->get('text_footer');
 
 				$this->load->model('sale/voucher_theme');
 
@@ -159,20 +159,20 @@ class ModelSaleVoucher extends Model {
 				$template->data['store_url'] = HTTP_CATALOG;
 				$template->data['message'] = nl2br($voucher_info['message']);
 
-				$mail = new Mail(); 
+				$mail = new Mail();
 				$mail->protocol = $this->config->get('config_mail_protocol');
 				$mail->parameter = $this->config->get('config_mail_parameter');
 				$mail->hostname = $this->config->get('config_smtp_host');
 				$mail->username = $this->config->get('config_smtp_username');
 				$mail->password = $this->config->get('config_smtp_password');
 				$mail->port = $this->config->get('config_smtp_port');
-				$mail->timeout = $this->config->get('config_smtp_timeout');			
+				$mail->timeout = $this->config->get('config_smtp_timeout');
 				$mail->setTo($voucher_info['to_email']);
 				$mail->setFrom($this->config->get('config_email'));
 				$mail->setSender($this->config->get('config_name'));
 				$mail->setSubject(html_entity_decode(sprintf($this->language->get('text_subject'), $voucher_info['from_name']), ENT_QUOTES, 'UTF-8'));
 				$mail->setHtml($template->fetch('mail/voucher.tpl'));
-				$mail->send();				
+				$mail->send();
 			}
 		}
 	}
@@ -181,13 +181,13 @@ class ModelSaleVoucher extends Model {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "voucher");
 
 		return $query->row['total'];
-	}	
+	}
 
 	public function getTotalVouchersByVoucherThemeId($voucher_theme_id) {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "voucher WHERE voucher_theme_id = '" . (int)$voucher_theme_id . "'");
 
 		return $query->row['total'];
-	}	
+	}
 
 	public function getVoucherHistories($voucher_id, $start = 0, $limit = 10) {
 		if ($start < 0) {
@@ -196,7 +196,7 @@ class ModelSaleVoucher extends Model {
 
 		if ($limit < 1) {
 			$limit = 10;
-		}	
+		}
 
 		$query = $this->db->query("SELECT vh.order_id, CONCAT(o.firstname, ' ', o.lastname) AS customer, vh.amount, vh.date_added FROM " . DB_PREFIX . "voucher_history vh LEFT JOIN `" . DB_PREFIX . "order` o ON (vh.order_id = o.order_id) WHERE vh.voucher_id = '" . (int)$voucher_id . "' ORDER BY vh.date_added ASC LIMIT " . (int)$start . "," . (int)$limit);
 
@@ -207,6 +207,5 @@ class ModelSaleVoucher extends Model {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "voucher_history WHERE voucher_id = '" . (int)$voucher_id . "'");
 
 		return $query->row['total'];
-	}			
+	}
 }
-?>

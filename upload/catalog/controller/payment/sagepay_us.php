@@ -17,7 +17,7 @@ class ControllerPaymentSagepayUS extends Controller {
 
 		for ($i = 1; $i <= 12; $i++) {
 			$this->data['months'][] = array(
-				'text'  => strftime('%B', mktime(0, 0, 0, $i, 1, 2000)), 
+				'text'  => strftime('%B', mktime(0, 0, 0, $i, 1, 2000)),
 				'value' => sprintf('%02d', $i)
 			);
 		}
@@ -29,7 +29,7 @@ class ControllerPaymentSagepayUS extends Controller {
 		for ($i = $today['year']; $i < $today['year'] + 11; $i++) {
 			$this->data['year_expire'][] = array(
 				'text'  => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)),
-				'value' => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)) 
+				'value' => strftime('%Y', mktime(0, 0, 0, 1, 1, $i))
 			);
 		}
 
@@ -37,9 +37,9 @@ class ControllerPaymentSagepayUS extends Controller {
 			$this->template = $this->config->get('config_template') . '/template/payment/sagepay_us.tpl';
 		} else {
 			$this->template = 'default/template/payment/sagepay_us.tpl';
-		}	
+		}
 
-		$this->render();		
+		$this->render();
 	}
 
 	public function send() {
@@ -97,7 +97,6 @@ class ControllerPaymentSagepayUS extends Controller {
 			$json['error'] = substr($response, 8, 32);
 		}
 
-		$this->response->setOutput(json_encode($json));		
-	}	
+		$this->response->setOutput(json_encode($json));
+	}
 }
-?>

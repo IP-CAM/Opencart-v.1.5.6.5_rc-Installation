@@ -20,7 +20,7 @@ class ControllerPaymentPerpetualPayments extends Controller {
 
 		for ($i = 1; $i <= 12; $i++) {
 			$this->data['months'][] = array(
-				'text'  => strftime('%B', mktime(0, 0, 0, $i, 1, 2000)), 
+				'text'  => strftime('%B', mktime(0, 0, 0, $i, 1, 2000)),
 				'value' => sprintf('%02d', $i)
 			);
 		}
@@ -29,9 +29,9 @@ class ControllerPaymentPerpetualPayments extends Controller {
 
 		$this->data['year_valid'] = array();
 
-		for ($i = $today['year'] - 10; $i < $today['year'] + 1; $i++) {	
+		for ($i = $today['year'] - 10; $i < $today['year'] + 1; $i++) {
 			$this->data['year_valid'][] = array(
-				'text'  => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)), 
+				'text'  => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)),
 				'value' => strftime('%Y', mktime(0, 0, 0, 1, 1, $i))
 			);
 		}
@@ -41,7 +41,7 @@ class ControllerPaymentPerpetualPayments extends Controller {
 		for ($i = $today['year']; $i < $today['year'] + 11; $i++) {
 			$this->data['year_expire'][] = array(
 				'text'  => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)),
-				'value' => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)) 
+				'value' => strftime('%Y', mktime(0, 0, 0, 1, 1, $i))
 			);
 		}
 
@@ -49,9 +49,9 @@ class ControllerPaymentPerpetualPayments extends Controller {
 			$this->template = $this->config->get('config_template') . '/template/payment/perpetual_payments.tpl';
 		} else {
 			$this->template = 'default/template/payment/perpetual_payments.tpl';
-		}	
+		}
 
-		$this->render();		
+		$this->render();
 	}
 
 	public function send() {
@@ -71,8 +71,8 @@ class ControllerPaymentPerpetualPayments extends Controller {
 			'cust_name'     => $order_info['payment_firstname'] . ' ' . $order_info['payment_lastname'],
 			'cust_address'  => $order_info['payment_address_1'] . ' ' . $order_info['payment_city'],
 			'cust_country'  => $order_info['payment_iso_code_2'],
-			'cust_postcode'	=> $order_info['payment_postcode'],
-			'cust_tel'	 	=> $order_info['telephone'],
+			'cust_postcode' => $order_info['payment_postcode'],
+			'cust_tel'      => $order_info['telephone'],
 			'cust_ip'       => $this->request->server['REMOTE_ADDR'],
 			'cust_email'    => $order_info['email'],
 			'tran_ref'      => $order_info['order_id'],
@@ -133,4 +133,3 @@ class ControllerPaymentPerpetualPayments extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 }
-?>

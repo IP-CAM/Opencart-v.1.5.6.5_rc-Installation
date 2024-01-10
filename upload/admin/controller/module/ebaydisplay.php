@@ -79,72 +79,71 @@ class ControllerModuleEbaydisplay extends Controller {
 		$this->data['cancel'] = $this->url->link('extension/module', 'token=' . $this->session->data['token'], 'SSL');
 		$this->data['token'] = $this->session->data['token'];
 
-
 		$this->data['modules'] = array();
 
 		if (isset($this->request->post['ebaydisplay_module'])) {
 			$this->data['modules'] = $this->request->post['ebaydisplay_module'];
 		} elseif ($this->config->get('ebaydisplay_module')) {
 			$this->data['modules'] = $this->config->get('ebaydisplay_module');
-		}else{
+		} else {
 			$this->data['modules'] = array();
 		}
 		if (isset($this->request->post['ebaydisplay_module_username'])) {
 			$this->data['ebaydisplay_module_username'] = $this->request->post['ebaydisplay_module_username'];
 		} elseif ($this->config->get('ebaydisplay_module_username')) {
 			$this->data['ebaydisplay_module_username'] = $this->config->get('ebaydisplay_module_username');
-		}else{
+		} else {
 			$this->data['ebaydisplay_module_username'] = '';
 		}
 		if (isset($this->request->post['ebaydisplay_module_keywords'])) {
 			$this->data['ebaydisplay_module_keywords'] = $this->request->post['ebaydisplay_module_keywords'];
 		} elseif ($this->config->get('ebaydisplay_module_keywords')) {
 			$this->data['ebaydisplay_module_keywords'] = $this->config->get('ebaydisplay_module_keywords');
-		}else{
+		} else {
 			$this->data['ebaydisplay_module_keywords'] = '';
 		}
 		if (isset($this->request->post['ebaydisplay_module_description'])) {
 			$this->data['ebaydisplay_module_description'] = $this->request->post['ebaydisplay_module_description'];
 		} elseif ($this->config->get('ebaydisplay_module_description')) {
 			$this->data['ebaydisplay_module_description'] = $this->config->get('ebaydisplay_module_description');
-		}else{
+		} else {
 			$this->data['ebaydisplay_module_description'] = 0;
 		}
 		if (isset($this->request->post['ebaydisplay_module_limit'])) {
 			$this->data['ebaydisplay_module_limit'] = $this->request->post['ebaydisplay_module_limit'];
 		} elseif ($this->config->get('ebaydisplay_module_limit')) {
 			$this->data['ebaydisplay_module_limit'] = $this->config->get('ebaydisplay_module_limit');
-		}else{
+		} else {
 			$this->data['ebaydisplay_module_limit'] = 10;
 		}
 		if (isset($this->request->post['ebaydisplay_module_sort'])) {
 			$this->data['ebaydisplay_module_sort'] = $this->request->post['ebaydisplay_module_sort'];
 		} elseif ($this->config->get('ebaydisplay_module_sort')) {
 			$this->data['ebaydisplay_module_sort'] = $this->config->get('ebaydisplay_module_sort');
-		}else{
+		} else {
 			$this->data['ebaydisplay_module_sort'] = 'StartTimeNewest';
 		}
 		if (isset($this->request->post['ebaydisplay_module_site'])) {
 			$this->data['ebaydisplay_module_site'] = $this->request->post['ebaydisplay_module_site'];
 		} elseif ($this->config->get('ebaydisplay_module_sort')) {
 			$this->data['ebaydisplay_module_site'] = $this->config->get('ebaydisplay_module_site');
-		}else{
+		} else {
 			$this->data['ebaydisplay_module_site'] = 3;
 		}
 
 		$this->data['ebay_sites'] = array(
-			0 => 'USA',
-			3 => 'UK',
-			15 => 'Australia',
-			2 => 'Canada (English)',
-			71 => 'France',
-			77 => 'Germany',
+			0   => 'USA',
+			3   => 'UK',
+			15  => 'Australia',
+			2   => 'Canada (English)',
+			71  => 'France',
+			77  => 'Germany',
 			101 => 'Italy',
 			186 => 'Spain',
 			205 => 'Ireland',
-			16 => 'Austria',
+			16  => 'Austria',
 			146 => 'Netherlands',
-			23 => 'Belgium (French)',
+			23  => 'Belgium (French)',
 			123 => 'Belgium (Dutch)',
 		);
 
@@ -173,4 +172,3 @@ class ControllerModuleEbaydisplay extends Controller {
 		}
 	}
 }
-?>

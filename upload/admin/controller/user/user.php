@@ -1,4 +1,4 @@
-<?php  
+<?php
 class ControllerUserUser extends Controller {
 	private $error = array();
 
@@ -491,9 +491,8 @@ class ControllerUserUser extends Controller {
 
 		if (!$this->error) {
 			return true;
-		} else { 
+		} else {
 			return false;
 		}
 	}
 }
-?>

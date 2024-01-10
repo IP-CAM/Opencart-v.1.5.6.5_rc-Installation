@@ -11,7 +11,7 @@ final class Tax {
 	public function __construct($registry) {
 		$this->config = $registry->get('config');
 		$this->customer = $registry->get('customer');
-		$this->db = $registry->get('db');	
+		$this->db = $registry->get('db');
 		$this->session = $registry->get('session');
 
 		if (isset($this->session->data['shipping_country_id']) || isset($this->session->data['shipping_zone_id'])) {
@@ -26,14 +26,14 @@ final class Tax {
 			$this->setPaymentAddress($this->config->get('config_country_id'), $this->config->get('config_zone_id'));
 		}
 
-		$this->setStoreAddress($this->config->get('config_country_id'), $this->config->get('config_zone_id'));	
+		$this->setStoreAddress($this->config->get('config_country_id'), $this->config->get('config_zone_id'));
 	}
 
 	public function setShippingAddress($country_id, $zone_id) {
 		$this->shipping_address = array(
 			'country_id' => $country_id,
 			'zone_id'    => $zone_id
-		);				
+		);
 	}
 
 	public function setPaymentAddress($country_id, $zone_id) {
@@ -131,7 +131,7 @@ final class Tax {
 					'priority'    => $result['priority']
 				);
 			}
-		}			
+		}
 
 		$tax_rate_data = array();
 
@@ -164,4 +164,3 @@ final class Tax {
 		return isset($this->taxes[$tax_class_id]);
 	}
 }
-?>

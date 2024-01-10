@@ -1,8 +1,8 @@
 <?php
-class ControllerShippingWeight extends Controller { 
+class ControllerShippingWeight extends Controller {
 	private $error = array();
 
-	public function index() {  
+	public function index() {
 		$this->language->load('shipping/weight');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -10,7 +10,7 @@ class ControllerShippingWeight extends Controller {
 		$this->load->model('setting/setting');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-			$this->model_setting_setting->editSetting('weight', $this->request->post);	
+			$this->model_setting_setting->editSetting('weight', $this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -61,7 +61,7 @@ class ControllerShippingWeight extends Controller {
 
 		$this->data['action'] = $this->url->link('shipping/weight', 'token=' . $this->session->data['token'], 'SSL');
 
-		$this->data['cancel'] = $this->url->link('extension/shipping', 'token=' . $this->session->data['token'], 'SSL'); 
+		$this->data['cancel'] = $this->url->link('extension/shipping', 'token=' . $this->session->data['token'], 'SSL');
 
 		$this->load->model('localisation/geo_zone');
 
@@ -72,13 +72,13 @@ class ControllerShippingWeight extends Controller {
 				$this->data['weight_' . $geo_zone['geo_zone_id'] . '_rate'] = $this->request->post['weight_' . $geo_zone['geo_zone_id'] . '_rate'];
 			} else {
 				$this->data['weight_' . $geo_zone['geo_zone_id'] . '_rate'] = $this->config->get('weight_' . $geo_zone['geo_zone_id'] . '_rate');
-			}		
+			}
 
 			if (isset($this->request->post['weight_' . $geo_zone['geo_zone_id'] . '_status'])) {
 				$this->data['weight_' . $geo_zone['geo_zone_id'] . '_status'] = $this->request->post['weight_' . $geo_zone['geo_zone_id'] . '_status'];
 			} else {
 				$this->data['weight_' . $geo_zone['geo_zone_id'] . '_status'] = $this->config->get('weight_' . $geo_zone['geo_zone_id'] . '_status');
-			}		
+			}
 		}
 
 		$this->data['geo_zones'] = $geo_zones;
@@ -103,7 +103,7 @@ class ControllerShippingWeight extends Controller {
 			$this->data['weight_sort_order'] = $this->request->post['weight_sort_order'];
 		} else {
 			$this->data['weight_sort_order'] = $this->config->get('weight_sort_order');
-		}	
+		}
 
 		$this->template = 'shipping/weight.tpl';
 		$this->children = array(
@@ -123,7 +123,6 @@ class ControllerShippingWeight extends Controller {
 			return true;
 		} else {
 			return false;
-		}	
+		}
 	}
 }
-?>

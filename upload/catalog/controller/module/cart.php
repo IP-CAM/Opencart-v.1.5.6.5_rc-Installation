@@ -1,4 +1,4 @@
-<?php 
+<?php
 class ControllerModuleCart extends Controller {
 	public function index() {
 		$this->language->load('module/cart');
@@ -12,13 +12,13 @@ class ControllerModuleCart extends Controller {
 		// Totals
 		$this->load->model('setting/extension');
 
-		$total_data = array();					
+		$total_data = array();
 		$total = 0;
 		$taxes = $this->cart->getTaxes();
 
 		// Display prices
 		if (($this->config->get('config_customer_price') && $this->customer->isLogged()) || !$this->config->get('config_customer_price')) {
-			$sort_order = array(); 
+			$sort_order = array();
 
 			$results = $this->model_setting_extension->getExtensions('total');
 
@@ -35,14 +35,14 @@ class ControllerModuleCart extends Controller {
 					$this->{'model_total_' . $result['code']}->getTotal($total_data, $total, $taxes);
 				}
 
-				$sort_order = array(); 
+				$sort_order = array();
 
 				foreach ($total_data as $key => $value) {
 					$sort_order[$key] = $value['sort_order'];
 				}
 
-				array_multisort($sort_order, SORT_ASC, $total_data);			
-			}		
+				array_multisort($sort_order, SORT_ASC, $total_data);
+			}
 		}
 
 		$this->data['totals'] = $total_data;
@@ -72,14 +72,14 @@ class ControllerModuleCart extends Controller {
 
 			foreach ($product['option'] as $option) {
 				if ($option['type'] != 'file') {
-					$value = $option['option_value'];	
+					$value = $option['option_value'];
 				} else {
 					$filename = $this->encryption->decrypt($option['option_value']);
 
 					$value = utf8_substr($filename, 0, utf8_strrpos($filename, '.'));
-				}				
+				}
 
-				$option_data[] = array(								   
+				$option_data[] = array(
 					'name'  => $option['name'],
 					'value' => (utf8_strlen($value) > 20 ? utf8_substr($value, 0, 20) . '..' : $value),
 					'type'  => $option['type']
@@ -104,11 +104,11 @@ class ControllerModuleCart extends Controller {
 				'key'       => $product['key'],
 				'thumb'     => $image,
 				'name'      => $product['name'],
-				'model'     => $product['model'], 
+				'model'     => $product['model'],
 				'option'    => $option_data,
 				'quantity'  => $product['quantity'],
-				'price'     => $price,	
-				'total'     => $total,	
+				'price'     => $price,
+				'total'     => $total,
 				'href'      => $this->url->link('product/product', 'product_id=' . $product['product_id']),
 				'recurring' => $product['recurring'],
 				'profile'   => $product['profile_name'],
@@ -138,7 +138,6 @@ class ControllerModuleCart extends Controller {
 			$this->template = 'default/template/module/cart.tpl';
 		}
 
-		$this->response->setOutput($this->render());		
+		$this->response->setOutput($this->render());
 	}
 }
-?>

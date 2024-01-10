@@ -9,12 +9,11 @@ class ModelCheckoutRecurring extends Model {
 	public function addReference($recurring_id, $ref) {
 		$this->db->query("UPDATE " . DB_PREFIX . "order_recurring SET profile_reference = '" . $this->db->escape($ref) . "' WHERE order_recurring_id = '" . (int)$recurring_id . "'");
 
-		if($this->db->countAffected() > 0) {
+		if ($this->db->countAffected() > 0) {
 			return true;
-		}else{
+		} else {
 			return false;
 
 		}
 	}
 }
-?>

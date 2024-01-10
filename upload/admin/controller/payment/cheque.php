@@ -1,6 +1,6 @@
-<?php 
+<?php
 class ControllerPaymentCheque extends Controller {
-	private $error = array(); 
+	private $error = array();
 
 	public function index() {
 		$this->language->load('payment/cheque');
@@ -10,7 +10,7 @@ class ControllerPaymentCheque extends Controller {
 		$this->load->model('setting/setting');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-			$this->model_setting_setting->editSetting('cheque', $this->request->post);				
+			$this->model_setting_setting->editSetting('cheque', $this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -24,8 +24,8 @@ class ControllerPaymentCheque extends Controller {
 		$this->data['text_all_zones'] = $this->language->get('text_all_zones');
 
 		$this->data['entry_payable'] = $this->language->get('entry_payable');
-		$this->data['entry_total'] = $this->language->get('entry_total');	
-		$this->data['entry_order_status'] = $this->language->get('entry_order_status');		
+		$this->data['entry_total'] = $this->language->get('entry_total');
+		$this->data['entry_order_status'] = $this->language->get('entry_order_status');
 		$this->data['entry_geo_zone'] = $this->language->get('entry_geo_zone');
 		$this->data['entry_status'] = $this->language->get('entry_status');
 		$this->data['entry_sort_order'] = $this->language->get('entry_sort_order');
@@ -78,14 +78,14 @@ class ControllerPaymentCheque extends Controller {
 		if (isset($this->request->post['cheque_total'])) {
 			$this->data['cheque_total'] = $this->request->post['cheque_total'];
 		} else {
-			$this->data['cheque_total'] = $this->config->get('cheque_total'); 
-		} 
+			$this->data['cheque_total'] = $this->config->get('cheque_total');
+		}
 
 		if (isset($this->request->post['cheque_order_status_id'])) {
 			$this->data['cheque_order_status_id'] = $this->request->post['cheque_order_status_id'];
 		} else {
-			$this->data['cheque_order_status_id'] = $this->config->get('cheque_order_status_id'); 
-		} 
+			$this->data['cheque_order_status_id'] = $this->config->get('cheque_order_status_id');
+		}
 
 		$this->load->model('localisation/order_status');
 
@@ -94,8 +94,8 @@ class ControllerPaymentCheque extends Controller {
 		if (isset($this->request->post['cheque_geo_zone_id'])) {
 			$this->data['cheque_geo_zone_id'] = $this->request->post['cheque_geo_zone_id'];
 		} else {
-			$this->data['cheque_geo_zone_id'] = $this->config->get('cheque_geo_zone_id'); 
-		} 
+			$this->data['cheque_geo_zone_id'] = $this->config->get('cheque_geo_zone_id');
+		}
 
 		$this->load->model('localisation/geo_zone');
 
@@ -135,7 +135,6 @@ class ControllerPaymentCheque extends Controller {
 			return true;
 		} else {
 			return false;
-		}	
+		}
 	}
 }
-?>

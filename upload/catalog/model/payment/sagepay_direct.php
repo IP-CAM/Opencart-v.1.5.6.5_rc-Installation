@@ -1,4 +1,4 @@
-<?php 
+<?php
 class ModelPaymentSagePayDirect extends Model {
 	public function getMethod($address, $total) {
 		$this->language->load('payment/sagepay_direct');
@@ -13,11 +13,11 @@ class ModelPaymentSagePayDirect extends Model {
 			$status = true;
 		} else {
 			$status = false;
-		}	
+		}
 
 		$method_data = array();
 
-		if ($status) {  
+		if ($status) {
 			$method_data = array(
 				'code'       => 'sagepay_direct',
 				'title'      => $this->language->get('text_title'),
@@ -28,4 +28,3 @@ class ModelPaymentSagePayDirect extends Model {
 		return $method_data;
 	}
 }
-?>

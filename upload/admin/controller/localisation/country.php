@@ -1,4 +1,4 @@
-<?php 
+<?php
 class ControllerLocalisationCountry extends Controller {
 	private $error = array();
 
@@ -186,7 +186,7 @@ class ControllerLocalisationCountry extends Controller {
 				'name'       => $result['name'] . (($result['country_id'] == $this->config->get('config_country_id')) ? $this->language->get('text_default') : null),
 				'iso_code_2' => $result['iso_code_2'],
 				'iso_code_3' => $result['iso_code_3'],
-				'selected'   => isset($this->request->post['selected']) && in_array($result['country_id'], $this->request->post['selected']),				
+				'selected'   => isset($this->request->post['selected']) && in_array($result['country_id'], $this->request->post['selected']),
 				'action'     => $action
 			);
 		}
@@ -198,7 +198,7 @@ class ControllerLocalisationCountry extends Controller {
 		$this->data['column_name'] = $this->language->get('column_name');
 		$this->data['column_iso_code_2'] = $this->language->get('column_iso_code_2');
 		$this->data['column_iso_code_3'] = $this->language->get('column_iso_code_3');
-		$this->data['column_action'] = $this->language->get('column_action');	
+		$this->data['column_action'] = $this->language->get('column_action');
 
 		$this->data['button_insert'] = $this->language->get('button_insert');
 		$this->data['button_delete'] = $this->language->get('button_delete');
@@ -322,7 +322,7 @@ class ControllerLocalisationCountry extends Controller {
 			'separator' => ' :: '
 		);
 
-		if (!isset($this->request->get['country_id'])) { 
+		if (!isset($this->request->get['country_id'])) {
 			$this->data['action'] = $this->url->link('localisation/country/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
 		} else {
 			$this->data['action'] = $this->url->link('localisation/country/update', 'token=' . $this->session->data['token'] . '&country_id=' . $this->request->get['country_id'] . $url, 'SSL');
@@ -461,4 +461,3 @@ class ControllerLocalisationCountry extends Controller {
 		}
 	}
 }
-?>

@@ -3,7 +3,7 @@ class ControllerExtensionTotal extends Controller {
 	public function index() {
 		$this->language->load('extension/total');
 
-		$this->document->setTitle($this->language->get('heading_title')); 
+		$this->document->setTitle($this->language->get('heading_title'));
 
 		$this->data['breadcrumbs'] = array();
 
@@ -108,10 +108,10 @@ class ControllerExtensionTotal extends Controller {
 		$this->language->load('extension/total');
 
 		if (!$this->user->hasPermission('modify', 'extension/total')) {
-			$this->session->data['error'] = $this->language->get('error_permission'); 
+			$this->session->data['error'] = $this->language->get('error_permission');
 
 			$this->redirect($this->url->link('extension/total', 'token=' . $this->session->data['token'], 'SSL'));
-		} else {				
+		} else {
 			$this->load->model('setting/extension');
 
 			$this->model_setting_extension->install('total', $this->request->get['extension']);
@@ -138,10 +138,10 @@ class ControllerExtensionTotal extends Controller {
 		$this->language->load('extension/total');
 
 		if (!$this->user->hasPermission('modify', 'extension/total')) {
-			$this->session->data['error'] = $this->language->get('error_permission'); 
+			$this->session->data['error'] = $this->language->get('error_permission');
 
 			$this->redirect($this->url->link('extension/total', 'token=' . $this->session->data['token'], 'SSL'));
-		} else {			
+		} else {
 			$this->load->model('setting/extension');
 			$this->load->model('setting/setting');
 
@@ -160,6 +160,5 @@ class ControllerExtensionTotal extends Controller {
 
 			$this->redirect($this->url->link('extension/total', 'token=' . $this->session->data['token'], 'SSL'));
 		}
-	}	
+	}
 }
-?>

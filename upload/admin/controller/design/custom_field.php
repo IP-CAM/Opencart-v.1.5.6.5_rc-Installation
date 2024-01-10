@@ -1,6 +1,6 @@
 <?php
 class ControllerDesignCustomField extends Controller {
-	private $error = array();  
+	private $error = array();
 
 	public function index() {
 		$this->language->load('design/custom_field');
@@ -207,13 +207,13 @@ class ControllerDesignCustomField extends Controller {
 					break;
 				case 'date':
 					$type = $this->language->get('text_date');
-					break;																														
+					break;
 				case 'datetime':
 					$type = $this->language->get('text_datetime');
-					break;	
+					break;
 				case 'time':
 					$type = $this->language->get('text_time');
-					break;																	
+					break;
 			}
 
 			$location = '';
@@ -230,8 +230,8 @@ class ControllerDesignCustomField extends Controller {
 					break;
 				case 'shipping_address':
 					$location = $this->language->get('text_shipping_address');
-					break;										
-			}			
+					break;
+			}
 
 			$this->data['custom_fields'][] = array(
 				'custom_field_id' => $result['custom_field_id'],
@@ -252,7 +252,7 @@ class ControllerDesignCustomField extends Controller {
 		$this->data['column_type'] = $this->language->get('column_type');
 		$this->data['column_location'] = $this->language->get('column_location');
 		$this->data['column_sort_order'] = $this->language->get('column_sort_order');
-		$this->data['column_action'] = $this->language->get('column_action');	
+		$this->data['column_action'] = $this->language->get('column_action');
 
 		$this->data['button_insert'] = $this->language->get('button_insert');
 		$this->data['button_delete'] = $this->language->get('button_delete');
@@ -364,13 +364,13 @@ class ControllerDesignCustomField extends Controller {
 			$this->data['error_name'] = $this->error['name'];
 		} else {
 			$this->data['error_name'] = array();
-		}	
+		}
 
 		if (isset($this->error['custom_field_value'])) {
 			$this->data['error_custom_field_value'] = $this->error['custom_field_value'];
 		} else {
 			$this->data['error_custom_field_value'] = array();
-		}	
+		}
 
 		$url = '';
 
@@ -402,7 +402,7 @@ class ControllerDesignCustomField extends Controller {
 
 		if (!isset($this->request->get['custom_field_id'])) {
 			$this->data['action'] = $this->url->link('design/custom_field/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
-		} else { 
+		} else {
 			$this->data['action'] = $this->url->link('design/custom_field/update', 'token=' . $this->session->data['token'] . '&custom_field_id=' . $this->request->get['custom_field_id'] . $url, 'SSL');
 		}
 
@@ -424,7 +424,7 @@ class ControllerDesignCustomField extends Controller {
 			$this->data['custom_field_description'] = $this->model_design_custom_field->getCustomFieldDescriptions($this->request->get['custom_field_id']);
 		} else {
 			$this->data['custom_field_description'] = array();
-		}	
+		}
 
 		if (isset($this->request->post['type'])) {
 			$this->data['type'] = $this->request->post['type'];
@@ -464,7 +464,7 @@ class ControllerDesignCustomField extends Controller {
 			$this->data['position'] = $custom_field_info['position'];
 		} else {
 			$this->data['position'] = '';
-		}	
+		}
 
 		if (isset($this->request->post['sort_order'])) {
 			$this->data['sort_order'] = $this->request->post['sort_order'];
@@ -520,10 +520,10 @@ class ControllerDesignCustomField extends Controller {
 			foreach ($this->request->post['custom_field_value'] as $custom_field_value_id => $custom_field_value) {
 				foreach ($custom_field_value['custom_field_value_description'] as $language_id => $custom_field_value_description) {
 					if ((utf8_strlen($custom_field_value_description['name']) < 1) || (utf8_strlen($custom_field_value_description['name']) > 128)) {
-						$this->error['custom_field_value'][$custom_field_value_id][$language_id] = $this->language->get('error_custom_field_value'); 
-					}					
+						$this->error['custom_field_value'][$custom_field_value_id][$language_id] = $this->language->get('error_custom_field_value');
+					}
 				}
-			}	
+			}
 		}
 
 		if (!$this->error) {
@@ -553,6 +553,5 @@ class ControllerDesignCustomField extends Controller {
 		} else {
 			return false;
 		}
-	}	
+	}
 }
-?>

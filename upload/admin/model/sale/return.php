@@ -42,15 +42,15 @@ class ModelSaleReturn extends Model {
 
 		if (!empty($data['filter_product'])) {
 			$implode[] = "r.product = '" . $this->db->escape($data['filter_product']) . "'";
-		}	
+		}
 
 		if (!empty($data['filter_model'])) {
 			$implode[] = "r.model = '" . $this->db->escape($data['filter_model']) . "'";
-		}	
+		}
 
 		if (!empty($data['filter_return_status_id'])) {
 			$implode[] = "r.return_status_id = '" . (int)$data['filter_return_status_id'] . "'";
-		}	
+		}
 
 		if (!empty($data['filter_date_added'])) {
 			$implode[] = "DATE(r.date_added) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
@@ -73,12 +73,12 @@ class ModelSaleReturn extends Model {
 			'status',
 			'r.date_added',
 			'r.date_modified'
-		);	
+		);
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-			$sql .= " ORDER BY " . $data['sort'];	
+			$sql .= " ORDER BY " . $data['sort'];
 		} else {
-			$sql .= " ORDER BY r.return_id";	
+			$sql .= " ORDER BY r.return_id";
 		}
 
 		if (isset($data['order']) && ($data['order'] == 'DESC')) {
@@ -90,18 +90,18 @@ class ModelSaleReturn extends Model {
 		if (isset($data['start']) || isset($data['limit'])) {
 			if ($data['start'] < 0) {
 				$data['start'] = 0;
-			}			
+			}
 
 			if ($data['limit'] < 1) {
 				$data['limit'] = 20;
-			}	
+			}
 
 			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
-		}		
+		}
 
 		$query = $this->db->query($sql);
 
-		return $query->rows;	
+		return $query->rows;
 	}
 
 	public function getTotalReturns($data = array()) {
@@ -123,15 +123,15 @@ class ModelSaleReturn extends Model {
 
 		if (!empty($data['filter_product'])) {
 			$implode[] = "r.product = '" . $this->db->escape($data['filter_product']) . "'";
-		}	
+		}
 
 		if (!empty($data['filter_model'])) {
 			$implode[] = "r.model = '" . $this->db->escape($data['filter_model']) . "'";
-		}	
+		}
 
 		if (!empty($data['filter_return_status_id'])) {
 			$implode[] = "r.return_status_id = '" . (int)$data['filter_return_status_id'] . "'";
-		}	
+		}
 
 		if (!empty($data['filter_date_added'])) {
 			$implode[] = "DATE(r.date_added) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
@@ -154,19 +154,19 @@ class ModelSaleReturn extends Model {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "return` WHERE return_status_id = '" . (int)$return_status_id . "'");
 
 		return $query->row['total'];
-	}	
+	}
 
 	public function getTotalReturnsByReturnReasonId($return_reason_id) {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "return` WHERE return_reason_id = '" . (int)$return_reason_id . "'");
 
 		return $query->row['total'];
-	}	
+	}
 
 	public function getTotalReturnsByReturnActionId($return_action_id) {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "return` WHERE return_action_id = '" . (int)$return_action_id . "'");
 
 		return $query->row['total'];
-	}	
+	}
 
 	public function addReturnHistory($return_id, $data) {
 		$this->db->query("UPDATE `" . DB_PREFIX . "return` SET return_status_id = '" . (int)$data['return_status_id'] . "', date_modified = NOW() WHERE return_id = '" . (int)$return_id . "'");
@@ -218,23 +218,22 @@ class ModelSaleReturn extends Model {
 
 		if ($limit < 1) {
 			$limit = 10;
-		}	
+		}
 
 		$query = $this->db->query("SELECT rh.date_added, rs.name AS status, rh.comment, rh.notify FROM " . DB_PREFIX . "return_history rh LEFT JOIN " . DB_PREFIX . "return_status rs ON rh.return_status_id = rs.return_status_id WHERE rh.return_id = '" . (int)$return_id . "' AND rs.language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY rh.date_added ASC LIMIT " . (int)$start . "," . (int)$limit);
 
 		return $query->rows;
-	}	
+	}
 
 	public function getTotalReturnHistories($return_id) {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "return_history WHERE return_id = '" . (int)$return_id . "'");
 
 		return $query->row['total'];
-	}	
+	}
 
 	public function getTotalReturnHistoriesByReturnStatusId($return_status_id) {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "return_history WHERE return_status_id = '" . (int)$return_status_id . "' GROUP BY return_id");
 
 		return $query->row['total'];
-	}			
+	}
 }
-?>

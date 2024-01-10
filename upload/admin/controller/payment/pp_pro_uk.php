@@ -1,6 +1,6 @@
-<?php 
+<?php
 class ControllerPaymentPPProUK extends Controller {
-	private $error = array(); 
+	private $error = array();
 
 	public function index() {
 		$this->load->language('payment/pp_pro_uk');
@@ -10,7 +10,7 @@ class ControllerPaymentPPProUK extends Controller {
 		$this->load->model('setting/setting');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-			$this->model_setting_setting->editSetting('pp_pro_uk', $this->request->post);				
+			$this->model_setting_setting->editSetting('pp_pro_uk', $this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -32,8 +32,8 @@ class ControllerPaymentPPProUK extends Controller {
 		$this->data['entry_signature'] = $this->language->get('entry_signature');
 		$this->data['entry_test'] = $this->language->get('entry_test');
 		$this->data['entry_transaction'] = $this->language->get('entry_transaction');
-		$this->data['entry_total'] = $this->language->get('entry_total');	
-		$this->data['entry_order_status'] = $this->language->get('entry_order_status');		
+		$this->data['entry_total'] = $this->language->get('entry_total');
+		$this->data['entry_order_status'] = $this->language->get('entry_order_status');
 		$this->data['entry_geo_zone'] = $this->language->get('entry_geo_zone');
 		$this->data['entry_status'] = $this->language->get('entry_status');
 		$this->data['entry_sort_order'] = $this->language->get('entry_sort_order');
@@ -122,14 +122,14 @@ class ControllerPaymentPPProUK extends Controller {
 		if (isset($this->request->post['pp_pro_uk_total'])) {
 			$this->data['pp_pro_uk_total'] = $this->request->post['pp_pro_uk_total'];
 		} else {
-			$this->data['pp_pro_uk_total'] = $this->config->get('pp_pro_uk_total'); 
-		} 
+			$this->data['pp_pro_uk_total'] = $this->config->get('pp_pro_uk_total');
+		}
 
 		if (isset($this->request->post['pp_pro_uk_order_status_id'])) {
 			$this->data['pp_pro_uk_order_status_id'] = $this->request->post['pp_pro_uk_order_status_id'];
 		} else {
-			$this->data['pp_pro_uk_order_status_id'] = $this->config->get('pp_pro_uk_order_status_id'); 
-		} 
+			$this->data['pp_pro_uk_order_status_id'] = $this->config->get('pp_pro_uk_order_status_id');
+		}
 
 		$this->load->model('localisation/order_status');
 
@@ -138,8 +138,8 @@ class ControllerPaymentPPProUK extends Controller {
 		if (isset($this->request->post['pp_pro_uk_geo_zone_id'])) {
 			$this->data['pp_pro_uk_geo_zone_id'] = $this->request->post['pp_pro_uk_geo_zone_id'];
 		} else {
-			$this->data['pp_pro_uk_geo_zone_id'] = $this->config->get('pp_pro_uk_geo_zone_id'); 
-		} 
+			$this->data['pp_pro_uk_geo_zone_id'] = $this->config->get('pp_pro_uk_geo_zone_id');
+		}
 
 		$this->load->model('localisation/geo_zone');
 
@@ -187,7 +187,6 @@ class ControllerPaymentPPProUK extends Controller {
 			return true;
 		} else {
 			return false;
-		}	
+		}
 	}
 }
-?>

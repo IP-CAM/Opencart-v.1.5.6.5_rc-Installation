@@ -1,6 +1,6 @@
-<?php 
+<?php
 class ControllerPaymentSagepayUS extends Controller {
-	private $error = array(); 
+	private $error = array();
 
 	public function index() {
 		$this->language->load('payment/sagepay_us');
@@ -10,7 +10,7 @@ class ControllerPaymentSagepayUS extends Controller {
 		$this->load->model('setting/setting');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-			$this->model_setting_setting->editSetting('sagepay_us', $this->request->post);				
+			$this->model_setting_setting->editSetting('sagepay_us', $this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -25,8 +25,8 @@ class ControllerPaymentSagepayUS extends Controller {
 
 		$this->data['entry_merchant_id'] = $this->language->get('entry_merchant_id');
 		$this->data['entry_merchant_key'] = $this->language->get('entry_merchant_key');
-		$this->data['entry_total'] = $this->language->get('entry_total');	
-		$this->data['entry_order_status'] = $this->language->get('entry_order_status');		
+		$this->data['entry_total'] = $this->language->get('entry_total');
+		$this->data['entry_order_status'] = $this->language->get('entry_order_status');
 		$this->data['entry_geo_zone'] = $this->language->get('entry_geo_zone');
 		$this->data['entry_status'] = $this->language->get('entry_status');
 		$this->data['entry_sort_order'] = $this->language->get('entry_sort_order');
@@ -56,7 +56,7 @@ class ControllerPaymentSagepayUS extends Controller {
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_home'),
-			'href'      => $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL'),       		
+			'href'      => $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL'),
 			'separator' => false
 		);
 
@@ -91,14 +91,14 @@ class ControllerPaymentSagepayUS extends Controller {
 		if (isset($this->request->post['sagepay_us_total'])) {
 			$this->data['sagepay_us_total'] = $this->request->post['sagepay_us_total'];
 		} else {
-			$this->data['sagepay_us_total'] = $this->config->get('sagepay_us_total'); 
-		} 
+			$this->data['sagepay_us_total'] = $this->config->get('sagepay_us_total');
+		}
 
 		if (isset($this->request->post['sagepay_us_order_status_id'])) {
 			$this->data['sagepay_us_order_status_id'] = $this->request->post['sagepay_us_order_status_id'];
 		} else {
-			$this->data['sagepay_us_order_status_id'] = $this->config->get('sagepay_us_order_status_id'); 
-		} 
+			$this->data['sagepay_us_order_status_id'] = $this->config->get('sagepay_us_order_status_id');
+		}
 
 		$this->load->model('localisation/order_status');
 
@@ -107,8 +107,8 @@ class ControllerPaymentSagepayUS extends Controller {
 		if (isset($this->request->post['sagepay_us_geo_zone_id'])) {
 			$this->data['sagepay_us_geo_zone_id'] = $this->request->post['sagepay_us_geo_zone_id'];
 		} else {
-			$this->data['sagepay_us_geo_zone_id'] = $this->config->get('sagepay_us_geo_zone_id'); 
-		} 
+			$this->data['sagepay_us_geo_zone_id'] = $this->config->get('sagepay_us_geo_zone_id');
+		}
 
 		$this->load->model('localisation/geo_zone');
 
@@ -152,7 +152,6 @@ class ControllerPaymentSagepayUS extends Controller {
 			return true;
 		} else {
 			return false;
-		}	
+		}
 	}
 }
-?>

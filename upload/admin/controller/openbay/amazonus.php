@@ -59,19 +59,19 @@ class ControllerOpenbayAmazonus extends Controller {
 		$simpleXmlObj = simplexml_load_string($xml);
 		$this->data['tableData'] = array();
 
-		if($simpleXmlObj !== false) {
+		if ($simpleXmlObj !== false) {
 			$tableData = array();
 
-			foreach($simpleXmlObj->update as $updateNode) {
+			foreach ($simpleXmlObj->update as $updateNode) {
 				$row = array('date_requested' => (string)$updateNode->date_requested,
-					'date_updated' => (string)$updateNode->date_updated,
-					'status' => (string)$updateNode->status,
-					);
+					'date_updated'               => (string)$updateNode->date_updated,
+					'status'                     => (string)$updateNode->status,
+				);
 				$data = array();
-				foreach($updateNode->data->product as $productNode) {
+				foreach ($updateNode->data->product as $productNode) {
 					$data[] = array('sku' => (string)$productNode->sku,
-						'stock' => (int)$productNode->stock
-						);
+						'stock'              => (int)$productNode->stock
+					);
 				}
 				$row['data'] = $data;
 				$tableData[(int)$updateNode->ref] = $row;
@@ -89,7 +89,7 @@ class ControllerOpenbayAmazonus extends Controller {
 
 	public function index() {
 		$this->redirect($this->url->link('openbay/amazonus/overview', 'token=' . $this->session->data['token'], 'SSL'));
-		return;
+
 	}
 
 	public function overview() {
@@ -185,12 +185,12 @@ class ControllerOpenbayAmazonus extends Controller {
 		if ($response) {
 			foreach ($response->Plan as $plan) {
 				$plans[] = array(
-					'title' => (string)$plan->Title,
-					'description' => (string)$plan->Description,
-					'order_frequency' => (string)$plan->OrderFrequency,
+					'title'            => (string)$plan->Title,
+					'description'      => (string)$plan->Description,
+					'order_frequency'  => (string)$plan->OrderFrequency,
 					'product_listings' => (string)$plan->ProductListings,
-					'bulk_listing' => (string)$plan->BulkListing,
-					'price' => (string)$plan->Price,
+					'bulk_listing'     => (string)$plan->BulkListing,
+					'price'            => (string)$plan->Price,
 				);
 			}
 		}
@@ -203,16 +203,16 @@ class ControllerOpenbayAmazonus extends Controller {
 
 		if ($response) {
 			$plan = array(
-				'merchant_id' => (string)$response->MerchantId,
-				'user_status' => (string)$response->UserStatus,
-				'title' => (string)$response->Title,
-				'description' => (string)$response->Description,
-				'price' => (string)$response->Price,
-				'order_frequency' => (string)$response->OrderFrequency,
-				'product_listings' => (string)$response->ProductListings,
-				'listings_remain' => (string)$response->ListingsRemain,
+				'merchant_id'       => (string)$response->MerchantId,
+				'user_status'       => (string)$response->UserStatus,
+				'title'             => (string)$response->Title,
+				'description'       => (string)$response->Description,
+				'price'             => (string)$response->Price,
+				'order_frequency'   => (string)$response->OrderFrequency,
+				'product_listings'  => (string)$response->ProductListings,
+				'listings_remain'   => (string)$response->ListingsRemain,
 				'listings_reserved' => (string)$response->ListingsReserved,
-				'bulk_listing' => (string)$response->BulkListing,
+				'bulk_listing'      => (string)$response->BulkListing,
 			);
 		}
 
@@ -263,6 +263,7 @@ class ControllerOpenbayAmazonus extends Controller {
 
 			$this->session->data['success'] = $this->language->get('lang_setttings_updated');
 			$this->redirect($this->url->link('openbay/amazonus/overview', 'token=' . $this->session->data['token'], 'SSL'));
+
 			return;
 		}
 
@@ -291,11 +292,8 @@ class ControllerOpenbayAmazonus extends Controller {
 			'separator' => ' :: '
 		);
 
-		$this->data['marketplace_ids']                  = (isset($settings['openbay_amazonus_orders_marketplace_ids']) ? (array)$settings['openbay_amazonus_orders_marketplace_ids'] : array() );
-		$this->data['default_listing_marketplace_ids']  = ( isset($settings['openbay_amazonus_default_listing_marketplace_ids']) ? (array)$settings['openbay_amazonus_default_listing_marketplace_ids'] : array() );
-
-
-
+		$this->data['marketplace_ids']                  = (isset($settings['openbay_amazonus_orders_marketplace_ids']) ? (array)$settings['openbay_amazonus_orders_marketplace_ids'] : array());
+		$this->data['default_listing_marketplace_ids']  = (isset($settings['openbay_amazonus_default_listing_marketplace_ids']) ? (array)$settings['openbay_amazonus_default_listing_marketplace_ids'] : array());
 
 		$this->data['marketplaces'] = array(
 			array('name' => $this->language->get('lang_de'), 'id' => 'A1PA6795UKMFR9', 'code' => 'de'),
@@ -306,44 +304,44 @@ class ControllerOpenbayAmazonus extends Controller {
 		);
 
 		$this->data['conditions'] = array(
-			'New' => $this->language->get('text_new'),
-			'UsedLikeNew' => $this->language->get('text_used_like_new'),
-			'UsedVeryGood' => $this->language->get('text_used_very_good'),
-			'UsedGood' => $this->language->get('text_used_good'),
-			'UsedAcceptable' => $this->language->get('text_used_acceptable'),
-			'CollectibleLikeNew' => $this->language->get('text_collectible_like_new'),
-			'CollectibleVeryGood' => $this->language->get('text_collectible_very_good'),
-			'CollectibleGood' => $this->language->get('text_collectible_good'),
+			'New'                   => $this->language->get('text_new'),
+			'UsedLikeNew'           => $this->language->get('text_used_like_new'),
+			'UsedVeryGood'          => $this->language->get('text_used_very_good'),
+			'UsedGood'              => $this->language->get('text_used_good'),
+			'UsedAcceptable'        => $this->language->get('text_used_acceptable'),
+			'CollectibleLikeNew'    => $this->language->get('text_collectible_like_new'),
+			'CollectibleVeryGood'   => $this->language->get('text_collectible_very_good'),
+			'CollectibleGood'       => $this->language->get('text_collectible_good'),
 			'CollectibleAcceptable' => $this->language->get('text_collectible_acceptable'),
-			'Refurbished' => $this->language->get('text_refurbished'),
+			'Refurbished'           => $this->language->get('text_refurbished'),
 		);
 
-		$this->data['is_enabled'] = isset($settings['amazonus_status']) ? $settings['amazonus_status'] : '';
-		$this->data['openbay_amazonus_token'] = isset($settings['openbay_amazonus_token']) ? $settings['openbay_amazonus_token'] : '';
-		$this->data['openbay_amazonus_enc_string1'] = isset($settings['openbay_amazonus_enc_string1']) ? $settings['openbay_amazonus_enc_string1'] : '';
-		$this->data['openbay_amazonus_enc_string2'] = isset($settings['openbay_amazonus_enc_string2']) ? $settings['openbay_amazonus_enc_string2'] : '';
-		$this->data['openbay_amazonus_listing_tax_added'] = isset($settings['openbay_amazonus_listing_tax_added']) ? $settings['openbay_amazonus_listing_tax_added'] : '0.00';
-		$this->data['openbay_amazonus_order_tax'] = isset($settings['openbay_amazonus_order_tax']) ? $settings['openbay_amazonus_order_tax'] : '00';
-		$this->data['openbay_amazonus_default_listing_marketplace'] = isset($settings['openbay_amazonus_default_listing_marketplace']) ? $settings['openbay_amazonus_default_listing_marketplace'] : '';
-		$this->data['openbay_amazonus_listing_default_condition'] = isset($settings['openbay_amazonus_listing_default_condition']) ? $settings['openbay_amazonus_listing_default_condition'] : '';
+		$this->data['is_enabled'] = $settings['amazonus_status'] ?? '';
+		$this->data['openbay_amazonus_token'] = $settings['openbay_amazonus_token'] ?? '';
+		$this->data['openbay_amazonus_enc_string1'] = $settings['openbay_amazonus_enc_string1'] ?? '';
+		$this->data['openbay_amazonus_enc_string2'] = $settings['openbay_amazonus_enc_string2'] ?? '';
+		$this->data['openbay_amazonus_listing_tax_added'] = $settings['openbay_amazonus_listing_tax_added'] ?? '0.00';
+		$this->data['openbay_amazonus_order_tax'] = $settings['openbay_amazonus_order_tax'] ?? '00';
+		$this->data['openbay_amazonus_default_listing_marketplace'] = $settings['openbay_amazonus_default_listing_marketplace'] ?? '';
+		$this->data['openbay_amazonus_listing_default_condition'] = $settings['openbay_amazonus_listing_default_condition'] ?? '';
 
 		$this->data['carriers'] = $this->openbay->amazonus->getCarriers();
-		$this->data['openbay_amazonus_default_carrier'] = isset($settings['openbay_amazonus_default_carrier']) ? $settings['openbay_amazonus_default_carrier'] : '';
+		$this->data['openbay_amazonus_default_carrier'] = $settings['openbay_amazonus_default_carrier'] ?? '';
 
-		$unshippedStatusId = isset($settings['openbay_amazonus_order_status_unshipped']) ? $settings['openbay_amazonus_order_status_unshipped'] : '';
-		$partiallyShippedStatusId = isset($settings['openbay_amazonus_order_status_partially_shipped']) ? $settings['openbay_amazonus_order_status_partially_shipped'] : '';
-		$shippedStatusId = isset($settings['openbay_amazonus_order_status_shipped']) ? $settings['openbay_amazonus_order_status_shipped'] : '';
-		$canceledStatusId = isset($settings['openbay_amazonus_order_status_canceled']) ? $settings['openbay_amazonus_order_status_canceled'] : '';
+		$unshippedStatusId = $settings['openbay_amazonus_order_status_unshipped'] ?? '';
+		$partiallyShippedStatusId = $settings['openbay_amazonus_order_status_partially_shipped'] ?? '';
+		$shippedStatusId = $settings['openbay_amazonus_order_status_shipped'] ?? '';
+		$canceledStatusId = $settings['openbay_amazonus_order_status_canceled'] ?? '';
 
 		$amazonusOrderStatuses = array(
-			'unshipped' => array('name' => $this->language->get('lang_unshipped'), 'order_status_id' => $unshippedStatusId),
+			'unshipped'         => array('name' => $this->language->get('lang_unshipped'), 'order_status_id' => $unshippedStatusId),
 			'partially_shipped' => array('name' => $this->language->get('lang_partially_shipped'), 'order_status_id' => $partiallyShippedStatusId),
-			'shipped' => array('name' => $this->language->get('lang_shipped'), 'order_status_id' => $shippedStatusId),
-			'canceled' => array('name' => $this->language->get('lang_canceled'), 'order_status_id' => $canceledStatusId),
+			'shipped'           => array('name' => $this->language->get('lang_shipped'), 'order_status_id' => $shippedStatusId),
+			'canceled'          => array('name' => $this->language->get('lang_canceled'), 'order_status_id' => $canceledStatusId),
 		);
 
 		$this->data['customer_groups'] = $this->model_sale_customer_group->getCustomerGroups();
-		$this->data['openbay_amazonus_order_customer_group'] = isset($settings['openbay_amazonus_order_customer_group']) ? $settings['openbay_amazonus_order_customer_group'] : '';
+		$this->data['openbay_amazonus_order_customer_group'] = $settings['openbay_amazonus_order_customer_group'] ?? '';
 
 		$this->data['amazonus_order_statuses'] = $amazonusOrderStatuses;
 		$this->data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
@@ -351,8 +349,7 @@ class ControllerOpenbayAmazonus extends Controller {
 		$this->data['subscription_url'] = $this->url->link('openbay/amazonus/subscription', 'token=' . $this->session->data['token'], 'SSL');
 		$this->data['itemLinks_url'] = $this->url->link('openbay/amazonus_product/linkItems', 'token=' . $this->session->data['token'], 'SSL');
 
-		$this->data['openbay_amazonus_notify_admin'] = isset($settings['openbay_amazonus_notify_admin']) ? $settings['openbay_amazonus_notify_admin'] : '';
-
+		$this->data['openbay_amazonus_notify_admin'] = $settings['openbay_amazonus_notify_admin'] ?? '';
 
 		$this->template = 'openbay/amazonus_settings.tpl';
 		$this->children = array(
@@ -364,7 +361,7 @@ class ControllerOpenbayAmazonus extends Controller {
 
 		$api_status = false;
 		$api_auth = false;
-		if($pingInfo) {
+		if ($pingInfo) {
 			$api_status = ((string)$pingInfo->Api_status == 'ok') ? true : false;
 			$api_auth = ((string)$pingInfo->Auth == 'true') ? true : false;
 		}
@@ -376,7 +373,7 @@ class ControllerOpenbayAmazonus extends Controller {
 
 	}
 
-	private function is_serialized( $data ) {
+	private function is_serialized($data) {
 		// if it isn't a string, it isn't serialized
 		if (!is_string($data)) {
 			return false;
@@ -389,21 +386,22 @@ class ControllerOpenbayAmazonus extends Controller {
 			return false;
 		}
 		switch ($badions[1]) {
-			case 'a' :
-			case 'O' :
-			case 's' :
-				if (preg_match("/^{$badions[1]}:[0-9]+:.*[;}]\$/s", $data)) {
-					return true;
-				}
+			case 'a'
+			:case 'O'
+			:case 's'
+			:if (preg_match("/^{$badions[1]}:[0-9]+:.*[;}]\$/s", $data)) {
+				return true;
+			}
 				break;
-			case 'b' :
-			case 'i' :
-			case 'd' :
-				if (preg_match("/^{$badions[1]}:[0-9.E-]+;\$/", $data)) {
-					return true;
-				}
+			case 'b'
+			:case 'i'
+			:case 'd'
+			:if (preg_match("/^{$badions[1]}:[0-9.E-]+;\$/", $data)) {
+				return true;
+			}
 				break;
 		}
+
 		return false;
 	}
 
@@ -499,15 +497,15 @@ class ControllerOpenbayAmazonus extends Controller {
 
 		$this->data['saved_products'] = array();
 
-		foreach($saved_products as $saved_product) {
+		foreach ($saved_products as $saved_product) {
 			$this->data['saved_products'][] = array(
-				'product_id' => $saved_product['product_id'],
-				'product_name' => $saved_product['product_name'],
+				'product_id'    => $saved_product['product_id'],
+				'product_name'  => $saved_product['product_name'],
 				'product_model' => $saved_product['product_model'],
-				'product_sku' => $saved_product['product_sku'],
-				'amazonus_sku' => $saved_product['amazonus_sku'],
-				'var' => $saved_product['var'],
-				'edit_link' => $this->url->link('openbay/amazonus_product', 'token=' . $this->session->data['token'] . '&product_id=' . $saved_product['product_id'] . '&var=' . $saved_product['var'], 'SSL'),
+				'product_sku'   => $saved_product['product_sku'],
+				'amazonus_sku'  => $saved_product['amazonus_sku'],
+				'var'           => $saved_product['var'],
+				'edit_link'     => $this->url->link('openbay/amazonus_product', 'token=' . $this->session->data['token'] . '&product_id=' . $saved_product['product_id'] . '&var=' . $saved_product['var'], 'SSL'),
 			);
 		}
 
@@ -541,11 +539,7 @@ class ControllerOpenbayAmazonus extends Controller {
 			$this->error = $this->language->get('error_permission');
 		}
 
-		if (empty($this->error)) {
-			return true;
-		}
-
-		return false;
+		return (bool)(empty($this->error));
 	}
 
 	public function getOpenstockOptionsAjax() {
@@ -555,7 +549,7 @@ class ControllerOpenbayAmazonus extends Controller {
 			$this->load->model('tool/image');
 			$options = $this->model_openstock_openstock->getProductOptionStocks($this->request->get['product_id']);
 		}
-		if(empty($options)) {
+		if (empty($options)) {
 			$options = false;
 		}
 		$this->response->setOutput(json_encode($options));
@@ -563,15 +557,15 @@ class ControllerOpenbayAmazonus extends Controller {
 
 	public function addItemLinkAjax() {
 
-
-		if(isset($this->request->get['product_id']) && isset($this->request->get['amazonus_sku'])) {
+		if (isset($this->request->get['product_id']) && isset($this->request->get['amazonus_sku'])) {
 			$amazonus_sku = $this->request->get['amazonus_sku'];
 			$product_id = $this->request->get['product_id'];
-			$var = isset($this->request->get['var']) ? $this->request->get['var'] : '';
+			$var = $this->request->get['var'] ?? '';
 
 		} else {
 			$result = json_encode('error');
 			$this->response->setOutput($result);
+
 			return;
 		}
 		$this->load->model('openbay/amazonus');
@@ -580,19 +574,19 @@ class ControllerOpenbayAmazonus extends Controller {
 		$logger = new Log('amazonus_stocks.log');
 		$logger->write('addItemLink() called for product id: ' . $product_id . ', amazonus sku: ' . $amazonus_sku . ', var: ' . $var);
 
-		if($var != '' && $this->openbay->addonLoad('openstock')) {
+		if ($var != '' && $this->openbay->addonLoad('openstock')) {
 			$logger->write('Using openStock');
 			$this->load->model('tool/image');
 			$this->load->model('openstock/openstock');
 			$optionStocks = $this->model_openstock_openstock->getProductOptionStocks($product_id);
 			$quantityData = array();
-			foreach($optionStocks as $optionStock) {
-				if(isset($optionStock['var']) && $optionStock['var'] == $var) {
+			foreach ($optionStocks as $optionStock) {
+				if (isset($optionStock['var']) && $optionStock['var'] == $var) {
 					$quantityData[$amazonus_sku] = $optionStock['stock'];
 					break;
 				}
 			}
-			if(!empty($quantityData)) {
+			if (!empty($quantityData)) {
 				$logger->write('Updating quantities with data: ' . print_r($quantityData, true));
 				$this->openbay->amazonus->updateQuantities($quantityData);
 			} else {
@@ -609,12 +603,12 @@ class ControllerOpenbayAmazonus extends Controller {
 
 	public function removeItemLinkAjax() {
 
-
-		if(isset($this->request->get['amazonus_sku'])) {
+		if (isset($this->request->get['amazonus_sku'])) {
 			$amazonus_sku = $this->request->get['amazonus_sku'];
 		} else {
 			$result = json_encode('error');
 			$this->response->setOutput($result);
+
 			return;
 		}
 		$this->load->model('openbay/amazonus');
@@ -627,7 +621,6 @@ class ControllerOpenbayAmazonus extends Controller {
 
 	public function getItemLinksAjax() {
 
-
 		$this->load->model('openbay/amazonus');
 		$this->load->model('catalog/product');
 
@@ -638,7 +631,6 @@ class ControllerOpenbayAmazonus extends Controller {
 
 	public function getUnlinkedItemsAjax() {
 
-
 		$this->load->model('openbay/amazonus');
 		$this->load->model('catalog/product');
 
@@ -648,7 +640,7 @@ class ControllerOpenbayAmazonus extends Controller {
 	}
 
 	public function deleteSavedAjax() {
-		if(!isset($this->request->get['product_id']) || !isset($this->request->get['var'])) {
+		if (!isset($this->request->get['product_id']) || !isset($this->request->get['var'])) {
 			return;
 		}
 
@@ -710,7 +702,7 @@ class ControllerOpenbayAmazonus extends Controller {
 			}
 
 			$json = array(
-				'status' => $status,
+				'status'  => $status,
 				'message' => $message,
 			);
 		}
@@ -719,7 +711,6 @@ class ControllerOpenbayAmazonus extends Controller {
 	}
 
 	public function doBulkSearch() {
-
 
 		$this->load->model('catalog/product');
 		$this->load->model('openbay/amazonus_listing');
@@ -758,7 +749,7 @@ class ControllerOpenbayAmazonus extends Controller {
 				if (!isset($json[$product_id])) {
 					$search_data[$key][] = array(
 						'product_id' => $product['product_id'],
-						'value' => trim($product[$id_type]),
+						'value'      => trim($product[$id_type]),
 					);
 
 					$json[$product_id] = array(
@@ -826,16 +817,16 @@ class ControllerOpenbayAmazonus extends Controller {
 
 			$this->data['default_condition'] = $this->config->get('openbay_amazonus_listing_default_condition');
 			$this->data['conditions'] = array(
-				'New' => $this->language->get('text_new'),
-				'UsedLikeNew' => $this->language->get('text_used_like_new'),
-				'UsedVeryGood' => $this->language->get('text_used_very_good'),
-				'UsedGood' => $this->language->get('text_used_good'),
-				'UsedAcceptable' => $this->language->get('text_used_acceptable'),
-				'CollectibleLikeNew' => $this->language->get('text_collectible_like_new'),
-				'CollectibleVeryGood' => $this->language->get('text_collectible_very_good'),
-				'CollectibleGood' => $this->language->get('text_collectible_good'),
+				'New'                   => $this->language->get('text_new'),
+				'UsedLikeNew'           => $this->language->get('text_used_like_new'),
+				'UsedVeryGood'          => $this->language->get('text_used_very_good'),
+				'UsedGood'              => $this->language->get('text_used_good'),
+				'UsedAcceptable'        => $this->language->get('text_used_acceptable'),
+				'CollectibleLikeNew'    => $this->language->get('text_collectible_like_new'),
+				'CollectibleVeryGood'   => $this->language->get('text_collectible_very_good'),
+				'CollectibleGood'       => $this->language->get('text_collectible_good'),
 				'CollectibleAcceptable' => $this->language->get('text_collectible_acceptable'),
-				'Refurbished' => $this->language->get('text_refurbished'),
+				'Refurbished'           => $this->language->get('text_refurbished'),
 			);
 
 			if (!empty($this->request->get['page'])) {
@@ -865,7 +856,7 @@ class ControllerOpenbayAmazonus extends Controller {
 
 				if ($result['status'] == 'searching') {
 					$search_status = $this->language->get('text_searching');
-				} else if ($result['status'] == 'finished') {
+				} elseif ($result['status'] == 'finished') {
 					$search_status = $this->language->get('text_finished');
 				} else {
 					$search_status = '-';
@@ -882,20 +873,20 @@ class ControllerOpenbayAmazonus extends Controller {
 
 						$search_results[] = array(
 							'title' => $search_result['title'],
-							'asin' => $search_result['asin'],
-							'href' => $link,
+							'asin'  => $search_result['asin'],
+							'href'  => $link,
 						);
 					}
 				}
 
 				$this->data['products'][] = array(
-					'product_id' => $product['product_id'],
-					'href' => $href,
-					'name' => $product['name'],
-					'model' => $product['model'],
-					'image' => $image,
-					'matches' => $result['matches'],
-					'search_status' => $search_status,
+					'product_id'     => $product['product_id'],
+					'href'           => $href,
+					'name'           => $product['name'],
+					'model'          => $product['model'],
+					'image'          => $image,
+					'matches'        => $result['matches'],
+					'search_status'  => $search_status,
 					'search_results' => $search_results,
 				);
 			}
@@ -968,15 +959,15 @@ class ControllerOpenbayAmazonus extends Controller {
 
 		$total_linked = $this->model_openbay_amazonus->getTotalUnlinkedItemsFromReport();
 
-		if(isset($this->request->get['linked_item_page'])){
+		if (isset($this->request->get['linked_item_page'])) {
 			$linked_item_page = (int)$this->request->get['linked_item_page'];
-		}else{
+		} else {
 			$linked_item_page = 1;
 		}
 
-		if(isset($this->request->get['linked_item_limit'])){
+		if (isset($this->request->get['linked_item_limit'])) {
 			$linked_item_limit = (int)$this->request->get['linked_item_limit'];
-		}else{
+		} else {
 			$linked_item_limit = 25;
 		}
 
@@ -995,18 +986,18 @@ class ControllerOpenbayAmazonus extends Controller {
 
 		foreach ($results as $result) {
 			$products[] = array(
-				'asin' => $result['asin'],
-				'href_amazon' => 'https://www.amazon.com/dp/' . $result['asin'] . '/',
-				'amazon_sku' => $result['amazon_sku'],
+				'asin'            => $result['asin'],
+				'href_amazon'     => 'https://www.amazon.com/dp/' . $result['asin'] . '/',
+				'amazon_sku'      => $result['amazon_sku'],
 				'amazon_quantity' => $result['amazon_quantity'],
-				'amazon_price' => $result['amazon_price'],
-				'name' => $result['name'],
-				'sku' => $result['sku'],
-				'quantity' => $result['quantity'],
-				'combination' => $result['combination'],
-				'product_id' => $result['product_id'],
-				'var' => $result['var'],
-				'href_product' => $this->url->link('catalog/product/update', 'token=' . $this->session->data['token'] . '&product_id=' . $result['product_id'], 'SSL'),
+				'amazon_price'    => $result['amazon_price'],
+				'name'            => $result['name'],
+				'sku'             => $result['sku'],
+				'quantity'        => $result['quantity'],
+				'combination'     => $result['combination'],
+				'product_id'      => $result['product_id'],
+				'var'             => $result['var'],
+				'href_product'    => $this->url->link('catalog/product/update', 'token=' . $this->session->data['token'] . '&product_id=' . $result['product_id'], 'SSL'),
 			);
 		}
 
@@ -1022,7 +1013,6 @@ class ControllerOpenbayAmazonus extends Controller {
 	}
 
 	public function loadListingReport() {
-
 
 		$this->load->model('openbay/amazonus');
 		$this->load->model('setting/setting');
@@ -1079,4 +1069,3 @@ class ControllerOpenbayAmazonus extends Controller {
 		}
 	}
 }
-?>

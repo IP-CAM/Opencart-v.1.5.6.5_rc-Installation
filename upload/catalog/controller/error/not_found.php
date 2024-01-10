@@ -1,6 +1,6 @@
-<?php   
+<?php
 class ControllerErrorNotFound extends Controller {
-	public function index() {		
+	public function index() {
 		$this->language->load('error/not_found');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -26,7 +26,7 @@ class ControllerErrorNotFound extends Controller {
 
 			if ($data) {
 				$url = '&' . urldecode(http_build_query($data, '', '&'));
-			}	
+			}
 
 			if (isset($this->request->server['https']) && (($this->request->server['https'] == 'on') || ($this->request->server['https'] == '1'))) {
 				$connection = 'ssl';
@@ -69,4 +69,3 @@ class ControllerErrorNotFound extends Controller {
 		$this->response->setoutput($this->render());
 	}
 }
-?>

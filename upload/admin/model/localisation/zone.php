@@ -15,7 +15,7 @@ class ModelLocalisationZone extends Model {
 	public function deleteZone($zone_id) {
 		$this->db->query("DELETE FROM " . DB_PREFIX . "zone WHERE zone_id = '" . (int)$zone_id . "'");
 
-		$this->cache->delete('zone');	
+		$this->cache->delete('zone');
 	}
 
 	public function getZone($zone_id) {
@@ -31,12 +31,12 @@ class ModelLocalisationZone extends Model {
 			'c.name',
 			'z.name',
 			'z.code'
-		);	
+		);
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-			$sql .= " ORDER BY " . $data['sort'];	
+			$sql .= " ORDER BY " . $data['sort'];
 		} else {
-			$sql .= " ORDER BY c.name";	
+			$sql .= " ORDER BY c.name";
 		}
 
 		if (isset($data['order']) && ($data['order'] == 'DESC')) {
@@ -48,11 +48,11 @@ class ModelLocalisationZone extends Model {
 		if (isset($data['start']) || isset($data['limit'])) {
 			if ($data['start'] < 0) {
 				$data['start'] = 0;
-			}		
+			}
 
 			if ($data['limit'] < 1) {
 				$data['limit'] = 20;
-			}	
+			}
 
 			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
 		}
@@ -88,4 +88,3 @@ class ModelLocalisationZone extends Model {
 		return $query->row['total'];
 	}
 }
-?>

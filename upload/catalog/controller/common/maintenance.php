@@ -9,7 +9,7 @@ class ControllerCommonMaintenance extends Controller {
 
 				if (isset($part[0])) {
 					$route .= $part[0];
-				}			
+				}
 			}
 
 			// Show site if logged in as admin
@@ -19,7 +19,7 @@ class ControllerCommonMaintenance extends Controller {
 
 			if (($route != 'payment') && !$this->user->isLogged()) {
 				return $this->forward('common/maintenance/info');
-			}						
+			}
 		}
 	}
 
@@ -54,4 +54,3 @@ class ControllerCommonMaintenance extends Controller {
 		$this->response->setOutput($this->render());
 	}
 }
-?>

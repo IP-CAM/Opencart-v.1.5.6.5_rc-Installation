@@ -1,8 +1,8 @@
-<?php 
-class ControllerToolBackup extends Controller { 
+<?php
+class ControllerToolBackup extends Controller {
 	private $error = array();
 
-	public function index() {		
+	public function index() {
 		$this->language->load('tool/backup');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -60,7 +60,7 @@ class ControllerToolBackup extends Controller {
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_home'),
-			'href'      => $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL'),     		
+			'href'      => $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL'),
 			'separator' => false
 		);
 
@@ -97,7 +97,7 @@ class ControllerToolBackup extends Controller {
 			$this->response->addheader('Expires: 0');
 			$this->response->addheader('Content-Description: File Transfer');
 			$this->response->addheader('Content-Type: application/octet-stream');
-			$this->response->addheader('Content-Disposition: attachment; filename=' . date('Y-m-d_H-i-s', time()).'_backup.sql');
+			$this->response->addheader('Content-Disposition: attachment; filename=' . date('Y-m-d_H-i-s', time()) . '_backup.sql');
 			$this->response->addheader('Content-Transfer-Encoding: binary');
 
 			$this->load->model('tool/backup');
@@ -106,8 +106,7 @@ class ControllerToolBackup extends Controller {
 		} else {
 			$this->session->data['error'] = $this->language->get('error_permission');
 
-			$this->redirect($this->url->link('tool/backup', 'token=' . $this->session->data['token'], 'SSL'));			
+			$this->redirect($this->url->link('tool/backup', 'token=' . $this->session->data['token'], 'SSL'));
 		}
 	}
 }
-?>

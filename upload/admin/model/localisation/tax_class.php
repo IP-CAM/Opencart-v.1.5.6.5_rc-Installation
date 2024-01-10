@@ -1,4 +1,4 @@
-<?php 
+<?php
 class ModelLocalisationTaxClass extends Model {
 	public function addTaxClass($data) {
 		$this->db->query("INSERT INTO " . DB_PREFIX . "tax_class SET title = '" . $this->db->escape($data['title']) . "', description = '" . $this->db->escape($data['description']) . "', date_added = NOW()");
@@ -45,7 +45,7 @@ class ModelLocalisationTaxClass extends Model {
 		if ($data) {
 			$sql = "SELECT * FROM " . DB_PREFIX . "tax_class";
 
-			$sql .= " ORDER BY title";	
+			$sql .= " ORDER BY title";
 
 			if (isset($data['order']) && ($data['order'] == 'DESC')) {
 				$sql .= " DESC";
@@ -56,18 +56,18 @@ class ModelLocalisationTaxClass extends Model {
 			if (isset($data['start']) || isset($data['limit'])) {
 				if ($data['start'] < 0) {
 					$data['start'] = 0;
-				}					
+				}
 
 				if ($data['limit'] < 1) {
 					$data['limit'] = 20;
-				}	
+				}
 
 				$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
 			}
 
 			$query = $this->db->query($sql);
 
-			return $query->rows;		
+			return $query->rows;
 		} else {
 			$tax_class_data = $this->cache->get('tax_class');
 
@@ -79,7 +79,7 @@ class ModelLocalisationTaxClass extends Model {
 				$this->cache->set('tax_class', $tax_class_data);
 			}
 
-			return $tax_class_data;			
+			return $tax_class_data;
 		}
 	}
 
@@ -87,7 +87,7 @@ class ModelLocalisationTaxClass extends Model {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "tax_class");
 
 		return $query->row['total'];
-	}	
+	}
 
 	public function getTaxRules($tax_class_id) {
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "tax_rule WHERE tax_class_id = '" . (int)$tax_class_id . "'");
@@ -99,6 +99,5 @@ class ModelLocalisationTaxClass extends Model {
 		$query = $this->db->query("SELECT COUNT(DISTINCT tax_class_id) AS total FROM " . DB_PREFIX . "tax_rule WHERE tax_rate_id = '" . (int)$tax_rate_id . "'");
 
 		return $query->row['total'];
-	}		
+	}
 }
-?>

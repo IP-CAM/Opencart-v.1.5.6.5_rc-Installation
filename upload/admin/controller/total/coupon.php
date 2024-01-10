@@ -1,8 +1,8 @@
 <?php
 class ControllerTotalCoupon extends Controller {
-	private $error = array(); 
+	private $error = array();
 
-	public function index() { 
+	public function index() {
 		$this->language->load('total/coupon');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -88,7 +88,6 @@ class ControllerTotalCoupon extends Controller {
 			return true;
 		} else {
 			return false;
-		}	
+		}
 	}
 }
-?>

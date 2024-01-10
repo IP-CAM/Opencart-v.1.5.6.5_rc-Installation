@@ -182,8 +182,8 @@ class ControllerProductCategory extends Controller {
 				);
 
 				$this->data['categories'][] = array(
-					'name'  => $result['name'] . ($this->config->get('config_product_count') ? ' (' . $this->model_catalog_product->getTotalProducts($data) . ')' : ''),
-					'href'  => $this->url->link('product/category', 'path=' . $this->request->get['path'] . '_' . $result['category_id'] . $url)
+					'name' => $result['name'] . ($this->config->get('config_product_count') ? ' (' . $this->model_catalog_product->getTotalProducts($data) . ')' : ''),
+					'href' => $this->url->link('product/category', 'path=' . $this->request->get['path'] . '_' . $result['category_id'] . $url)
 				);
 			}
 
@@ -335,7 +335,7 @@ class ControllerProductCategory extends Controller {
 
 			sort($limits);
 
-			foreach($limits as $value){
+			foreach ($limits as $value) {
 				$this->data['limits'][] = array(
 					'text'  => $value,
 					'value' => $value,
@@ -456,4 +456,3 @@ class ControllerProductCategory extends Controller {
 		}
 	}
 }
-?>

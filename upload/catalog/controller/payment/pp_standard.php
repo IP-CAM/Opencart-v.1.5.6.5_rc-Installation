@@ -3,7 +3,7 @@ class ControllerPaymentPPStandard extends Controller {
 	protected function index() {
 		$this->language->load('payment/pp_standard');
 
-		$this->data['text_testmode'] = $this->language->get('text_testmode');		
+		$this->data['text_testmode'] = $this->language->get('text_testmode');
 
 		$this->data['button_confirm'] = $this->language->get('button_confirm');
 
@@ -21,7 +21,7 @@ class ControllerPaymentPPStandard extends Controller {
 
 		if ($order_info) {
 			$this->data['business'] = $this->config->get('pp_standard_email');
-			$this->data['item_name'] = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');				
+			$this->data['item_name'] = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
 
 			$this->data['products'] = array();
 
@@ -30,7 +30,7 @@ class ControllerPaymentPPStandard extends Controller {
 
 				foreach ($product['option'] as $option) {
 					if ($option['type'] != 'file') {
-						$value = $option['option_value'];	
+						$value = $option['option_value'];
 					} else {
 						$filename = $this->encryption->decrypt($option['option_value']);
 
@@ -51,7 +51,7 @@ class ControllerPaymentPPStandard extends Controller {
 					'option'   => $option_data,
 					'weight'   => $product['weight']
 				);
-			}	
+			}
 
 			$this->data['discount_amount_cart'] = 0;
 
@@ -65,18 +65,18 @@ class ControllerPaymentPPStandard extends Controller {
 					'quantity' => 1,
 					'option'   => array(),
 					'weight'   => 0
-				);	
+				);
 			} else {
 				$this->data['discount_amount_cart'] -= $total;
 			}
 
 			$this->data['currency_code'] = $order_info['currency_code'];
-			$this->data['first_name'] = html_entity_decode($order_info['payment_firstname'], ENT_QUOTES, 'UTF-8');	
-			$this->data['last_name'] = html_entity_decode($order_info['payment_lastname'], ENT_QUOTES, 'UTF-8');	
-			$this->data['address1'] = html_entity_decode($order_info['payment_address_1'], ENT_QUOTES, 'UTF-8');	
-			$this->data['address2'] = html_entity_decode($order_info['payment_address_2'], ENT_QUOTES, 'UTF-8');	
-			$this->data['city'] = html_entity_decode($order_info['payment_city'], ENT_QUOTES, 'UTF-8');	
-			$this->data['zip'] = html_entity_decode($order_info['payment_postcode'], ENT_QUOTES, 'UTF-8');	
+			$this->data['first_name'] = html_entity_decode($order_info['payment_firstname'], ENT_QUOTES, 'UTF-8');
+			$this->data['last_name'] = html_entity_decode($order_info['payment_lastname'], ENT_QUOTES, 'UTF-8');
+			$this->data['address1'] = html_entity_decode($order_info['payment_address_1'], ENT_QUOTES, 'UTF-8');
+			$this->data['address2'] = html_entity_decode($order_info['payment_address_2'], ENT_QUOTES, 'UTF-8');
+			$this->data['city'] = html_entity_decode($order_info['payment_city'], ENT_QUOTES, 'UTF-8');
+			$this->data['zip'] = html_entity_decode($order_info['payment_postcode'], ENT_QUOTES, 'UTF-8');
 			$this->data['country'] = $order_info['payment_iso_code_2'];
 			$this->data['email'] = $order_info['email'];
 			$this->data['invoice'] = $this->session->data['order_id'] . ' - ' . html_entity_decode($order_info['payment_firstname'], ENT_QUOTES, 'UTF-8') . ' ' . html_entity_decode($order_info['payment_lastname'], ENT_QUOTES, 'UTF-8');
@@ -108,7 +108,7 @@ class ControllerPaymentPPStandard extends Controller {
 			$order_id = $this->request->post['custom'];
 		} else {
 			$order_id = 0;
-		}		
+		}
 
 		$this->load->model('checkout/order');
 
@@ -148,7 +148,7 @@ class ControllerPaymentPPStandard extends Controller {
 			if ((strcmp($response, 'VERIFIED') == 0 || strcmp($response, 'UNVERIFIED') == 0) && isset($this->request->post['payment_status'])) {
 				$order_status_id = $this->config->get('config_order_status_id');
 
-				switch($this->request->post['payment_status']) {
+				switch ($this->request->post['payment_status']) {
 					case 'Canceled_Reversal':
 						$order_status_id = $this->config->get('pp_standard_canceled_reversal_status_id');
 						break;
@@ -179,10 +179,10 @@ class ControllerPaymentPPStandard extends Controller {
 						break;
 					case 'Reversed':
 						$order_status_id = $this->config->get('pp_standard_reversed_status_id');
-						break;	 
+						break;
 					case 'Voided':
 						$order_status_id = $this->config->get('pp_standard_voided_status_id');
-						break;								
+						break;
 				}
 
 				if (!$order_info['order_status_id']) {
@@ -195,7 +195,6 @@ class ControllerPaymentPPStandard extends Controller {
 			}
 
 			curl_close($curl);
-		}	
+		}
 	}
 }
-?>

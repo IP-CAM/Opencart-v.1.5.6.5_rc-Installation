@@ -1,4 +1,4 @@
-<?php  
+<?php
 class ControllerModuleAffiliate extends Controller {
 	protected function index() {
 		$this->language->load('module/affiliate');
@@ -8,7 +8,7 @@ class ControllerModuleAffiliate extends Controller {
 		$this->data['text_register'] = $this->language->get('text_register');
 		$this->data['text_login'] = $this->language->get('text_login');
 		$this->data['text_logout'] = $this->language->get('text_logout');
-		$this->data['text_forgotten'] = $this->language->get('text_forgotten');	
+		$this->data['text_forgotten'] = $this->language->get('text_forgotten');
 		$this->data['text_account'] = $this->language->get('text_account');
 		$this->data['text_edit'] = $this->language->get('text_edit');
 		$this->data['text_password'] = $this->language->get('text_password');
@@ -37,4 +37,3 @@ class ControllerModuleAffiliate extends Controller {
 		$this->render();
 	}
 }
-?>

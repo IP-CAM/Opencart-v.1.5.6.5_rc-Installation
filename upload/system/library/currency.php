@@ -114,7 +114,7 @@ class Currency {
 			$to = $this->currencies[$to]['value'];
 		} else {
 			$to = 0;
-		}		
+		}
 
 		return $value * ($to / $from);
 	}
@@ -177,4 +177,3 @@ class Currency {
 		return isset($this->currencies[$currency]);
 	}
 }
-?>

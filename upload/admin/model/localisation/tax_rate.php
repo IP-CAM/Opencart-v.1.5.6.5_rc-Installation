@@ -1,4 +1,4 @@
-<?php 
+<?php
 class ModelLocalisationTaxRate extends Model {
 	public function addTaxRate($data) {
 		$this->db->query("INSERT INTO " . DB_PREFIX . "tax_rate SET name = '" . $this->db->escape($data['name']) . "', rate = '" . (float)$data['rate'] . "', `type` = '" . $this->db->escape($data['type']) . "', geo_zone_id = '" . (int)$data['geo_zone_id'] . "', date_added = NOW(), date_modified = NOW()");
@@ -21,7 +21,7 @@ class ModelLocalisationTaxRate extends Model {
 			foreach ($data['tax_rate_customer_group'] as $customer_group_id) {
 				$this->db->query("INSERT INTO " . DB_PREFIX . "tax_rate_to_customer_group SET tax_rate_id = '" . (int)$tax_rate_id . "', customer_group_id = '" . (int)$customer_group_id . "'");
 			}
-		}		
+		}
 	}
 
 	public function deleteTaxRate($tax_rate_id) {
@@ -45,12 +45,12 @@ class ModelLocalisationTaxRate extends Model {
 			'gz.name',
 			'tr.date_added',
 			'tr.date_modified'
-		);	
+		);
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-			$sql .= " ORDER BY " . $data['sort'];	
+			$sql .= " ORDER BY " . $data['sort'];
 		} else {
-			$sql .= " ORDER BY tr.name";	
+			$sql .= " ORDER BY tr.name";
 		}
 
 		if (isset($data['order']) && ($data['order'] == 'DESC')) {
@@ -62,18 +62,18 @@ class ModelLocalisationTaxRate extends Model {
 		if (isset($data['start']) || isset($data['limit'])) {
 			if ($data['start'] < 0) {
 				$data['start'] = 0;
-			}					
+			}
 
 			if ($data['limit'] < 1) {
 				$data['limit'] = 20;
-			}	
+			}
 
 			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
 		}
 
 		$query = $this->db->query($sql);
 
-		return $query->rows;		
+		return $query->rows;
 	}
 
 	public function getTaxRateCustomerGroups($tax_rate_id) {
@@ -85,14 +85,14 @@ class ModelLocalisationTaxRate extends Model {
 			$tax_customer_group_data[] = $result['customer_group_id'];
 		}
 
-		return $tax_customer_group_data;			
+		return $tax_customer_group_data;
 	}
 
 	public function getTotalTaxRates() {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "tax_rate");
 
 		return $query->row['total'];
-	}	
+	}
 
 	public function getTotalTaxRatesByGeoZoneId($geo_zone_id) {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "tax_rate WHERE geo_zone_id = '" . (int)$geo_zone_id . "'");
@@ -100,4 +100,3 @@ class ModelLocalisationTaxRate extends Model {
 		return $query->row['total'];
 	}
 }
-?>

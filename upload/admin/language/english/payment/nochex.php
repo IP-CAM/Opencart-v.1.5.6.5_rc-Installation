@@ -2,7 +2,7 @@
 // Heading
 $_['heading_title']      = 'NOCHEX';
 
-// Text 
+// Text
 $_['text_payment']       = 'Payment';
 $_['text_success']       = 'Success: You have modified NOCHEX account details!';
 $_['text_nochex']	     = '<a href="https://secure.nochex.com/apply/merchant_info.aspx?partner_id=172198798" target="_blank"><img src="view/image/payment/nochex.png" alt="NOCHEX" title="NOCHEX" style="border: 1px solid #EEEEEE;" /></a>';
@@ -25,4 +25,3 @@ $_['entry_sort_order']   = 'Sort Order:';
 $_['error_permission']   = 'Warning: You do not have permission to modify payment NOCHEX!';
 $_['error_email']        = 'E-Mail Required!';
 $_['error_merchant']     = 'Merchant ID Required!';
-?>

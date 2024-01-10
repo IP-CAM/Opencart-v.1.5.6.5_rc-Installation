@@ -12,10 +12,11 @@ class ControllerAmazonSearch extends Controller {
 
 		$token = $this->config->get('openbay_amazon_token');
 
-		$incomingToken = isset($this->request->post['token']) ? $this->request->post['token'] : '';
+		$incomingToken = $this->request->post['token'] ?? '';
 
 		if ($incomingToken !== $token) {
 			$logger->write('amazon/search - Incorrect token: ' . $incomingToken);
+
 			return;
 		}
 
@@ -23,6 +24,7 @@ class ControllerAmazonSearch extends Controller {
 
 		if (!$decrypted) {
 			$logger->write('amazon/search Failed to decrypt data');
+
 			return;
 		}
 
@@ -33,4 +35,3 @@ class ControllerAmazonSearch extends Controller {
 		$this->model_openbay_amazon_product->updateSearch($json);
 	}
 }
-?>

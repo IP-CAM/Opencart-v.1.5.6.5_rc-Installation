@@ -17,4 +17,3 @@ class ModelOpenbayAmazonListing extends Model {
 		");
 	}
 }
-?>

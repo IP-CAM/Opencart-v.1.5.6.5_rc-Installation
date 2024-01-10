@@ -24,8 +24,8 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 // DIR
-define('DIR_APPLICATION', str_replace('\'', '/', realpath(dirname(__FILE__))) . '/');
-define('DIR_SYSTEM', str_replace('\'', '/', realpath(dirname(__FILE__) . '/../')) . '/system/');
+define('DIR_APPLICATION', str_replace('\'', '/', realpath(__DIR__)) . '/');
+define('DIR_SYSTEM', str_replace('\'', '/', realpath(__DIR__ . '/../')) . '/system/');
 define('DIR_OPENCART', str_replace('\'', '/', realpath(DIR_APPLICATION . '../')) . '/');
 define('DIR_DATABASE', DIR_SYSTEM . 'database/');
 define('DIR_LANGUAGE', DIR_APPLICATION . 'language/');
@@ -42,58 +42,56 @@ $registry = new Registry();
 $loader = new Loader($registry);
 $registry->set('load', $loader);
 
-
 function handleError($errno, $errstr, $errfile, $errline, array $errcontext) {
 	// error was suppressed with the @-operator
 	if (0 === error_reporting()) {
 		return false;
 	}
+
 	throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
 }
 
 set_error_handler('handleError');
-
 
 function usage() {
 	echo "Usage:\n";
 	echo "======\n";
 	echo "\n";
 	$options = implode(" ", array('--db_driver', 'mysqli',
-								'--db_host', 'localhost',
-								'--db_user', 'root',
-								'--db_password', 'pass',
-								'--db_name', 'opencart',
-								'--username', 'admin',
-								'--password', 'admin',
-								'--email', 'youremail@example.com',
-								'--agree_tnc', 'yes',
-								'--http_server', 'http://localhost/opencart'));
+		'--db_host', 'localhost',
+		'--db_user', 'root',
+		'--db_password', 'pass',
+		'--db_name', 'opencart',
+		'--username', 'admin',
+		'--password', 'admin',
+		'--email', 'youremail@example.com',
+		'--agree_tnc', 'yes',
+		'--http_server', 'http://localhost/opencart'));
 	echo 'php cli_install.php install ' . $options . "\n\n";
 }
-
 
 function get_options($argv) {
 	$defaults = array(
 		'db_driver' => 'mysqli',
-		'db_host' => 'localhost',
-		'db_name' => 'opencart',
+		'db_host'   => 'localhost',
+		'db_name'   => 'opencart',
 		'db_prefix' => '',
-		'username' => 'admin',
+		'username'  => 'admin',
 		'agree_tnc' => 'no',
 	);
 
 	$options = array();
 	$total = count($argv);
-	for ($i=0; $i < $total; $i=$i+2) {
+	for ($i = 0; $i < $total; $i += 2) {
 		$is_flag = preg_match('/^--(.*)$/', $argv[$i], $match);
 		if (!$is_flag) {
 			throw new Exception($argv[$i] . ' found in command line args instead of a valid option name starting with \'--\'');
 		}
-		$options[$match[1]] = $argv[$i+1];
+		$options[$match[1]] = $argv[$i + 1];
 	}
+
 	return array_merge($defaults, $options);
 }
-
 
 function valid($options) {
 	$required = array(
@@ -119,9 +117,9 @@ function valid($options) {
 		$missing[] = 'agree_tnc (should be yes)';
 	}
 	$valid = count($missing) === 0 && $options['agree_tnc'] === 'yes';
+
 	return array($valid, $missing);
 }
-
 
 function install($options) {
 	$check = check_requirements();
@@ -135,10 +133,9 @@ function install($options) {
 	}
 }
 
-
 function check_requirements() {
 	$error = null;
-	if (phpversion() < '5.0') {
+	if (PHP_VERSION < '5.0') {
 		$error = 'Warning: You need to use PHP5 or above for OpenCart to work!';
 	}
 
@@ -205,14 +202,12 @@ function check_requirements() {
 	return array($error === null, $error);
 }
 
-
 function setup_mysql($dbdata) {
 	global $loader, $registry;
 	$loader->model('install');
 	$model = $registry->get('model_install');
 	$model->database($dbdata);
 }
-
 
 function write_config_files($options) {
 	$output  = '<?php' . "\n";
@@ -227,7 +222,7 @@ function write_config_files($options) {
 
 	$output .= '// DIR' . "\n";
 	$output .= 'define(\'DIR_APPLICATION\', \'' . DIR_OPENCART . 'catalog/\');' . "\n";
-	$output .= 'define(\'DIR_SYSTEM\', \'' . DIR_OPENCART. 'system/\');' . "\n";
+	$output .= 'define(\'DIR_SYSTEM\', \'' . DIR_OPENCART . 'system/\');' . "\n";
 	$output .= 'define(\'DIR_DATABASE\', \'' . DIR_OPENCART . 'system/database/\');' . "\n";
 	$output .= 'define(\'DIR_LANGUAGE\', \'' . DIR_OPENCART . 'catalog/language/\');' . "\n";
 	$output .= 'define(\'DIR_TEMPLATE\', \'' . DIR_OPENCART . 'catalog/view/theme/\');' . "\n";
@@ -292,7 +287,6 @@ function write_config_files($options) {
 	fclose($file);
 }
 
-
 function dir_permissions() {
 	$dirs = array(
 		DIR_OPENCART . 'image/',
@@ -303,35 +297,32 @@ function dir_permissions() {
 	exec('chmod o+w -R ' . implode(' ', $dirs));
 }
 
-
 $argv = $_SERVER['argv'];
 $script = array_shift($argv);
 $subcommand = array_shift($argv);
 
-
 switch ($subcommand) {
 
-case "install":
-	try {
-		$options = get_options($argv);
-		define('HTTP_OPENCART', $options['http_server']);
-		$valid = valid($options);
-		if (!$valid[0]) {
-			echo "FAILED! Following inputs were missing or invalid: ";
-			echo implode(', ',  $valid[1]) . "\n\n";
+	case "install":
+		try {
+			$options = get_options($argv);
+			define('HTTP_OPENCART', $options['http_server']);
+			$valid = valid($options);
+			if (!$valid[0]) {
+				echo "FAILED! Following inputs were missing or invalid: ";
+				echo implode(', ', $valid[1]) . "\n\n";
+				exit(1);
+			}
+			install($options);
+			echo "SUCCESS! Opencart successfully installed on your server\n";
+			echo "Store link: " . $options['http_server'] . "\n";
+			echo "Admin link: " . $options['http_server'] . "admin/\n\n";
+		} catch (ErrorException $e) {
+			echo 'FAILED!: ' . $e->getMessage() . "\n";
 			exit(1);
 		}
-		install($options);
-		echo "SUCCESS! Opencart successfully installed on your server\n";
-		echo "Store link: " . $options['http_server'] . "\n";
-		echo "Admin link: " . $options['http_server'] . "admin/\n\n";
-	} catch (ErrorException $e) {
-		echo 'FAILED!: ' . $e->getMessage() . "\n";
-		exit(1);
-	}
-	break;
-case "usage":
-default:
-	echo usage();
+		break;
+	case "usage":
+	default:
+		echo usage();
 }
-?>

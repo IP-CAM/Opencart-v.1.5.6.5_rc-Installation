@@ -31,18 +31,16 @@ class ModelUserUserGroup extends Model {
 	public function getUserGroup($user_group_id) {
 		$query = $this->db->query("SELECT DISTINCT * FROM " . DB_PREFIX . "user_group WHERE user_group_id = '" . (int)$user_group_id . "'");
 
-		$user_group = array(
+		return array(
 			'name'       => $query->row['name'],
 			'permission' => unserialize($query->row['permission'])
 		);
-
-		return $user_group;
 	}
 
 	public function getUserGroups($data = array()) {
 		$sql = "SELECT * FROM " . DB_PREFIX . "user_group";
 
-		$sql .= " ORDER BY name";	
+		$sql .= " ORDER BY name";
 
 		if (isset($data['order']) && ($data['order'] == 'DESC')) {
 			$sql .= " DESC";
@@ -53,11 +51,11 @@ class ModelUserUserGroup extends Model {
 		if (isset($data['start']) || isset($data['limit'])) {
 			if ($data['start'] < 0) {
 				$data['start'] = 0;
-			}			
+			}
 
 			if ($data['limit'] < 1) {
 				$data['limit'] = 20;
-			}	
+			}
 
 			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
 		}
@@ -71,6 +69,5 @@ class ModelUserUserGroup extends Model {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "user_group");
 
 		return $query->row['total'];
-	}	
+	}
 }
-?>

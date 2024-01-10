@@ -1,4 +1,4 @@
-<?php 
+<?php
 class ModelCatalogAttributeGroup extends Model {
 	public function addAttributeGroup($data) {
 		$this->db->query("INSERT INTO " . DB_PREFIX . "attribute_group SET sort_order = '" . (int)$data['sort_order'] . "'");
@@ -37,13 +37,13 @@ class ModelCatalogAttributeGroup extends Model {
 		$sort_data = array(
 			'agd.name',
 			'ag.sort_order'
-		);	
+		);
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-			$sql .= " ORDER BY " . $data['sort'];	
+			$sql .= " ORDER BY " . $data['sort'];
 		} else {
-			$sql .= " ORDER BY agd.name";	
-		}	
+			$sql .= " ORDER BY agd.name";
+		}
 
 		if (isset($data['order']) && ($data['order'] == 'DESC')) {
 			$sql .= " DESC";
@@ -54,14 +54,14 @@ class ModelCatalogAttributeGroup extends Model {
 		if (isset($data['start']) || isset($data['limit'])) {
 			if ($data['start'] < 0) {
 				$data['start'] = 0;
-			}				
+			}
 
 			if ($data['limit'] < 1) {
 				$data['limit'] = 20;
-			}	
+			}
 
 			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
-		}	
+		}
 
 		$query = $this->db->query($sql);
 
@@ -84,6 +84,5 @@ class ModelCatalogAttributeGroup extends Model {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "attribute_group");
 
 		return $query->row['total'];
-	}	
+	}
 }
-?>

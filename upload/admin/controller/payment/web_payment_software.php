@@ -1,6 +1,6 @@
-<?php 
+<?php
 class ControllerPaymentWebPaymentSoftware extends Controller {
-	private $error = array(); 
+	private $error = array();
 
 	public function index() {
 		$this->language->load('payment/web_payment_software');
@@ -10,7 +10,7 @@ class ControllerPaymentWebPaymentSoftware extends Controller {
 		$this->load->model('setting/setting');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-			$this->model_setting_setting->editSetting('web_payment_software', $this->request->post);				
+			$this->model_setting_setting->editSetting('web_payment_software', $this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -25,14 +25,14 @@ class ControllerPaymentWebPaymentSoftware extends Controller {
 		$this->data['text_test'] = $this->language->get('text_test');
 		$this->data['text_live'] = $this->language->get('text_live');
 		$this->data['text_authorization'] = $this->language->get('text_authorization');
-		$this->data['text_capture'] = $this->language->get('text_capture');		
+		$this->data['text_capture'] = $this->language->get('text_capture');
 
 		$this->data['entry_login'] = $this->language->get('entry_login');
 		$this->data['entry_key'] = $this->language->get('entry_key');
 		$this->data['entry_mode'] = $this->language->get('entry_mode');
 		$this->data['entry_method'] = $this->language->get('entry_method');
 		$this->data['entry_total'] = $this->language->get('entry_total');
-		$this->data['entry_order_status'] = $this->language->get('entry_order_status');		
+		$this->data['entry_order_status'] = $this->language->get('entry_order_status');
 		$this->data['entry_geo_zone'] = $this->language->get('entry_geo_zone');
 		$this->data['entry_status'] = $this->language->get('entry_status');
 		$this->data['entry_sort_order'] = $this->language->get('entry_sort_order');
@@ -109,8 +109,8 @@ class ControllerPaymentWebPaymentSoftware extends Controller {
 		if (isset($this->request->post['web_payment_software_order_status_id'])) {
 			$this->data['web_payment_software_order_status_id'] = $this->request->post['web_payment_software_order_status_id'];
 		} else {
-			$this->data['web_payment_software_order_status_id'] = $this->config->get('web_payment_software_order_status_id'); 
-		} 
+			$this->data['web_payment_software_order_status_id'] = $this->config->get('web_payment_software_order_status_id');
+		}
 
 		$this->load->model('localisation/order_status');
 
@@ -119,8 +119,8 @@ class ControllerPaymentWebPaymentSoftware extends Controller {
 		if (isset($this->request->post['web_payment_software_geo_zone_id'])) {
 			$this->data['web_payment_software_geo_zone_id'] = $this->request->post['web_payment_software_geo_zone_id'];
 		} else {
-			$this->data['web_payment_software_geo_zone_id'] = $this->config->get('web_payment_software_geo_zone_id'); 
-		} 
+			$this->data['web_payment_software_geo_zone_id'] = $this->config->get('web_payment_software_geo_zone_id');
+		}
 
 		$this->load->model('localisation/geo_zone');
 
@@ -146,8 +146,8 @@ class ControllerPaymentWebPaymentSoftware extends Controller {
 
 		$this->template = 'payment/web_payment_software.tpl';
 		$this->children = array(
-			'common/header',	
-			'common/footer'	
+			'common/header',
+			'common/footer'
 		);
 
 		$this->response->setOutput($this->render());
@@ -170,7 +170,6 @@ class ControllerPaymentWebPaymentSoftware extends Controller {
 			return true;
 		} else {
 			return false;
-		}	
+		}
 	}
 }
-?>

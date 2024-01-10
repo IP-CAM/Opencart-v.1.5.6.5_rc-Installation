@@ -33,13 +33,13 @@ final class MSSQL {
 				mssql_free_result($resource);
 
 				$query = new stdClass();
-				$query->row = isset($data[0]) ? $data[0] : array();
+				$query->row = $data[0] ?? array();
 				$query->rows = $data;
 				$query->num_rows = $i;
 
 				unset($data);
 
-				return $query;	
+				return $query;
 			} else {
 				return true;
 			}
@@ -77,4 +77,3 @@ final class MSSQL {
 		mssql_close($this->link);
 	}
 }
-?>

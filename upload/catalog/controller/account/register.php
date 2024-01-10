@@ -1,4 +1,4 @@
-<?php 
+<?php
 class ControllerAccountRegister extends Controller {
 	private $error = array();
 
@@ -26,13 +26,13 @@ class ControllerAccountRegister extends Controller {
 			if ($this->config->get('config_tax_customer') == 'shipping') {
 				$this->session->data['shipping_country_id'] = $this->request->post['country_id'];
 				$this->session->data['shipping_zone_id'] = $this->request->post['zone_id'];
-				$this->session->data['shipping_postcode'] = $this->request->post['postcode'];				
+				$this->session->data['shipping_postcode'] = $this->request->post['postcode'];
 			}
 
 			// Default Payment Address
 			if ($this->config->get('config_tax_customer') == 'payment') {
 				$this->session->data['payment_country_id'] = $this->request->post['country_id'];
-				$this->session->data['payment_zone_id'] = $this->request->post['zone_id'];			
+				$this->session->data['payment_zone_id'] = $this->request->post['zone_id'];
 			}
 
 			$this->redirect($this->url->link('account/success'));
@@ -42,19 +42,19 @@ class ControllerAccountRegister extends Controller {
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_home'),
-			'href'      => $this->url->link('common/home'),        	
+			'href'      => $this->url->link('common/home'),
 			'separator' => false
 		);
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_account'),
-			'href'      => $this->url->link('account/account', '', 'SSL'),      	
+			'href'      => $this->url->link('account/account', '', 'SSL'),
 			'separator' => $this->language->get('text_separator')
 		);
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_register'),
-			'href'      => $this->url->link('account/register', '', 'SSL'),      	
+			'href'      => $this->url->link('account/register', '', 'SSL'),
 			'separator' => $this->language->get('text_separator')
 		);
 
@@ -101,13 +101,13 @@ class ControllerAccountRegister extends Controller {
 			$this->data['error_firstname'] = $this->error['firstname'];
 		} else {
 			$this->data['error_firstname'] = '';
-		}	
+		}
 
 		if (isset($this->error['lastname'])) {
 			$this->data['error_lastname'] = $this->error['lastname'];
 		} else {
 			$this->data['error_lastname'] = '';
-		}		
+		}
 
 		if (isset($this->error['email'])) {
 			$this->data['error_email'] = $this->error['email'];
@@ -262,7 +262,7 @@ class ControllerAccountRegister extends Controller {
 		if (isset($this->request->post['postcode'])) {
 			$this->data['postcode'] = $this->request->post['postcode'];
 		} elseif (isset($this->session->data['shipping_postcode'])) {
-			$this->data['postcode'] = $this->session->data['shipping_postcode'];		
+			$this->data['postcode'] = $this->session->data['shipping_postcode'];
 		} else {
 			$this->data['postcode'] = '';
 		}
@@ -276,15 +276,15 @@ class ControllerAccountRegister extends Controller {
 		if (isset($this->request->post['country_id'])) {
 			$this->data['country_id'] = $this->request->post['country_id'];
 		} elseif (isset($this->session->data['shipping_country_id'])) {
-			$this->data['country_id'] = $this->session->data['shipping_country_id'];		
-		} else {	
+			$this->data['country_id'] = $this->session->data['shipping_country_id'];
+		} else {
 			$this->data['country_id'] = $this->config->get('config_country_id');
 		}
 
 		if (isset($this->request->post['zone_id'])) {
 			$this->data['zone_id'] = $this->request->post['zone_id'];
 		} elseif (isset($this->session->data['shipping_zone_id'])) {
-			$this->data['zone_id'] = $this->session->data['shipping_zone_id'];			
+			$this->data['zone_id'] = $this->session->data['shipping_zone_id'];
 		} else {
 			$this->data['zone_id'] = '';
 		}
@@ -309,7 +309,7 @@ class ControllerAccountRegister extends Controller {
 			$this->data['newsletter'] = $this->request->post['newsletter'];
 		} else {
 			$this->data['newsletter'] = '';
-		}	
+		}
 
 		if ($this->config->get('config_account_id')) {
 			$this->load->model('catalog/information');
@@ -343,10 +343,10 @@ class ControllerAccountRegister extends Controller {
 			'common/content_top',
 			'common/content_bottom',
 			'common/footer',
-			'common/header'	
+			'common/header'
 		);
 
-		$this->response->setOutput($this->render());	
+		$this->response->setOutput($this->render());
 	}
 
 	protected function validate() {
@@ -381,16 +381,16 @@ class ControllerAccountRegister extends Controller {
 
 		$customer_group = $this->model_account_customer_group->getCustomerGroup($customer_group_id);
 
-		if ($customer_group) {	
+		if ($customer_group) {
 			// Company ID
 			if ($customer_group['company_id_display'] && $customer_group['company_id_required'] && empty($this->request->post['company_id'])) {
 				$this->error['company_id'] = $this->language->get('error_company_id');
 			}
 
-			// Tax ID 
+			// Tax ID
 			if ($customer_group['tax_id_display'] && $customer_group['tax_id_required'] && empty($this->request->post['tax_id'])) {
 				$this->error['tax_id'] = $this->language->get('error_tax_id');
-			}						
+			}
 		}
 
 		if ((utf8_strlen($this->request->post['address_1']) < 3) || (utf8_strlen($this->request->post['address_1']) > 128)) {
@@ -469,11 +469,10 @@ class ControllerAccountRegister extends Controller {
 				'address_format'    => $country_info['address_format'],
 				'postcode_required' => $country_info['postcode_required'],
 				'zone'              => $this->model_localisation_zone->getZonesByCountryId($this->request->get['country_id']),
-				'status'            => $country_info['status']		
+				'status'            => $country_info['status']
 			);
 		}
 
 		$this->response->setOutput(json_encode($json));
-	}	
+	}
 }
-?>

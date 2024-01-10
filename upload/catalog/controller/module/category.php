@@ -39,7 +39,7 @@ class ControllerModuleCategory extends Controller {
 			if ($category['category_id'] == $this->data['category_id']) {
 				$children = $this->model_catalog_category->getCategories($category['category_id']);
 
-				foreach($children as $child) {
+				foreach ($children as $child) {
 					$data = array('filter_category_id' => $child['category_id'], 'filter_sub_category' => true);
 
 					$product_total = $this->config->get('config_product_count') ? $this->model_catalog_product->getTotalProducts($data) : 0;
@@ -67,4 +67,3 @@ class ControllerModuleCategory extends Controller {
 		$this->render();
 	}
 }
-?>

@@ -43,7 +43,7 @@ class User {
 			$this->session->data['user_id'] = $user_query->row['user_id'];
 
 			$this->user_id = $user_query->row['user_id'];
-			$this->username = $user_query->row['username'];			
+			$this->username = $user_query->row['username'];
 
 			$user_group_query = $this->db->query("SELECT permission FROM " . DB_PREFIX . "user_group WHERE user_group_id = '" . (int)$user_query->row['user_group_id'] . "'");
 
@@ -90,4 +90,3 @@ class User {
 		return $this->username;
 	}
 }
-?>

@@ -9,7 +9,7 @@ class ControllerLocalisationTaxClass extends Controller {
 
 		$this->load->model('localisation/tax_class');
 
-		$this->getList(); 
+		$this->getList();
 	}
 
 	public function insert() {
@@ -147,7 +147,7 @@ class ControllerLocalisationTaxClass extends Controller {
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_home'),
-			'href'      => $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL'),      		
+			'href'      => $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL'),
 			'separator' => false
 		);
 
@@ -158,7 +158,7 @@ class ControllerLocalisationTaxClass extends Controller {
 		);
 
 		$this->data['insert'] = $this->url->link('localisation/tax_class/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
-		$this->data['delete'] = $this->url->link('localisation/tax_class/delete', 'token=' . $this->session->data['token'] . $url, 'SSL');		
+		$this->data['delete'] = $this->url->link('localisation/tax_class/delete', 'token=' . $this->session->data['token'] . $url, 'SSL');
 
 		$this->data['tax_classes'] = array();
 
@@ -185,7 +185,7 @@ class ControllerLocalisationTaxClass extends Controller {
 				'tax_class_id' => $result['tax_class_id'],
 				'title'        => $result['title'],
 				'selected'     => isset($this->request->post['selected']) && in_array($result['tax_class_id'], $this->request->post['selected']),
-				'action'       => $action				
+				'action'       => $action
 			);
 		}
 
@@ -194,7 +194,7 @@ class ControllerLocalisationTaxClass extends Controller {
 		$this->data['text_no_results'] = $this->language->get('text_no_results');
 
 		$this->data['column_title'] = $this->language->get('column_title');
-		$this->data['column_action'] = $this->language->get('column_action');	
+		$this->data['column_action'] = $this->language->get('column_action');
 
 		$this->data['button_insert'] = $this->language->get('button_insert');
 		$this->data['button_delete'] = $this->language->get('button_delete');
@@ -261,9 +261,9 @@ class ControllerLocalisationTaxClass extends Controller {
 	protected function getForm() {
 		$this->data['heading_title'] = $this->language->get('heading_title');
 
-		$this->data['text_shipping'] = $this->language->get('text_shipping');	
-		$this->data['text_payment'] = $this->language->get('text_payment');	
-		$this->data['text_store'] = $this->language->get('text_store');	
+		$this->data['text_shipping'] = $this->language->get('text_shipping');
+		$this->data['text_payment'] = $this->language->get('text_payment');
+		$this->data['text_store'] = $this->language->get('text_store');
 
 		$this->data['entry_title'] = $this->language->get('entry_title');
 		$this->data['entry_description'] = $this->language->get('entry_description');
@@ -411,6 +411,5 @@ class ControllerLocalisationTaxClass extends Controller {
 		} else {
 			return false;
 		}
-	}	
+	}
 }
-?>

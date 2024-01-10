@@ -1,5 +1,5 @@
-<?php 
-class ControllerAccountVoucher extends Controller { 
+<?php
+class ControllerAccountVoucher extends Controller {
 	private $error = array();
 
 	public function index() {
@@ -120,7 +120,7 @@ class ControllerAccountVoucher extends Controller {
 		if (isset($this->request->post['from_name'])) {
 			$this->data['from_name'] = $this->request->post['from_name'];
 		} elseif ($this->customer->isLogged()) {
-			$this->data['from_name'] = $this->customer->getFirstName() . ' '  . $this->customer->getLastName();
+			$this->data['from_name'] = $this->customer->getFirstName() . ' ' . $this->customer->getLastName();
 		} else {
 			$this->data['from_name'] = '';
 		}
@@ -128,7 +128,7 @@ class ControllerAccountVoucher extends Controller {
 		if (isset($this->request->post['from_email'])) {
 			$this->data['from_email'] = $this->request->post['from_email'];
 		} elseif ($this->customer->isLogged()) {
-			$this->data['from_email'] = $this->customer->getEmail();		
+			$this->data['from_email'] = $this->customer->getEmail();
 		} else {
 			$this->data['from_email'] = '';
 		}
@@ -147,7 +147,7 @@ class ControllerAccountVoucher extends Controller {
 			$this->data['message'] = $this->request->post['message'];
 		} else {
 			$this->data['message'] = '';
-		}	
+		}
 
 		if (isset($this->request->post['amount'])) {
 			$this->data['amount'] = $this->request->post['amount'];
@@ -159,7 +159,7 @@ class ControllerAccountVoucher extends Controller {
 			$this->data['agree'] = $this->request->post['agree'];
 		} else {
 			$this->data['agree'] = false;
-		}	
+		}
 
 		if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/account/voucher.tpl')) {
 			$this->template = $this->config->get('config_template') . '/template/account/voucher.tpl';
@@ -173,16 +173,16 @@ class ControllerAccountVoucher extends Controller {
 			'common/content_top',
 			'common/content_bottom',
 			'common/footer',
-			'common/header'	
+			'common/header'
 		);
 
-		$this->response->setOutput($this->render());		
+		$this->response->setOutput($this->render());
 	}
 
 	public function success() {
 		$this->language->load('account/voucher');
 
-		$this->document->setTitle($this->language->get('heading_title')); 
+		$this->document->setTitle($this->language->get('heading_title'));
 
 		$this->data['breadcrumbs'] = array();
 
@@ -260,4 +260,3 @@ class ControllerAccountVoucher extends Controller {
 		}
 	}
 }
-?>

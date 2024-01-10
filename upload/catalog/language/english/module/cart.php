@@ -1,5 +1,5 @@
 <?php
-// Heading 
+// Heading
 $_['heading_title'] = 'Shopping Cart';
 
 // Text
@@ -9,4 +9,3 @@ $_['text_cart']     = 'View Cart';
 $_['text_checkout'] = 'Checkout';
 
 $_['text_payment_profile'] = 'Payment Profile';
-?>

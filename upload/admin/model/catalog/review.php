@@ -25,7 +25,7 @@ class ModelCatalogReview extends Model {
 	}
 
 	public function getReviews($data = array()) {
-		$sql = "SELECT r.review_id, pd.name, r.author, r.rating, r.status, r.date_added FROM " . DB_PREFIX . "review r LEFT JOIN " . DB_PREFIX . "product_description pd ON (r.product_id = pd.product_id) WHERE pd.language_id = '" . (int)$this->config->get('config_language_id') . "'";																																					  
+		$sql = "SELECT r.review_id, pd.name, r.author, r.rating, r.status, r.date_added FROM " . DB_PREFIX . "review r LEFT JOIN " . DB_PREFIX . "product_description pd ON (r.product_id = pd.product_id) WHERE pd.language_id = '" . (int)$this->config->get('config_language_id') . "'";
 
 		$sort_data = array(
 			'pd.name',
@@ -33,12 +33,12 @@ class ModelCatalogReview extends Model {
 			'r.rating',
 			'r.status',
 			'r.date_added'
-		);	
+		);
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-			$sql .= " ORDER BY " . $data['sort'];	
+			$sql .= " ORDER BY " . $data['sort'];
 		} else {
-			$sql .= " ORDER BY r.date_added";	
+			$sql .= " ORDER BY r.date_added";
 		}
 
 		if (isset($data['order']) && ($data['order'] == 'DESC')) {
@@ -50,18 +50,18 @@ class ModelCatalogReview extends Model {
 		if (isset($data['start']) || isset($data['limit'])) {
 			if ($data['start'] < 0) {
 				$data['start'] = 0;
-			}			
+			}
 
 			if ($data['limit'] < 1) {
 				$data['limit'] = 20;
-			}	
+			}
 
 			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
-		}																																							  
+		}
 
-		$query = $this->db->query($sql);																																				
+		$query = $this->db->query($sql);
 
-		return $query->rows;	
+		return $query->rows;
 	}
 
 	public function getTotalReviews() {
@@ -74,6 +74,5 @@ class ModelCatalogReview extends Model {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "review WHERE status = '0'");
 
 		return $query->row['total'];
-	}	
+	}
 }
-?>

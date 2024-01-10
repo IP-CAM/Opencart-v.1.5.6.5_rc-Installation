@@ -1,11 +1,11 @@
-<?php 
+<?php
 class ControllerFeedGoogleBase extends Controller {
 	public function index() {
-		if ($this->config->get('google_base_status')) { 
+		if ($this->config->get('google_base_status')) {
 			$output  = '<?xml version="1.0" encoding="UTF-8" ?>';
 			$output .= '<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">';
 			$output .= '<channel>';
-			$output .= '<title>' . $this->config->get('config_name') . '</title>'; 
+			$output .= '<title>' . $this->config->get('config_name') . '</title>';
 			$output .= '<description>' . $this->config->get('config_meta_description') . '</description>';
 			$output .= '<link>' . HTTP_SERVER . '</link>';
 
@@ -36,8 +36,8 @@ class ControllerFeedGoogleBase extends Controller {
 					$output .= '<g:mpn>' . $product['model'] . '</g:mpn>';
 
 					$currencies = array(
-						'USD', 
-						'EUR', 
+						'USD',
+						'EUR',
 						'GBP'
 					);
 
@@ -50,7 +50,7 @@ class ControllerFeedGoogleBase extends Controller {
 					}
 
 					if ((float)$product['special']) {
-						$output .= '<g:price>' .  $this->currency->format($this->tax->calculate($product['special'], $product['tax_class_id']), $currency_code, $currency_value, false) . '</g:price>';
+						$output .= '<g:price>' . $this->currency->format($this->tax->calculate($product['special'], $product['tax_class_id']), $currency_code, $currency_value, false) . '</g:price>';
 					} else {
 						$output .= '<g:price>' . $this->currency->format($this->tax->calculate($product['price'], $product['tax_class_id']), $currency_code, $currency_value, false) . '</g:price>';
 					}
@@ -80,15 +80,15 @@ class ControllerFeedGoogleBase extends Controller {
 					}
 
 					$output .= '<g:quantity>' . $product['quantity'] . '</g:quantity>';
-					$output .= '<g:upc>' . $product['upc'] . '</g:upc>'; 
+					$output .= '<g:upc>' . $product['upc'] . '</g:upc>';
 					$output .= '<g:weight>' . $this->weight->format($product['weight'], $product['weight_class_id']) . '</g:weight>';
 					$output .= '<g:availability>' . ($product['quantity'] ? 'in stock' : 'out of stock') . '</g:availability>';
 					$output .= '</item>';
 				}
 			}
 
-			$output .= '</channel>'; 
-			$output .= '</rss>';	
+			$output .= '</channel>';
+			$output .= '</rss>';
 
 			$this->response->addHeader('Content-Type: application/rss+xml');
 			$this->response->setOutput($output);
@@ -103,7 +103,7 @@ class ControllerFeedGoogleBase extends Controller {
 				$new_path = $category_info['category_id'];
 			} else {
 				$new_path = $category_info['category_id'] . '_' . $current_path;
-			}	
+			}
 
 			$path = $this->getPath($category_info['parent_id'], $new_path);
 
@@ -113,6 +113,5 @@ class ControllerFeedGoogleBase extends Controller {
 				return $new_path;
 			}
 		}
-	}		
+	}
 }
-?>

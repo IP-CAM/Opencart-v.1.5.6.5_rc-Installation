@@ -1,13 +1,12 @@
 <?php
 
 class ControllerModulePPLayout extends Controller {
-
 	protected function index($setting) {
 		$status = $this->config->get('pp_express_status');
 
-		if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) ||
-				(!$this->cart->hasStock() && !$this->config->get('config_stock_checkout')) ||
-				(!$this->customer->isLogged() && ($this->cart->hasRecurringProducts() || $this->cart->hasDownload()))) {
+		if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers']))
+				|| (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))
+				|| (!$this->customer->isLogged() && ($this->cart->hasRecurringProducts() || $this->cart->hasDownload()))) {
 
 			$status = false;
 		}
@@ -29,7 +28,4 @@ class ControllerModulePPLayout extends Controller {
 			$this->render();
 		}
 	}
-
 }
-
-?>

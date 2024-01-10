@@ -1,6 +1,6 @@
 <?php
 class ModelShippingUps extends Model {
-	function getQuote($address) {
+	public function getQuote($address) {
 		$this->language->load('shipping/ups');
 
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "zone_to_geo_zone WHERE geo_zone_id = '" . (int)$this->config->get('ups_geo_zone_id') . "' AND country_id = '" . (int)$address['country_id'] . "' AND (zone_id = '" . (int)$address['zone_id'] . "' OR zone_id = '0')");
@@ -105,43 +105,43 @@ class ModelShippingUps extends Model {
 				)
 			);
 
-			$xml  = '<?xml version="1.0"?>';  
-			$xml .= '<AccessRequest xml:lang="en-US">';  
+			$xml  = '<?xml version="1.0"?>';
+			$xml .= '<AccessRequest xml:lang="en-US">';
 			$xml .= '	<AccessLicenseNumber>' . $this->config->get('ups_key') . '</AccessLicenseNumber>';
 			$xml .= '	<UserId>' . $this->config->get('ups_username') . '</UserId>';
 			$xml .= '	<Password>' . $this->config->get('ups_password') . '</Password>';
 			$xml .= '</AccessRequest>';
 			$xml .= '<?xml version="1.0"?>';
 			$xml .= '<RatingServiceSelectionRequest xml:lang="en-US">';
-			$xml .= '	<Request>';  
-			$xml .= '		<TransactionReference>'; 
-			$xml .= '			<CustomerContext>Bare Bones Rate Request</CustomerContext>';  
-			$xml .= '			<XpciVersion>1.0001</XpciVersion>';  
-			$xml .= '		</TransactionReference>'; 
-			$xml .= '		<RequestAction>Rate</RequestAction>';  
-			$xml .= '		<RequestOption>shop</RequestOption>';  
-			$xml .= '	</Request>';  
+			$xml .= '	<Request>';
+			$xml .= '		<TransactionReference>';
+			$xml .= '			<CustomerContext>Bare Bones Rate Request</CustomerContext>';
+			$xml .= '			<XpciVersion>1.0001</XpciVersion>';
+			$xml .= '		</TransactionReference>';
+			$xml .= '		<RequestAction>Rate</RequestAction>';
+			$xml .= '		<RequestOption>shop</RequestOption>';
+			$xml .= '	</Request>';
 			$xml .= '   <PickupType>';
 			$xml .= '       <Code>' . $this->config->get('ups_pickup') . '</Code>';
 			$xml .= '   </PickupType>';
 
-			if ($this->config->get('ups_country') == 'US' && $this->config->get('ups_pickup') == '11') {	
+			if ($this->config->get('ups_country') == 'US' && $this->config->get('ups_pickup') == '11') {
 				$xml .= '   <CustomerClassification>';
 				$xml .= '       <Code>' . $this->config->get('ups_classification') . '</Code>';
-				$xml .= '   </CustomerClassification>';		
+				$xml .= '   </CustomerClassification>';
 			}
 
-			$xml .= '	<Shipment>';  
-			$xml .= '		<Shipper>';  
-			$xml .= '			<Address>';  
+			$xml .= '	<Shipment>';
+			$xml .= '		<Shipper>';
+			$xml .= '			<Address>';
 			$xml .= '				<City>' . $this->config->get('ups_city') . '</City>';
-			$xml .= '				<StateProvinceCode>'. $this->config->get('ups_state') . '</StateProvinceCode>';
+			$xml .= '				<StateProvinceCode>' . $this->config->get('ups_state') . '</StateProvinceCode>';
 			$xml .= '				<CountryCode>' . $this->config->get('ups_country') . '</CountryCode>';
 			$xml .= '				<PostalCode>' . $this->config->get('ups_postcode') . '</PostalCode>';
-			$xml .= '			</Address>'; 
-			$xml .= '		</Shipper>'; 
-			$xml .= '		<ShipTo>'; 
-			$xml .= '			<Address>'; 
+			$xml .= '			</Address>';
+			$xml .= '		</Shipper>';
+			$xml .= '		<ShipTo>';
+			$xml .= '			<Address>';
 			$xml .= ' 				<City>' . $address['city'] . '</City>';
 			$xml .= '				<StateProvinceCode>' . $address['zone_code'] . '</StateProvinceCode>';
 			$xml .= '				<CountryCode>' . $address['iso_code_2'] . '</CountryCode>';
@@ -151,16 +151,16 @@ class ModelShippingUps extends Model {
 				$xml .= '				<ResidentialAddressIndicator />';
 			}
 
-			$xml .= '			</Address>'; 
+			$xml .= '			</Address>';
 			$xml .= '		</ShipTo>';
-			$xml .= '		<ShipFrom>'; 
-			$xml .= '			<Address>'; 
+			$xml .= '		<ShipFrom>';
+			$xml .= '			<Address>';
 			$xml .= '				<City>' . $this->config->get('ups_city') . '</City>';
-			$xml .= '				<StateProvinceCode>'. $this->config->get('ups_state') . '</StateProvinceCode>';
+			$xml .= '				<StateProvinceCode>' . $this->config->get('ups_state') . '</StateProvinceCode>';
 			$xml .= '				<CountryCode>' . $this->config->get('ups_country') . '</CountryCode>';
 			$xml .= '				<PostalCode>' . $this->config->get('ups_postcode') . '</PostalCode>';
-			$xml .= '			</Address>'; 
-			$xml .= '		</ShipFrom>'; 
+			$xml .= '			</Address>';
+			$xml .= '		</ShipFrom>';
 
 			$xml .= '		<Package>';
 			$xml .= '			<PackagingType>';
@@ -203,19 +203,19 @@ class ModelShippingUps extends Model {
 				$url = 'https://wwwcie.ups.com/ups.app/xml/Rate';
 			}
 
-			$curl = curl_init($url);  
+			$curl = curl_init($url);
 
-			curl_setopt($curl, CURLOPT_HEADER, 0);  
-			curl_setopt($curl, CURLOPT_POST, 1);  
-			curl_setopt($curl, CURLOPT_TIMEOUT, 60);  
-			curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);  
-			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);  
-			curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);  
-			curl_setopt($curl, CURLOPT_POSTFIELDS, $xml);  
+			curl_setopt($curl, CURLOPT_HEADER, 0);
+			curl_setopt($curl, CURLOPT_POST, 1);
+			curl_setopt($curl, CURLOPT_TIMEOUT, 60);
+			curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+			curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+			curl_setopt($curl, CURLOPT_POSTFIELDS, $xml);
 
-			$result = curl_exec($curl);  
+			$result = curl_exec($curl);
 
-			curl_close($curl); 
+			curl_close($curl);
 
 			$error = '';
 
@@ -228,7 +228,7 @@ class ModelShippingUps extends Model {
 				}
 
 				$dom = new DOMDocument('1.0', 'UTF-8');
-				$dom->loadXml($result);	
+				$dom->loadXml($result);
 
 				$rating_service_selection_response = $dom->getElementsByTagName('RatingServiceSelectionResponse')->item(0);
 
@@ -248,7 +248,7 @@ class ModelShippingUps extends Model {
 
 						$total_charges = $rated_shipment->getElementsByTagName('TotalCharges')->item(0);
 
-						$cost = $total_charges->getElementsByTagName('MonetaryValue')->item(0)->nodeValue;	
+						$cost = $total_charges->getElementsByTagName('MonetaryValue')->item(0)->nodeValue;
 
 						$currency = $total_charges->getElementsByTagName('CurrencyCode')->item(0)->nodeValue;
 
@@ -271,7 +271,7 @@ class ModelShippingUps extends Model {
 
 			$title = $this->language->get('text_title');
 
-			if ($this->config->get('ups_display_weight')) {	  
+			if ($this->config->get('ups_display_weight')) {
 				$title .= ' (' . $this->language->get('text_weight') . ' ' . $this->weight->format($weight, $this->config->get('ups_weight_class_id')) . ')';
 			}
 
@@ -287,4 +287,3 @@ class ModelShippingUps extends Model {
 		return $method_data;
 	}
 }
-?>

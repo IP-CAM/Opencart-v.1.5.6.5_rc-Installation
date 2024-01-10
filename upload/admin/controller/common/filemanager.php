@@ -78,7 +78,7 @@ class ControllerCommonFileManager extends Controller {
 
 					$children = glob(rtrim($directory, '/') . '/*', GLOB_ONLYDIR);
 
-					if ($children)  {
+					if ($children) {
 						$json[$i]['children'] = ' ';
 					}
 
@@ -135,7 +135,7 @@ class ControllerCommonFileManager extends Controller {
 					);
 
 					while (($size / 1024) > 1) {
-						$size = $size / 1024;
+						$size /= 1024;
 						$i++;
 					}
 
@@ -218,10 +218,10 @@ class ControllerCommonFileManager extends Controller {
 
 				$path = array($path . '*');
 
-				while(count($path) != 0) {
+				while (count($path) != 0) {
 					$next = array_shift($path);
 
-					foreach(glob($next) as $file) {
+					foreach (glob($next) as $file) {
 						if (is_dir($file)) {
 							$path[] = $file . '/*';
 						}
@@ -235,7 +235,7 @@ class ControllerCommonFileManager extends Controller {
 				foreach ($files as $file) {
 					if (is_file($file)) {
 						unlink($file);
-					} elseif(is_dir($file)) {
+					} elseif (is_dir($file)) {
 						rmdir($file);
 					}
 				}
@@ -337,7 +337,7 @@ class ControllerCommonFileManager extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	function recursiveCopy($source, $destination) {
+	public function recursiveCopy($source, $destination) {
 		$directory = opendir($source);
 
 		@mkdir($destination);
@@ -366,7 +366,7 @@ class ControllerCommonFileManager extends Controller {
 
 		$directories = glob(rtrim(str_replace('../', '', $directory), '/') . '/*', GLOB_ONLYDIR);
 
-		foreach ($directories  as $directory) {
+		foreach ($directories as $directory) {
 			$output .= $this->recursiveFolders($directory);
 		}
 
@@ -497,4 +497,3 @@ class ControllerCommonFileManager extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 }
-?>

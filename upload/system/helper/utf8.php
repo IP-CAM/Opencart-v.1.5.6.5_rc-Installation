@@ -3,7 +3,9 @@ if (extension_loaded('mbstring')) {
 	mb_internal_encoding('UTF-8');
 
 	function utf8_strlen($string) {
-		return mb_strlen($string);
+		if ($string !== null) {
+			return mb_strlen($string);
+		}
 	}
 
 	function utf8_strpos($string, $needle, $offset = 0) {
@@ -54,7 +56,7 @@ if (extension_loaded('mbstring')) {
 		static $upper_to_lower;
 
 		if ($upper_to_lower == null) {
-			$upper_to_lower = array(
+			$upper_to_lower = [
 				0x0041 => 0x0061,
 				0x03A6 => 0x03C6,
 				0x0162 => 0x0163,
@@ -186,8 +188,6 @@ if (extension_loaded('mbstring')) {
 				0x040C => 0x045C,
 				0x041F => 0x043F,
 				0x042C => 0x044C,
-				0x00DE => 0x00FE,
-				0x00D0 => 0x00F0,
 				0x1EF2 => 0x1EF3,
 				0x0048 => 0x0068,
 				0x00CB => 0x00EB,
@@ -246,7 +246,6 @@ if (extension_loaded('mbstring')) {
 				0x0106 => 0x0107,
 				0x03AB => 0x03CB,
 				0x0426 => 0x0446,
-				0x00DE => 0x00FE,
 				0x00C7 => 0x00E7,
 				0x03AA => 0x03CA,
 				0x0421 => 0x0441,
@@ -260,15 +259,12 @@ if (extension_loaded('mbstring')) {
 				0x040B => 0x045B,
 				0x0406 => 0x0456,
 				0x0102 => 0x0103,
-				0x039B => 0x03BB,
 				0x00D1 => 0x00F1,
 				0x041D => 0x043D,
 				0x038C => 0x03CC,
 				0x00C9 => 0x00E9,
-				0x00D0 => 0x00F0,
-				0x0407 => 0x0457,
 				0x0122 => 0x0123
-			);
+			];
 		}
 
 		$unicode = utf8_to_unicode($string);
@@ -277,7 +273,7 @@ if (extension_loaded('mbstring')) {
 			return false;
 		}
 
-		for ($i = 0; $i < count($unicode); $i++){
+		for ($i = 0; $i < count($unicode); $i++) {
 			if (isset($upper_to_lower[$unicode[$i]])) {
 				$unicode[$i] = $upper_to_lower[$unicode[$i]];
 			}
@@ -290,7 +286,7 @@ if (extension_loaded('mbstring')) {
 		static $lower_to_upper;
 
 		if ($lower_to_upper == null) {
-			$lower_to_upper = array(
+			$lower_to_upper = [
 				0x0061 => 0x0041,
 				0x03C6 => 0x03A6,
 				0x0163 => 0x0162,
@@ -422,8 +418,6 @@ if (extension_loaded('mbstring')) {
 				0x045C => 0x040C,
 				0x043F => 0x041F,
 				0x044C => 0x042C,
-				0x00FE => 0x00DE,
-				0x00F0 => 0x00D0,
 				0x1EF3 => 0x1EF2,
 				0x0068 => 0x0048,
 				0x00EB => 0x00CB,
@@ -482,7 +476,6 @@ if (extension_loaded('mbstring')) {
 				0x0107 => 0x0106,
 				0x03CB => 0x03AB,
 				0x0446 => 0x0426,
-				0x00FE => 0x00DE,
 				0x00E7 => 0x00C7,
 				0x03CA => 0x03AA,
 				0x0441 => 0x0421,
@@ -496,15 +489,12 @@ if (extension_loaded('mbstring')) {
 				0x045B => 0x040B,
 				0x0456 => 0x0406,
 				0x0103 => 0x0102,
-				0x03BB => 0x039B,
 				0x00F1 => 0x00D1,
 				0x043D => 0x041D,
 				0x03CC => 0x038C,
 				0x00E9 => 0x00C9,
-				0x00F0 => 0x00D0,
-				0x0457 => 0x0407,
 				0x0123 => 0x0122
-			);
+			];
 		}
 
 		$unicode = utf8_to_unicode($string);
@@ -513,7 +503,7 @@ if (extension_loaded('mbstring')) {
 			return false;
 		}
 
-		for ($i = 0; $i < count($unicode); $i++){
+		for ($i = 0; $i < count($unicode); $i++) {
 			if (isset($lower_to_upper[$unicode[$i]])) {
 				$unicode[$i] = $lower_to_upper[$unicode[$i]];
 			}
@@ -523,33 +513,33 @@ if (extension_loaded('mbstring')) {
 	}
 
 	function utf8_to_unicode($string) {
-		$unicode = array();
+		$unicode = [];
 
 		for ($i = 0; $i < strlen($string); $i++) {
 			$chr = ord($string[$i]);
 
 			if ($chr >= 0 && $chr <= 127) {
-				$unicode[] = (ord($string[$i]) * pow(64, 0));
+				$unicode[] = (ord($string[$i]) * 64 ** 0);
 			}
 
 			if ($chr >= 192 && $chr <= 223) {
-				$unicode[] = ((ord($string[$i]) - 192) * pow(64, 1) + (ord($string[$i + 1]) - 128) * pow(64, 0));
+				$unicode[] = ((ord($string[$i]) - 192) * 64 ** 1 + (ord($string[$i + 1]) - 128) * 64 ** 0);
 			}
 
 			if ($chr >= 224 && $chr <= 239) {
-				$unicode[] = ((ord($string[$i]) - 224) * pow(64, 2) + (ord($string[$i + 1]) - 128) * pow(64, 1) + (ord($string[$i + 2]) - 128) * pow(64, 0));
+				$unicode[] = ((ord($string[$i]) - 224) * 64 ** 2 + (ord($string[$i + 1]) - 128) * 64 ** 1 + (ord($string[$i + 2]) - 128) * 64 ** 0);
 			}
 
 			if ($chr >= 240 && $chr <= 247) {
-				$unicode[] = ((ord($string[$i]) - 240) * pow(64, 3) + (ord($string[$i + 1]) - 128) * pow(64, 2) + (ord($string[$i + 2]) - 128) * pow(64, 1) + (ord($string[$i + 3]) - 128) * pow(64, 0));
+				$unicode[] = ((ord($string[$i]) - 248) * 64 ** 4 + (ord($string[$i + 1]) - 128) * 64 ** 3 + (ord($string[$i + 2]) - 128) * 64 ** 2 + (ord($string[$i + 3]) - 128) * 64 ** 1 + (ord($string[$i + 4]) - 128) * 64 ** 0);
 			}
 
 			if ($chr >= 248 && $chr <= 251) {
-				$unicode[] = ((ord($string[$i]) - 248) * pow(64, 4) + (ord($string[$i + 1]) - 128) * pow(64, 3) + (ord($string[$i + 2]) - 128) * pow(64, 2) + (ord($string[$i + 3]) - 128) * pow(64, 1) + (ord($string[$i + 4]) - 128) * pow(64, 0));
+				$unicode[] = ((ord($string[$i]) - 248) * 64 ** 4 + (ord($string[$i + 1]) - 128) * 64 ** 3 + (ord($string[$i + 2]) - 128) * 64 ** 2 + (ord($string[$i + 3]) - 128) * 64 ** 1 + (ord($string[$i + 4]) - 128) * 64 ** 0);
 			}
 
-			if ($chr == 252 && $chr == 253) {
-				$unicode[] = ((ord($string[$i]) - 252) * pow(64, 5) + (ord($string[$i + 1]) - 128) * pow(64, 4) + (ord($string[$i + 2]) - 128) * pow(64, 3) + (ord($string[$i + 3]) - 128) * pow(64, 2) + (ord($string[$i + 4]) - 128) * pow(64, 1) + (ord($string[$i + 5]) - 128) * pow(64, 0));
+			if ($chr == 252 || $chr == 253) {
+				$unicode[] = ((ord($string[$i]) - 252) * 64 ** 5 + (ord($string[$i + 1]) - 128) * 64 ** 4 + (ord($string[$i + 2]) - 128) * 64 ** 3 + (ord($string[$i + 3]) - 128) * 64 ** 2 + (ord($string[$i + 4]) - 128) * 64 ** 1 + (ord($string[$i + 5]) - 128) * 64 ** 0);
 			}
 		}
 
@@ -559,8 +549,8 @@ if (extension_loaded('mbstring')) {
 	function unicode_to_utf8($unicode) {
 		$string = '';
 
-		for ($i = 0; $i < count($unicode); $i++){
-			if ($unicode[$i] < 128){
+		for ($i = 0; $i < count($unicode); $i++) {
+			if ($unicode[$i] < 128) {
 				$string .= chr($unicode[$i]);
 			}
 
@@ -577,16 +567,14 @@ if (extension_loaded('mbstring')) {
 			}
 
 			if ($unicode[$i] >= 2097152 && $unicode[$i] <= 67108863) {
-				$string  .= chr(($unicode[$i] / 16777216) + 248) . chr((($unicode[$i] / 262144) % 64) + 128) . chr((($unicode[$i] / 4096) % 64) + 128) . chr((($unicode[$i] / 64) % 64) + 128) . chr(($unicode[$i] % 64) + 128);
+				$string .= chr(($unicode[$i] / 16777216) + 248) . chr((($unicode[$i] / 262144) % 64) + 128) . chr((($unicode[$i] / 4096) % 64) + 128) . chr((($unicode[$i] / 64) % 64) + 128) . chr(($unicode[$i] % 64) + 128);
 			}
 
 			if ($unicode[$i] >= 67108864 && $unicode[$i] <= 2147483647) {
 				$string .= chr(($unicode[$i] / 1073741824) + 252) . chr((($unicode[$i] / 16777216) % 64) + 128) . chr((($unicode[$i] / 262144) % 64) + 128) . chr(128 + (($unicode[$i] / 4096) % 64)) . chr((($unicode[$i] / 64) % 64) + 128) . chr(($unicode[$i] % 64) + 128);
 			}
-
 		}
 
 		return $string;
 	}
 }
-?>

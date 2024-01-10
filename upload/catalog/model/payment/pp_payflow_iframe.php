@@ -19,8 +19,8 @@ class ModelPaymentPPPayflowIframe extends Model {
 
 		if ($status) {
 			$method_data = array(
-				'code' => 'pp_payflow_iframe',
-				'title' => $this->language->get('text_title'),
+				'code'       => 'pp_payflow_iframe',
+				'title'      => $this->language->get('text_title'),
 				'sort_order' => $this->config->get('pp_payflow_iframe_sort_order')
 			);
 		}
@@ -49,17 +49,17 @@ class ModelPaymentPPPayflowIframe extends Model {
 			UPDATE `" . DB_PREFIX . "paypal_payflow_iframe_order`
 			SET `transaction_reference` = '" . $this->db->escape($data['transaction_reference']) . "',
 				`transaction_type` = '" . $this->db->escape($data['transaction_type']) . "',
-				`complete` = " . (int)$data['complete'] ."
+				`complete` = " . (int)$data['complete'] . "
 			WHERE `secure_token_id` = '" . $this->db->escape($data['secure_token_id']) . "'
 		");
 	}
 
 	public function call($data) {
 		$default_parameters = array(
-			'USER' => $this->config->get('pp_payflow_iframe_user'),
-			'VENDOR' => $this->config->get('pp_payflow_iframe_vendor'),
-			'PWD' => $this->config->get('pp_payflow_iframe_password'),
-			'PARTNER' => $this->config->get('pp_payflow_iframe_partner'),
+			'USER'         => $this->config->get('pp_payflow_iframe_user'),
+			'VENDOR'       => $this->config->get('pp_payflow_iframe_vendor'),
+			'PWD'          => $this->config->get('pp_payflow_iframe_password'),
+			'PARTNER'      => $this->config->get('pp_payflow_iframe_partner'),
 			'BUTTONSOURCE' => 'OpenCart_Cart_PFP',
 		);
 
@@ -105,7 +105,7 @@ class ModelPaymentPPPayflowIframe extends Model {
 				transaction_reference = '" . $this->db->escape($data['transaction_reference']) . "',
 				transaction_type = '" . $this->db->escape($data['type']) . "',
 				`time` = NOW(),
-				`amount` = '" . $this->db->escape($data['amount']) .  "'
+				`amount` = '" . $this->db->escape($data['amount']) . "'
 		");
 	}
 
@@ -116,4 +116,3 @@ class ModelPaymentPPPayflowIframe extends Model {
 		}
 	}
 }
-?>

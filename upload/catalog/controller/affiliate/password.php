@@ -27,7 +27,7 @@ class ControllerAffiliatePassword extends Controller {
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_home'),
-			'href'      => $this->url->link('common/home'),       	
+			'href'      => $this->url->link('common/home'),
 			'separator' => false
 		);
 
@@ -53,13 +53,13 @@ class ControllerAffiliatePassword extends Controller {
 		$this->data['button_continue'] = $this->language->get('button_continue');
 		$this->data['button_back'] = $this->language->get('button_back');
 
-		if (isset($this->error['password'])) { 
+		if (isset($this->error['password'])) {
 			$this->data['error_password'] = $this->error['password'];
 		} else {
 			$this->data['error_password'] = '';
 		}
 
-		if (isset($this->error['confirm'])) { 
+		if (isset($this->error['confirm'])) {
 			$this->data['error_confirm'] = $this->error['confirm'];
 		} else {
 			$this->data['error_confirm'] = '';
@@ -93,10 +93,10 @@ class ControllerAffiliatePassword extends Controller {
 			'common/content_top',
 			'common/content_bottom',
 			'common/footer',
-			'common/header'	
+			'common/header'
 		);
 
-		$this->response->setOutput($this->render());				
+		$this->response->setOutput($this->render());
 	}
 
 	protected function validate() {
@@ -115,4 +115,3 @@ class ControllerAffiliatePassword extends Controller {
 		}
 	}
 }
-?>

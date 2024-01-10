@@ -1,4 +1,4 @@
-<?php 
+<?php
 class ControllerLocalisationCurrency extends Controller {
 	private $error = array();
 
@@ -190,7 +190,7 @@ class ControllerLocalisationCurrency extends Controller {
 				'selected'      => isset($this->request->post['selected']) && in_array($result['currency_id'], $this->request->post['selected']),
 				'action'        => $action
 			);
-		}	
+		}
 
 		$this->data['heading_title'] = $this->language->get('heading_title');
 
@@ -328,7 +328,7 @@ class ControllerLocalisationCurrency extends Controller {
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('heading_title'),
-			'href'      => $this->url->link('localisation/currency', 'token=' . $this->session->data['token'] . $url, 'SSL'),      		
+			'href'      => $this->url->link('localisation/currency', 'token=' . $this->session->data['token'] . $url, 'SSL'),
 			'separator' => ' :: '
 		);
 
@@ -409,10 +409,10 @@ class ControllerLocalisationCurrency extends Controller {
 		$this->response->setOutput($this->render());
 	}
 
-	protected function validateForm() { 
-		if (!$this->user->hasPermission('modify', 'localisation/currency')) { 
+	protected function validateForm() {
+		if (!$this->user->hasPermission('modify', 'localisation/currency')) {
 			$this->error['warning'] = $this->language->get('error_permission');
-		} 
+		}
 
 		if ((utf8_strlen($this->request->post['title']) < 3) || (utf8_strlen($this->request->post['title']) > 32)) {
 			$this->error['title'] = $this->language->get('error_title');
@@ -422,7 +422,7 @@ class ControllerLocalisationCurrency extends Controller {
 			$this->error['code'] = $this->language->get('error_code');
 		}
 
-		if (!$this->error) { 
+		if (!$this->error) {
 			return true;
 		} else {
 			return false;
@@ -449,14 +449,14 @@ class ControllerLocalisationCurrency extends Controller {
 
 				if ($store_total) {
 					$this->error['warning'] = sprintf($this->language->get('error_store'), $store_total);
-				}					
+				}
 			}
 
 			$order_total = $this->model_sale_order->getTotalOrdersByCurrencyId($currency_id);
 
 			if ($order_total) {
 				$this->error['warning'] = sprintf($this->language->get('error_order'), $order_total);
-			}					
+			}
 		}
 
 		if (!$this->error) {
@@ -464,6 +464,5 @@ class ControllerLocalisationCurrency extends Controller {
 		} else {
 			return false;
 		}
-	}	
+	}
 }
-?>

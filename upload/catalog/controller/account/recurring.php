@@ -1,4 +1,4 @@
-<?php 
+<?php
 class ControllerAccountRecurring extends Controller {
 	public function index() {
 		if (!$this->customer->isLogged()) {
@@ -63,14 +63,14 @@ class ControllerAccountRecurring extends Controller {
 
 		$this->data['profiles'] = array();
 
-		if($results){
+		if ($results) {
 			foreach ($results as $result) {
 				$this->data['profiles'][] = array(
-					'id'                    => $result['order_recurring_id'],
-					'name'                  => $result['product_name'],
-					'status'                => $result['status'],
-					'created'               => date($this->language->get('date_format_short'), strtotime($result['created'])),
-					'href'                  => $this->url->link('account/recurring/info','recurring_id='.$result['order_recurring_id'],'SSL'),
+					'id'      => $result['order_recurring_id'],
+					'name'    => $result['product_name'],
+					'status'  => $result['status'],
+					'created' => date($this->language->get('date_format_short'), strtotime($result['created'])),
+					'href'    => $this->url->link('account/recurring/info', 'recurring_id=' . $result['order_recurring_id'], 'SSL'),
 				);
 			}
 		}
@@ -129,17 +129,17 @@ class ControllerAccountRecurring extends Controller {
 			$this->redirect($this->url->link('account/login', '', 'SSL'));
 		}
 
-		if(isset($this->session->data['error'])){
+		if (isset($this->session->data['error'])) {
 			$this->data['error'] = $this->session->data['error'];
 			unset($this->session->data['error']);
-		}else{
+		} else {
 			$this->data['error'] = '';
 		}
 
-		if(isset($this->session->data['success'])){
+		if (isset($this->session->data['success'])) {
 			$this->data['success'] = $this->session->data['success'];
 			unset($this->session->data['success']);
-		}else{
+		} else {
 			$this->data['success'] = '';
 		}
 
@@ -148,19 +148,17 @@ class ControllerAccountRecurring extends Controller {
 		$profile['transactions'] = $this->model_account_recurring->getProfileTransactions($this->request->get['recurring_id']);
 
 		$profile['created'] = date($this->language->get('date_format_short'), strtotime($profile['created']));
-		$profile['product_link'] = $this->url->link('product/product', 'product_id='.$profile['product_id'], 'SSL');
-		$profile['order_link'] = $this->url->link('account/order/info', 'order_id='.$profile['order_id'], 'SSL');
+		$profile['product_link'] = $this->url->link('product/product', 'product_id=' . $profile['product_id'], 'SSL');
+		$profile['order_link'] = $this->url->link('account/order/info', 'order_id=' . $profile['order_id'], 'SSL');
 
-		if($profile['status'] == 1 || $profile['status'] == 2){
-			/**
-			 * If the payment profiles payment type has a cancel action then link to that. If not then hide the button.
-			 */
-			if(!empty($profile['payment_code']) && $this->hasAction('payment/' . $profile['payment_code'] . '/recurringCancel') == true && $this->config->get($profile['payment_code'] . '_profile_cancel_status')){
-				$this->data['cancel_link'] = $this->url->link('payment/'.$profile['payment_code'].'/recurringCancel', 'recurring_id='.$this->request->get['recurring_id'], 'SSL');
-			}else{
+		if ($profile['status'] == 1 || $profile['status'] == 2) {
+			// If the payment profiles payment type has a cancel action then link to that. If not then hide the button.
+			if (!empty($profile['payment_code']) && $this->hasAction('payment/' . $profile['payment_code'] . '/recurringCancel') == true && $this->config->get($profile['payment_code'] . '_profile_cancel_status')) {
+				$this->data['cancel_link'] = $this->url->link('payment/' . $profile['payment_code'] . '/recurringCancel', 'recurring_id=' . $this->request->get['recurring_id'], 'SSL');
+			} else {
 				$this->data['cancel_link'] = '';
 			}
-		}else{
+		} else {
 			$this->data['cancel_link'] = '';
 		}
 
@@ -268,4 +266,3 @@ class ControllerAccountRecurring extends Controller {
 		}
 	}
 }
-?>

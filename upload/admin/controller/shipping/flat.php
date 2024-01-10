@@ -1,8 +1,8 @@
 <?php
 class ControllerShippingFlat extends Controller {
-	private $error = array(); 
+	private $error = array();
 
-	public function index() {   
+	public function index() {
 		$this->language->load('shipping/flat');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -10,7 +10,7 @@ class ControllerShippingFlat extends Controller {
 		$this->load->model('setting/setting');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-			$this->model_setting_setting->editSetting('flat', $this->request->post);		
+			$this->model_setting_setting->editSetting('flat', $this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -99,7 +99,7 @@ class ControllerShippingFlat extends Controller {
 			$this->data['flat_sort_order'] = $this->request->post['flat_sort_order'];
 		} else {
 			$this->data['flat_sort_order'] = $this->config->get('flat_sort_order');
-		}				
+		}
 
 		$this->template = 'shipping/flat.tpl';
 		$this->children = array(
@@ -119,7 +119,6 @@ class ControllerShippingFlat extends Controller {
 			return true;
 		} else {
 			return false;
-		}	
+		}
 	}
 }
-?>

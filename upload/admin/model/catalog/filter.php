@@ -19,7 +19,7 @@ class ModelCatalogFilter extends Model {
 					$this->db->query("INSERT INTO " . DB_PREFIX . "filter_description SET filter_id = '" . (int)$filter_id . "', language_id = '" . (int)$language_id . "', filter_group_id = '" . (int)$filter_group_id . "', name = '" . $this->db->escape($filter_description['name']) . "'");
 				}
 			}
-		}		
+		}
 	}
 
 	public function editFilter($filter_group_id, $data) {
@@ -48,12 +48,12 @@ class ModelCatalogFilter extends Model {
 					$this->db->query("INSERT INTO " . DB_PREFIX . "filter_description SET filter_id = '" . (int)$filter_id . "', language_id = '" . (int)$language_id . "', filter_group_id = '" . (int)$filter_group_id . "', name = '" . $this->db->escape($filter_description['name']) . "'");
 				}
 			}
-		}		
+		}
 	}
 
 	public function deleteFilter($filter_group_id) {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "filter_group` WHERE filter_group_id = '" . (int)$filter_group_id . "'");
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "filter_group_description` WHERE filter_group_id = '" . (int)$filter_group_id . "'");	
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "filter_group_description` WHERE filter_group_id = '" . (int)$filter_group_id . "'");
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "filter` WHERE filter_group_id = '" . (int)$filter_group_id . "'");
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "filter_description` WHERE filter_group_id = '" . (int)$filter_group_id . "'");
 	}
@@ -70,12 +70,12 @@ class ModelCatalogFilter extends Model {
 		$sort_data = array(
 			'fgd.name',
 			'fg.sort_order'
-		);	
+		);
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-			$sql .= " ORDER BY " . $data['sort'];	
+			$sql .= " ORDER BY " . $data['sort'];
 		} else {
-			$sql .= " ORDER BY fgd.name";	
+			$sql .= " ORDER BY fgd.name";
 		}
 
 		if (isset($data['order']) && ($data['order'] == 'DESC')) {
@@ -87,14 +87,14 @@ class ModelCatalogFilter extends Model {
 		if (isset($data['start']) || isset($data['limit'])) {
 			if ($data['start'] < 0) {
 				$data['start'] = 0;
-			}					
+			}
 
 			if ($data['limit'] < 1) {
 				$data['limit'] = 20;
-			}	
+			}
 
 			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
-		}	
+		}
 
 		$query = $this->db->query($sql);
 
@@ -131,11 +131,11 @@ class ModelCatalogFilter extends Model {
 		if (isset($data['start']) || isset($data['limit'])) {
 			if ($data['start'] < 0) {
 				$data['start'] = 0;
-			}					
+			}
 
 			if ($data['limit'] < 1) {
 				$data['limit'] = 20;
-			}	
+			}
 
 			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
 		}
@@ -153,7 +153,7 @@ class ModelCatalogFilter extends Model {
 		foreach ($filter_query->rows as $filter) {
 			$filter_description_data = array();
 
-			$filter_description_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "filter_description WHERE filter_id = '" . (int)$filter['filter_id'] . "'");			
+			$filter_description_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "filter_description WHERE filter_id = '" . (int)$filter['filter_id'] . "'");
 
 			foreach ($filter_description_query->rows as $filter_description) {
 				$filter_description_data[$filter_description['language_id']] = array('name' => $filter_description['name']);
@@ -173,6 +173,5 @@ class ModelCatalogFilter extends Model {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "filter_group`");
 
 		return $query->row['total'];
-	}		
+	}
 }
-?>

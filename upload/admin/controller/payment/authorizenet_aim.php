@@ -1,6 +1,6 @@
-<?php 
+<?php
 class ControllerPaymentAuthorizenetAim extends Controller {
-	private $error = array(); 
+	private $error = array();
 
 	public function index() {
 		$this->language->load('payment/authorizenet_aim');
@@ -10,7 +10,7 @@ class ControllerPaymentAuthorizenetAim extends Controller {
 		$this->load->model('setting/setting');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-			$this->model_setting_setting->editSetting('authorizenet_aim', $this->request->post);				
+			$this->model_setting_setting->editSetting('authorizenet_aim', $this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -25,7 +25,7 @@ class ControllerPaymentAuthorizenetAim extends Controller {
 		$this->data['text_test'] = $this->language->get('text_test');
 		$this->data['text_live'] = $this->language->get('text_live');
 		$this->data['text_authorization'] = $this->language->get('text_authorization');
-		$this->data['text_capture'] = $this->language->get('text_capture');		
+		$this->data['text_capture'] = $this->language->get('text_capture');
 
 		$this->data['entry_login'] = $this->language->get('entry_login');
 		$this->data['entry_key'] = $this->language->get('entry_key');
@@ -33,8 +33,8 @@ class ControllerPaymentAuthorizenetAim extends Controller {
 		$this->data['entry_server'] = $this->language->get('entry_server');
 		$this->data['entry_mode'] = $this->language->get('entry_mode');
 		$this->data['entry_method'] = $this->language->get('entry_method');
-		$this->data['entry_total'] = $this->language->get('entry_total');	
-		$this->data['entry_order_status'] = $this->language->get('entry_order_status');		
+		$this->data['entry_total'] = $this->language->get('entry_total');
+		$this->data['entry_order_status'] = $this->language->get('entry_order_status');
 		$this->data['entry_geo_zone'] = $this->language->get('entry_geo_zone');
 		$this->data['entry_status'] = $this->language->get('entry_status');
 		$this->data['entry_sort_order'] = $this->language->get('entry_sort_order');
@@ -123,14 +123,14 @@ class ControllerPaymentAuthorizenetAim extends Controller {
 		if (isset($this->request->post['authorizenet_aim_total'])) {
 			$this->data['authorizenet_aim_total'] = $this->request->post['authorizenet_aim_total'];
 		} else {
-			$this->data['authorizenet_aim_total'] = $this->config->get('authorizenet_aim_total'); 
-		} 
+			$this->data['authorizenet_aim_total'] = $this->config->get('authorizenet_aim_total');
+		}
 
 		if (isset($this->request->post['authorizenet_aim_order_status_id'])) {
 			$this->data['authorizenet_aim_order_status_id'] = $this->request->post['authorizenet_aim_order_status_id'];
 		} else {
-			$this->data['authorizenet_aim_order_status_id'] = $this->config->get('authorizenet_aim_order_status_id'); 
-		} 
+			$this->data['authorizenet_aim_order_status_id'] = $this->config->get('authorizenet_aim_order_status_id');
+		}
 
 		$this->load->model('localisation/order_status');
 
@@ -139,8 +139,8 @@ class ControllerPaymentAuthorizenetAim extends Controller {
 		if (isset($this->request->post['authorizenet_aim_geo_zone_id'])) {
 			$this->data['authorizenet_aim_geo_zone_id'] = $this->request->post['authorizenet_aim_geo_zone_id'];
 		} else {
-			$this->data['authorizenet_aim_geo_zone_id'] = $this->config->get('authorizenet_aim_geo_zone_id'); 
-		} 
+			$this->data['authorizenet_aim_geo_zone_id'] = $this->config->get('authorizenet_aim_geo_zone_id');
+		}
 
 		$this->load->model('localisation/geo_zone');
 
@@ -184,7 +184,6 @@ class ControllerPaymentAuthorizenetAim extends Controller {
 			return true;
 		} else {
 			return false;
-		}	
+		}
 	}
 }
-?>

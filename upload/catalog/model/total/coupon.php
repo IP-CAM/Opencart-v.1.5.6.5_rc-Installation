@@ -20,7 +20,7 @@ class ModelTotalCoupon extends Model {
 						if (in_array($product['product_id'], $coupon_info['product'])) {
 							$sub_total += $product['total'];
 						}
-					}					
+					}
 				}
 
 				if ($coupon_info['type'] == 'F') {
@@ -72,8 +72,8 @@ class ModelTotalCoupon extends Model {
 						}
 					}
 
-					$discount_total += $this->session->data['shipping_method']['cost'];				
-				}				
+					$discount_total += $this->session->data['shipping_method']['cost'];
+				}
 
 				$total_data[] = array(
 					'code'       => 'coupon',
@@ -84,7 +84,7 @@ class ModelTotalCoupon extends Model {
 				);
 
 				$total -= $discount_total;
-			} 
+			}
 		}
 	}
 
@@ -94,17 +94,16 @@ class ModelTotalCoupon extends Model {
 		$start = strpos($order_total['title'], '(') + 1;
 		$end = strrpos($order_total['title'], ')');
 
-		if ($start && $end) {  
+		if ($start && $end) {
 			$code = substr($order_total['title'], $start, $end - $start);
-		}	
+		}
 
 		$this->load->model('checkout/coupon');
 
 		$coupon_info = $this->model_checkout_coupon->getCoupon($code);
 
 		if ($coupon_info) {
-			$this->model_checkout_coupon->redeem($coupon_info['coupon_id'], $order_info['order_id'], $order_info['customer_id'], $order_total['value']);	
-		}						
+			$this->model_checkout_coupon->redeem($coupon_info['coupon_id'], $order_info['order_id'], $order_info['customer_id'], $order_total['value']);
+		}
 	}
 }
-?>

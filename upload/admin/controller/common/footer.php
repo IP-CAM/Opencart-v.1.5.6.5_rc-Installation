@@ -1,5 +1,5 @@
 <?php
-class ControllerCommonFooter extends Controller {   
+class ControllerCommonFooter extends Controller {
 	protected function index() {
 		$this->language->load('common/footer');
 
@@ -10,4 +10,3 @@ class ControllerCommonFooter extends Controller {
 		$this->render();
 	}
 }
-?>

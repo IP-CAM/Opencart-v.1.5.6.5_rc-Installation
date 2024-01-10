@@ -9,7 +9,7 @@ class Language {
 	}
 
 	public function get($key) {
-		return (isset($this->data[$key]) ? $this->data[$key] : $key);
+		return $this->data[$key] ?? $key;
 	}
 
 	public function load($filename) {
@@ -37,8 +37,7 @@ class Language {
 			return $this->data;
 		} else {
 			trigger_error('Error: Could not load language ' . $filename . '!');
-		//	exit();
+			//	exit();
 		}
 	}
 }
-?>

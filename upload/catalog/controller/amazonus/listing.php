@@ -15,10 +15,11 @@ class ControllerAmazonusListing extends Controller {
 
 		$token = $this->config->get('openbay_amazonus_token');
 
-		$incomingToken = isset($this->request->post['token']) ? $this->request->post['token'] : '';
+		$incomingToken = $this->request->post['token'] ?? '';
 
 		if ($incomingToken !== $token) {
 			$logger->write('amazonus/listing - Incorrect token: ' . $incomingToken);
+
 			return;
 		}
 
@@ -26,6 +27,7 @@ class ControllerAmazonusListing extends Controller {
 
 		if (!$decrypted) {
 			$logger->write('amazonus/order Failed to decrypt data');
+
 			return;
 		}
 
@@ -45,4 +47,3 @@ class ControllerAmazonusListing extends Controller {
 		}
 	}
 }
-?>

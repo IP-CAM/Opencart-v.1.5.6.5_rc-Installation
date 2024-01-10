@@ -1,8 +1,8 @@
-<?php 
+<?php
 class ControllerPaymentFreeCheckout extends Controller {
-	private $error = array(); 
+	private $error = array();
 
-	public function index() { 
+	public function index() {
 		$this->language->load('payment/free_checkout');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -24,7 +24,7 @@ class ControllerPaymentFreeCheckout extends Controller {
 		$this->data['text_all_zones'] = $this->language->get('text_all_zones');
 		$this->data['text_none'] = $this->language->get('text_none');
 
-		$this->data['entry_order_status'] = $this->language->get('entry_order_status');		
+		$this->data['entry_order_status'] = $this->language->get('entry_order_status');
 		$this->data['entry_status'] = $this->language->get('entry_status');
 		$this->data['entry_sort_order'] = $this->language->get('entry_sort_order');
 
@@ -41,13 +41,13 @@ class ControllerPaymentFreeCheckout extends Controller {
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_home'),
-			'href'      =>  $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL'),
+			'href'      => $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL'),
 			'separator' => false
 		);
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_payment'),
-			'href'      => $this->url->link('extension/payment', 'token=' . $this->session->data['token'], 'SSL'),       		
+			'href'      => $this->url->link('extension/payment', 'token=' . $this->session->data['token'], 'SSL'),
 			'separator' => ' :: '
 		);
 
@@ -59,13 +59,13 @@ class ControllerPaymentFreeCheckout extends Controller {
 
 		$this->data['action'] = $this->url->link('payment/free_checkout', 'token=' . $this->session->data['token'], 'SSL');
 
-		$this->data['cancel'] = $this->url->link('extension/payment', 'token=' . $this->session->data['token'], 'SSL');	
+		$this->data['cancel'] = $this->url->link('extension/payment', 'token=' . $this->session->data['token'], 'SSL');
 
 		if (isset($this->request->post['free_checkout_order_status_id'])) {
 			$this->data['free_checkout_order_status_id'] = $this->request->post['free_checkout_order_status_id'];
 		} else {
-			$this->data['free_checkout_order_status_id'] = $this->config->get('free_checkout_order_status_id'); 
-		} 
+			$this->data['free_checkout_order_status_id'] = $this->config->get('free_checkout_order_status_id');
+		}
 
 		$this->load->model('localisation/order_status');
 
@@ -101,7 +101,6 @@ class ControllerPaymentFreeCheckout extends Controller {
 			return true;
 		} else {
 			return false;
-		}	
+		}
 	}
 }
-?>

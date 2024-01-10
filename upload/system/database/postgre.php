@@ -3,7 +3,7 @@ final class Postgre {
 	private $link;
 
 	public function __construct($hostname, $username, $password, $database) {
-		if (!$this->link = pg_connect('hostname=' . $hostname . ' username=' . $username . ' password='	. $password . ' database=' . $database)) {
+		if (!$this->link = pg_connect('hostname=' . $hostname . ' username=' . $username . ' password=' . $password . ' database=' . $database)) {
 			trigger_error('Error: Could not make a database link using ' . $username . '@' . $hostname);
 		}
 
@@ -32,13 +32,13 @@ final class Postgre {
 				pg_free_result($resource);
 
 				$query = new stdClass();
-				$query->row = isset($data[0]) ? $data[0] : array();
+				$query->row = $data[0] ?? array();
 				$query->rows = $data;
 				$query->num_rows = $i;
 
 				unset($data);
 
-				return $query;	
+				return $query;
 			} else {
 				return true;
 			}
@@ -66,4 +66,3 @@ final class Postgre {
 		pg_close($this->link);
 	}
 }
-?>

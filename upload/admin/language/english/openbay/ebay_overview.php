@@ -14,4 +14,3 @@ $_['lang_heading_profile']          = 'Profiles';
 $_['lang_heading_template']         = 'Templates';
 $_['lang_heading_ebayacc']          = 'eBay account';
 $_['lang_heading_register']         = 'Register here';
-?>

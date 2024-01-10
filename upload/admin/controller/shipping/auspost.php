@@ -1,8 +1,8 @@
 <?php
 class ControllerShippingAusPost extends Controller {
-	private $error = array(); 
+	private $error = array();
 
-	public function index() {   
+	public function index() {
 		$this->language->load('shipping/auspost');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -10,7 +10,7 @@ class ControllerShippingAusPost extends Controller {
 		$this->load->model('setting/setting');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-			$this->model_setting_setting->editSetting('auspost', $this->request->post);             
+			$this->model_setting_setting->editSetting('auspost', $this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -30,7 +30,7 @@ class ControllerShippingAusPost extends Controller {
 		$this->data['entry_display_time'] = $this->language->get('entry_display_time');
 		$this->data['entry_weight_class'] = $this->language->get('entry_weight_class');
 		$this->data['entry_tax_class'] = $this->language->get('entry_tax_class');
-		$this->data['entry_geo_zone'] = $this->language->get('entry_geo_zone');         
+		$this->data['entry_geo_zone'] = $this->language->get('entry_geo_zone');
 		$this->data['entry_status'] = $this->language->get('entry_status');
 		$this->data['entry_sort_order'] = $this->language->get('entry_sort_order');
 
@@ -137,12 +137,12 @@ class ControllerShippingAusPost extends Controller {
 			$this->data['auspost_sort_order'] = $this->request->post['auspost_sort_order'];
 		} else {
 			$this->data['auspost_sort_order'] = $this->config->get('auspost_sort_order');
-		}                               
+		}
 
 		$this->template = 'shipping/auspost.tpl';
 		$this->children = array(
-			'common/header',        
-			'common/footer' 
+			'common/header',
+			'common/footer'
 		);
 
 		$this->response->setOutput($this->render(true), $this->config->get('config_compression'));
@@ -153,7 +153,7 @@ class ControllerShippingAusPost extends Controller {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
 
-		if (!preg_match('/^[0-9]{4}$/', $this->request->post['auspost_postcode'])){
+		if (!preg_match('/^[0-9]{4}$/', $this->request->post['auspost_postcode'])) {
 			$this->error['postcode'] = $this->language->get('error_postcode');
 		}
 
@@ -161,7 +161,6 @@ class ControllerShippingAusPost extends Controller {
 			return true;
 		} else {
 			return false;
-		}       
+		}
 	}
 }
-?>

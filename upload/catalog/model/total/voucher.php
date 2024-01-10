@@ -10,10 +10,10 @@ class ModelTotalVoucher extends Model {
 
 			if ($voucher_info) {
 				if ($voucher_info['amount'] > $total) {
-					$amount = $total;	
+					$amount = $total;
 				} else {
-					$amount = $voucher_info['amount'];	
-				}				
+					$amount = $voucher_info['amount'];
+				}
 
 				$total_data[] = array(
 					'code'       => 'voucher',
@@ -24,7 +24,7 @@ class ModelTotalVoucher extends Model {
 				);
 
 				$total -= $amount;
-			} 
+			}
 		}
 	}
 
@@ -34,17 +34,16 @@ class ModelTotalVoucher extends Model {
 		$start = strpos($order_total['title'], '(') + 1;
 		$end = strrpos($order_total['title'], ')');
 
-		if ($start && $end) {  
+		if ($start && $end) {
 			$code = substr($order_total['title'], $start, $end - $start);
-		}	
+		}
 
 		$this->load->model('checkout/voucher');
 
 		$voucher_info = $this->model_checkout_voucher->getVoucher($code);
 
 		if ($voucher_info) {
-			$this->model_checkout_voucher->redeem($voucher_info['voucher_id'], $order_info['order_id'], $order_total['value']);	
-		}						
-	}	
+			$this->model_checkout_voucher->redeem($voucher_info['voucher_id'], $order_info['order_id'], $order_total['value']);
+		}
+	}
 }
-?>

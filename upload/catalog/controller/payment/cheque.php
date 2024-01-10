@@ -19,9 +19,9 @@ class ControllerPaymentCheque extends Controller {
 			$this->template = $this->config->get('config_template') . '/template/payment/cheque.tpl';
 		} else {
 			$this->template = 'default/template/payment/cheque.tpl';
-		}	
+		}
 
-		$this->render(); 
+		$this->render();
 	}
 
 	public function confirm() {
@@ -38,4 +38,3 @@ class ControllerPaymentCheque extends Controller {
 		$this->model_checkout_order->confirm($this->session->data['order_id'], $this->config->get('cheque_order_status_id'), $comment, true);
 	}
 }
-?>

@@ -1,5 +1,5 @@
 <?php
-class ModelAffiliateTransaction extends Model {	
+class ModelAffiliateTransaction extends Model {
 	public function getTransactions($data = array()) {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "affiliate_transaction` WHERE affiliate_id = '" . (int)$this->affiliate->getId() . "'";
 
@@ -10,9 +10,9 @@ class ModelAffiliateTransaction extends Model {
 		);
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-			$sql .= " ORDER BY " . $data['sort'];	
+			$sql .= " ORDER BY " . $data['sort'];
 		} else {
-			$sql .= " ORDER BY date_added";	
+			$sql .= " ORDER BY date_added";
 		}
 
 		if (isset($data['order']) && ($data['order'] == 'DESC')) {
@@ -24,11 +24,11 @@ class ModelAffiliateTransaction extends Model {
 		if (isset($data['start']) || isset($data['limit'])) {
 			if ($data['start'] < 0) {
 				$data['start'] = 0;
-			}			
+			}
 
 			if ($data['limit'] < 1) {
 				$data['limit'] = 20;
-			}	
+			}
 
 			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
 		}
@@ -36,13 +36,13 @@ class ModelAffiliateTransaction extends Model {
 		$query = $this->db->query($sql);
 
 		return $query->rows;
-	}	
+	}
 
 	public function getTotalTransactions() {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "affiliate_transaction` WHERE affiliate_id = '" . (int)$this->affiliate->getId() . "'");
 
 		return $query->row['total'];
-	}	
+	}
 
 	public function getBalance() {
 		$query = $this->db->query("SELECT SUM(amount) AS total FROM `" . DB_PREFIX . "affiliate_transaction` WHERE affiliate_id = '" . (int)$this->affiliate->getId() . "' GROUP BY affiliate_id");
@@ -50,8 +50,7 @@ class ModelAffiliateTransaction extends Model {
 		if ($query->num_rows) {
 			return $query->row['total'];
 		} else {
-			return 0;	
+			return 0;
 		}
 	}
 }
-?>

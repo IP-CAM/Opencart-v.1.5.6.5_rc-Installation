@@ -1,4 +1,4 @@
-<?php 
+<?php
 class ModelPaymentPerpetualPayments extends Model {
 	public function getMethod($address, $total) {
 		$this->language->load('payment/perpetual_payments');
@@ -13,11 +13,11 @@ class ModelPaymentPerpetualPayments extends Model {
 			$status = true;
 		} else {
 			$status = false;
-		}	
+		}
 
 		$method_data = array();
 
-		if ($status) {  
+		if ($status) {
 			$method_data = array(
 				'code'       => 'perpetual_payments',
 				'title'      => $this->language->get('text_title'),
@@ -28,4 +28,3 @@ class ModelPaymentPerpetualPayments extends Model {
 		return $method_data;
 	}
 }
-?>

@@ -1,4 +1,4 @@
-<?php 
+<?php
 class ControllerPaymentPaymate extends Controller {
 	protected function index() {
 		$this->data['button_confirm'] = $this->language->get('button_confirm');
@@ -14,7 +14,7 @@ class ControllerPaymentPaymate extends Controller {
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
 		$this->data['mid'] = $this->config->get('paymate_username');
-		$this->data['amt'] = $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false); 
+		$this->data['amt'] = $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false);
 
 		$this->data['currency'] = $order_info['currency_code'];
 		$this->data['ref'] = $order_info['order_id'];
@@ -37,7 +37,7 @@ class ControllerPaymentPaymate extends Controller {
 			$this->template = $this->config->get('config_template') . '/template/payment/paymate.tpl';
 		} else {
 			$this->template = 'default/template/payment/paymate.tpl';
-		}	
+		}
 
 		$this->render();
 	}
@@ -49,11 +49,11 @@ class ControllerPaymentPaymate extends Controller {
 			$order_id = $this->request->post['ref'];
 		} else {
 			$order_id = 0;
-		}			
+		}
 
 		$this->load->model('checkout/order');
 
-		$order_info = $this->model_checkout_order->getOrder($order_id);	 	
+		$order_info = $this->model_checkout_order->getOrder($order_id);
 
 		if ($order_info) {
 			$error = '';
@@ -67,7 +67,7 @@ class ControllerPaymentPaymate extends Controller {
 			}
 		} else {
 			$error = $this->language->get('text_unable');
-		}	
+		}
 
 		if ($error) {
 			$this->data['breadcrumbs'] = array();
@@ -123,8 +123,7 @@ class ControllerPaymentPaymate extends Controller {
 		} else {
 			$this->model_checkout_order->confirm($order_id, $this->config->get('paymate_order_status_id'));
 
-			$this->redirect($this->url->link('checkout/success'));			
-		}		
+			$this->redirect($this->url->link('checkout/success'));
+		}
 	}
 }
-?>

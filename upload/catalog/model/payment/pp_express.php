@@ -5,7 +5,7 @@ class ModelPaymentPPExpress extends Model {
 
 		$arr = array();
 
-		foreach($data as $k=>$v) {
+		foreach ($data as $k => $v) {
 			$tmp = explode('=', $v);
 			$arr[$tmp[0]] = urldecode($tmp[1]);
 		}
@@ -22,34 +22,34 @@ class ModelPaymentPPExpress extends Model {
 		}
 
 		$settings = array(
-			'USER' => $this->config->get('pp_express_username'),
-			'PWD' => $this->config->get('pp_express_password'),
-			'SIGNATURE' => $this->config->get('pp_express_signature'),
-			'VERSION' => '65.2',
+			'USER'         => $this->config->get('pp_express_username'),
+			'PWD'          => $this->config->get('pp_express_password'),
+			'SIGNATURE'    => $this->config->get('pp_express_signature'),
+			'VERSION'      => '65.2',
 			'BUTTONSOURCE' => 'OpenCart_Cart_EC',
 		);
 
 		$this->log($data, 'Call data');
 
 		$defaults = array(
-			CURLOPT_POST => 1,
-			CURLOPT_HEADER => 0,
-			CURLOPT_URL => $api_endpoint,
-			CURLOPT_USERAGENT => "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.1) Gecko/20061204 Firefox/2.0.0.1",
-			CURLOPT_FRESH_CONNECT => 1,
+			CURLOPT_POST           => 1,
+			CURLOPT_HEADER         => 0,
+			CURLOPT_URL            => $api_endpoint,
+			CURLOPT_USERAGENT      => "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.1) Gecko/20061204 Firefox/2.0.0.1",
+			CURLOPT_FRESH_CONNECT  => 1,
 			CURLOPT_RETURNTRANSFER => 1,
-			CURLOPT_FORBID_REUSE => 1,
-			CURLOPT_TIMEOUT => 0,
+			CURLOPT_FORBID_REUSE   => 1,
+			CURLOPT_TIMEOUT        => 0,
 			CURLOPT_SSL_VERIFYPEER => 0,
 			CURLOPT_SSL_VERIFYHOST => 0,
-			CURLOPT_POSTFIELDS => http_build_query(array_merge($data, $settings), '', "&")
+			CURLOPT_POSTFIELDS     => http_build_query(array_merge($data, $settings), '', "&")
 		);
 
 		$ch = curl_init();
 
 		curl_setopt_array($ch, $defaults);
 
-		if( ! $result = curl_exec($ch)) {
+		if (!$result = curl_exec($ch)) {
 			$this->log(array('error' => curl_error($ch), 'errno' => curl_errno($ch)), 'cURL failed');
 		}
 
@@ -61,19 +61,20 @@ class ModelPaymentPPExpress extends Model {
 	}
 
 	public function createToken($len = 32) {
-		$base='ABCDEFGHKLMNOPQRSTWXYZabcdefghjkmnpqrstwxyz123456789';
-		$max=strlen($base)-1;
-		$activatecode='';
-		mt_srand((double)microtime()*1000000);
-		while (strlen($activatecode)<$len+1)
-			$activatecode.=$base{mt_rand(0,$max)};
+		$base = 'ABCDEFGHKLMNOPQRSTWXYZabcdefghjkmnpqrstwxyz123456789';
+		$max = strlen($base) - 1;
+		$activatecode = '';
+		mt_srand((float)microtime() * 1000000);
+		while (strlen($activatecode) < $len + 1) {
+			$activatecode .= $base[mt_rand(0, $max)];
+		}
 
 		return $activatecode;
 	}
 
 	public function log($data, $title = null) {
-		if($this->config->get('pp_express_debug')) {
-			$this->log->write('PayPal Express debug ('.$title.'): '.json_encode($data));
+		if ($this->config->get('pp_express_debug')) {
+			$this->log->write('PayPal Express debug (' . $title . '): ' . json_encode($data));
 		}
 	}
 
@@ -107,41 +108,37 @@ class ModelPaymentPPExpress extends Model {
 	}
 
 	public function addOrder($order_data) {
-		/**
-		 * 1 to 1 relationship with order table (extends order info)
-		 */
+		// 1 to 1 relationship with order table (extends order info)
 
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "paypal_order` SET
-			`order_id` = '".(int)$order_data['order_id']."',
+			`order_id` = '" . (int)$order_data['order_id'] . "',
 			`created` = NOW(),
 			`modified` = NOW(),
-			`capture_status` = '".$this->db->escape($order_data['capture_status'])."',
-			`currency_code` = '".$this->db->escape($order_data['currency_code'])."',
-			`total` = '".(double)$order_data['total']."',
-			`authorization_id` = '".$this->db->escape($order_data['authorization_id'])."'");
+			`capture_status` = '" . $this->db->escape($order_data['capture_status']) . "',
+			`currency_code` = '" . $this->db->escape($order_data['currency_code']) . "',
+			`total` = '" . (float)$order_data['total'] . "',
+			`authorization_id` = '" . $this->db->escape($order_data['authorization_id']) . "'");
 
 		return $this->db->getLastId();
 	}
 
 	public function addTransaction($transaction_data) {
-		/**
-		 * 1 to many relationship with paypal order table, many transactions per 1 order
-		 */
+		// 1 to many relationship with paypal order table, many transactions per 1 order
 
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "paypal_order_transaction` SET
-			`paypal_order_id` = '".(int)$transaction_data['paypal_order_id']."',
-			`transaction_id` = '".$this->db->escape($transaction_data['transaction_id'])."',
-			`parent_transaction_id` = '".$this->db->escape($transaction_data['parent_transaction_id'])."',
+			`paypal_order_id` = '" . (int)$transaction_data['paypal_order_id'] . "',
+			`transaction_id` = '" . $this->db->escape($transaction_data['transaction_id']) . "',
+			`parent_transaction_id` = '" . $this->db->escape($transaction_data['parent_transaction_id']) . "',
 			`created` = NOW(),
-			`note` = '".$this->db->escape($transaction_data['note'])."',
-			`msgsubid` = '".$this->db->escape($transaction_data['msgsubid'])."',
-			`receipt_id` = '".$this->db->escape($transaction_data['receipt_id'])."',
-			`payment_type` = '".$this->db->escape($transaction_data['payment_type'])."',
-			`payment_status` = '".$this->db->escape($transaction_data['payment_status'])."',
-			`pending_reason` = '".$this->db->escape($transaction_data['pending_reason'])."',
-			`transaction_entity` = '".$this->db->escape($transaction_data['transaction_entity'])."',
-			`amount` = '".(double)$transaction_data['amount']."',
-			`debug_data` = '".$this->db->escape($transaction_data['debug_data'])."'");
+			`note` = '" . $this->db->escape($transaction_data['note']) . "',
+			`msgsubid` = '" . $this->db->escape($transaction_data['msgsubid']) . "',
+			`receipt_id` = '" . $this->db->escape($transaction_data['receipt_id']) . "',
+			`payment_type` = '" . $this->db->escape($transaction_data['payment_type']) . "',
+			`payment_status` = '" . $this->db->escape($transaction_data['payment_status']) . "',
+			`pending_reason` = '" . $this->db->escape($transaction_data['pending_reason']) . "',
+			`transaction_entity` = '" . $this->db->escape($transaction_data['transaction_entity']) . "',
+			`amount` = '" . (float)$transaction_data['amount'] . "',
+			`debug_data` = '" . $this->db->escape($transaction_data['debug_data']) . "'");
 	}
 
 	public function paymentRequestInfo() {
@@ -203,7 +200,7 @@ class ModelPaymentPPExpress extends Model {
 
 		if (!empty($this->session->data['vouchers'])) {
 			foreach ($this->session->data['vouchers'] as $voucher) {
-				$item_total += $this->currency->format($voucher['amount'], false, false, false);;
+				$item_total += $this->currency->format($voucher['amount'], false, false, false);
 
 				$data['L_PAYMENTREQUEST_0_DESC' . $i] = '';
 				$data['L_PAYMENTREQUEST_0_NAME' . $i] = $voucher['description'];
@@ -270,24 +267,24 @@ class ModelPaymentPPExpress extends Model {
 		$z = 0;
 
 		$recurring_products = $this->cart->getRecurringProducts();
-		if(!empty($recurring_products)) {
+		if (!empty($recurring_products)) {
 
 			$this->language->load('payment/pp_express');
 
-			foreach($recurring_products as $item) {
+			foreach ($recurring_products as $item) {
 				$data['L_BILLINGTYPE' . $z] = 'RecurringPayments';
 
-				if($item['recurring_trial'] == 1) {
-					$trial_amt = $this->currency->format($this->tax->calculate($item['recurring_trial_price'], $item['tax_class_id'], $this->config->get('config_tax')), false, false, false) * $item['quantity'].' '.$this->currency->getCode();
+				if ($item['recurring_trial'] == 1) {
+					$trial_amt = $this->currency->format($this->tax->calculate($item['recurring_trial_price'], $item['tax_class_id'], $this->config->get('config_tax')), false, false, false) * $item['quantity'] . ' ' . $this->currency->getCode();
 					$trial_text =  sprintf($this->language->get('text_trial'), $trial_amt, $item['recurring_trial_cycle'], $item['recurring_trial_frequency'], $item['recurring_trial_duration']);
 				} else {
 					$trial_text = '';
 				}
 
-				$recurring_amt = $this->currency->format($this->tax->calculate($item['recurring_price'], $item['tax_class_id'], $this->config->get('config_tax')), false, false, false)  * $item['quantity'].' '.$this->currency->getCode();
+				$recurring_amt = $this->currency->format($this->tax->calculate($item['recurring_price'], $item['tax_class_id'], $this->config->get('config_tax')), false, false, false) * $item['quantity'] . ' ' . $this->currency->getCode();
 				$recurring_description = $trial_text . sprintf($this->language->get('text_recurring'), $recurring_amt, $item['recurring_cycle'], $item['recurring_frequency']);
 
-				if($item['recurring_duration'] > 0) {
+				if ($item['recurring_duration'] > 0) {
 					$recurring_description .= sprintf($this->language->get('text_length'), $item['recurring_duration']);
 				}
 
@@ -300,9 +297,7 @@ class ModelPaymentPPExpress extends Model {
 	}
 
 	public function isMobile() {
-		/*
-		 * This will check the user agent and "try" to match if it is a mobile device
-		 */
+		// This will check the user agent and "try" to match if it is a mobile device
 		if (preg_match("/Mobile|Android|BlackBerry|iPhone|Windows Phone/", $this->request->server['HTTP_USER_AGENT'])) {
 			return true;
 		} else {
@@ -313,7 +308,7 @@ class ModelPaymentPPExpress extends Model {
 	public function getTransactionRow($transaction_id) {
 		$qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "paypal_order_transaction` `pt` LEFT JOIN `" . DB_PREFIX . "paypal_order` `po` ON `pt`.`paypal_order_id` = `po`.`paypal_order_id`  WHERE `pt`.`transaction_id` = '" . $this->db->escape($transaction_id) . "' LIMIT 1");
 
-		if($qry->num_rows > 0) {
+		if ($qry->num_rows > 0) {
 			return $qry->row;
 		} else {
 			return false;
@@ -333,15 +328,15 @@ class ModelPaymentPPExpress extends Model {
 	}
 
 	public function updateOrder($capture_status, $order_id) {
-		$this->db->query("UPDATE `" . DB_PREFIX . "paypal_order` SET `modified` = now(), `capture_status` = '".$this->db->escape($capture_status)."' WHERE `order_id` = '".(int)$order_id."'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "paypal_order` SET `modified` = now(), `capture_status` = '" . $this->db->escape($capture_status) . "' WHERE `order_id` = '" . (int)$order_id . "'");
 	}
 
 	public function recurringCancel($ref) {
 
 		$data = array(
-			'METHOD' => 'ManageRecurringPaymentsProfileStatus',
+			'METHOD'    => 'ManageRecurringPaymentsProfileStatus',
 			'PROFILEID' => $ref,
-			'ACTION' => 'Cancel'
+			'ACTION'    => 'Cancel'
 		);
 
 		return $this->call($data);
@@ -355,4 +350,3 @@ class ModelPaymentPPExpress extends Model {
 		return true;
 	}
 }
-?>

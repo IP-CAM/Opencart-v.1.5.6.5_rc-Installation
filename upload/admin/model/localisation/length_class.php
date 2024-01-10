@@ -21,12 +21,12 @@ class ModelLocalisationLengthClass extends Model {
 			$this->db->query("INSERT INTO " . DB_PREFIX . "length_class_description SET length_class_id = '" . (int)$length_class_id . "', language_id = '" . (int)$language_id . "', title = '" . $this->db->escape($value['title']) . "', unit = '" . $this->db->escape($value['unit']) . "'");
 		}
 
-		$this->cache->delete('length_class');	
+		$this->cache->delete('length_class');
 	}
 
 	public function deleteLengthClass($length_class_id) {
 		$this->db->query("DELETE FROM " . DB_PREFIX . "length_class WHERE length_class_id = '" . (int)$length_class_id . "'");
-		$this->db->query("DELETE FROM " . DB_PREFIX . "length_class_description WHERE length_class_id = '" . (int)$length_class_id . "'");	
+		$this->db->query("DELETE FROM " . DB_PREFIX . "length_class_description WHERE length_class_id = '" . (int)$length_class_id . "'");
 
 		$this->cache->delete('length_class');
 	}
@@ -39,12 +39,12 @@ class ModelLocalisationLengthClass extends Model {
 				'title',
 				'unit',
 				'value'
-			);	
+			);
 
 			if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-				$sql .= " ORDER BY " . $data['sort'];	
+				$sql .= " ORDER BY " . $data['sort'];
 			} else {
-				$sql .= " ORDER BY title";	
+				$sql .= " ORDER BY title";
 			}
 
 			if (isset($data['order']) && ($data['order'] == 'DESC')) {
@@ -56,18 +56,18 @@ class ModelLocalisationLengthClass extends Model {
 			if (isset($data['start']) || isset($data['limit'])) {
 				if ($data['start'] < 0) {
 					$data['start'] = 0;
-				}				
+				}
 
 				if ($data['limit'] < 1) {
 					$data['limit'] = 20;
-				}	
+				}
 
 				$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
-			}	
+			}
 
 			$query = $this->db->query($sql);
 
-			return $query->rows;			
+			return $query->rows;
 		} else {
 			$length_class_data = $this->cache->get('length_class.' . (int)$this->config->get('config_language_id'));
 
@@ -114,6 +114,5 @@ class ModelLocalisationLengthClass extends Model {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "length_class");
 
 		return $query->row['total'];
-	}		
+	}
 }
-?>

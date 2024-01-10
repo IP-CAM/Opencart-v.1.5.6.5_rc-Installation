@@ -1,5 +1,5 @@
-<?php    
-class ControllerSaleReturn extends Controller { 
+<?php
+class ControllerSaleReturn extends Controller {
 	private $error = array();
 
 	public function index() {
@@ -253,12 +253,12 @@ class ControllerSaleReturn extends Controller {
 			$filter_date_modified = $this->request->get['filter_date_modified'];
 		} else {
 			$filter_date_modified = null;
-		}	
+		}
 
 		if (isset($this->request->get['sort'])) {
 			$sort = $this->request->get['sort'];
 		} else {
-			$sort = 'r.return_id'; 
+			$sort = 'r.return_id';
 		}
 
 		if (isset($this->request->get['order'])) {
@@ -339,12 +339,12 @@ class ControllerSaleReturn extends Controller {
 		$this->data['returns'] = array();
 
 		$data = array(
-			'filter_return_id'        => $filter_return_id, 
-			'filter_order_id'         => $filter_order_id, 
-			'filter_customer'         => $filter_customer, 
-			'filter_product'          => $filter_product, 
-			'filter_model'            => $filter_model, 
-			'filter_return_status_id' => $filter_return_status_id, 
+			'filter_return_id'        => $filter_return_id,
+			'filter_order_id'         => $filter_order_id,
+			'filter_customer'         => $filter_customer,
+			'filter_product'          => $filter_product,
+			'filter_model'            => $filter_model,
+			'filter_return_status_id' => $filter_return_status_id,
 			'filter_date_added'       => $filter_date_added,
 			'filter_date_modified'    => $filter_date_modified,
 			'sort'                    => $sort,
@@ -377,12 +377,12 @@ class ControllerSaleReturn extends Controller {
 				'product'       => $result['product'],
 				'model'         => $result['model'],
 				'status'        => $result['status'],
-				'date_added'    => date($this->language->get('date_format_short'), strtotime($result['date_added'])),	
-				'date_modified' => date($this->language->get('date_format_short'), strtotime($result['date_modified'])),				
+				'date_added'    => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
+				'date_modified' => date($this->language->get('date_format_short'), strtotime($result['date_modified'])),
 				'selected'      => isset($this->request->post['selected']) && in_array($result['return_id'], $this->request->post['selected']),
 				'action'        => $action
 			);
-		}	
+		}
 
 		$this->data['heading_title'] = $this->language->get('heading_title');
 
@@ -396,7 +396,7 @@ class ControllerSaleReturn extends Controller {
 		$this->data['column_status'] = $this->language->get('column_status');
 		$this->data['column_date_added'] = $this->language->get('column_date_added');
 		$this->data['column_date_modified'] = $this->language->get('column_date_modified');
-		$this->data['column_action'] = $this->language->get('column_action');		
+		$this->data['column_action'] = $this->language->get('column_action');
 
 		$this->data['button_insert'] = $this->language->get('button_insert');
 		$this->data['button_delete'] = $this->language->get('button_delete');
@@ -454,7 +454,7 @@ class ControllerSaleReturn extends Controller {
 
 		if (isset($this->request->get['filter_date_modified'])) {
 			$url .= '&filter_date_modified=' . $this->request->get['filter_date_modified'];
-		}	
+		}
 
 		if ($order == 'ASC') {
 			$url .= '&order=DESC';
@@ -556,7 +556,7 @@ class ControllerSaleReturn extends Controller {
 
 		$this->data['text_select'] = $this->language->get('text_select');
 		$this->data['text_opened'] = $this->language->get('text_opened');
-		$this->data['text_unopened'] = $this->language->get('text_unopened');	
+		$this->data['text_unopened'] = $this->language->get('text_unopened');
 
 		$this->data['entry_customer'] = $this->language->get('entry_customer');
 		$this->data['entry_order_id'] = $this->language->get('entry_order_id');
@@ -566,7 +566,7 @@ class ControllerSaleReturn extends Controller {
 		$this->data['entry_email'] = $this->language->get('entry_email');
 		$this->data['entry_telephone'] = $this->language->get('entry_telephone');
 		$this->data['entry_return_status'] = $this->language->get('entry_return_status');
-		$this->data['entry_comment'] = $this->language->get('entry_comment');	
+		$this->data['entry_comment'] = $this->language->get('entry_comment');
 		$this->data['entry_product'] = $this->language->get('entry_product');
 		$this->data['entry_model'] = $this->language->get('entry_model');
 		$this->data['entry_quantity'] = $this->language->get('entry_quantity');
@@ -592,7 +592,7 @@ class ControllerSaleReturn extends Controller {
 			$this->data['error_order_id'] = $this->error['order_id'];
 		} else {
 			$this->data['error_order_id'] = '';
-		}		
+		}
 
 		if (isset($this->error['firstname'])) {
 			$this->data['error_firstname'] = $this->error['firstname'];
@@ -704,7 +704,7 @@ class ControllerSaleReturn extends Controller {
 
 		if (isset($this->request->post['order_id'])) {
 			$this->data['order_id'] = $this->request->post['order_id'];
-		} elseif (!empty($return_info)) { 
+		} elseif (!empty($return_info)) {
 			$this->data['order_id'] = $return_info['order_id'];
 		} else {
 			$this->data['order_id'] = '';
@@ -712,7 +712,7 @@ class ControllerSaleReturn extends Controller {
 
 		if (isset($this->request->post['date_ordered'])) {
 			$this->data['date_ordered'] = $this->request->post['date_ordered'];
-		} elseif (!empty($return_info)) { 
+		} elseif (!empty($return_info)) {
 			$this->data['date_ordered'] = $return_info['date_ordered'];
 		} else {
 			$this->data['date_ordered'] = '';
@@ -736,7 +736,7 @@ class ControllerSaleReturn extends Controller {
 
 		if (isset($this->request->post['firstname'])) {
 			$this->data['firstname'] = $this->request->post['firstname'];
-		} elseif (!empty($return_info)) { 
+		} elseif (!empty($return_info)) {
 			$this->data['firstname'] = $return_info['firstname'];
 		} else {
 			$this->data['firstname'] = '';
@@ -744,7 +744,7 @@ class ControllerSaleReturn extends Controller {
 
 		if (isset($this->request->post['lastname'])) {
 			$this->data['lastname'] = $this->request->post['lastname'];
-		} elseif (!empty($return_info)) { 
+		} elseif (!empty($return_info)) {
 			$this->data['lastname'] = $return_info['lastname'];
 		} else {
 			$this->data['lastname'] = '';
@@ -752,7 +752,7 @@ class ControllerSaleReturn extends Controller {
 
 		if (isset($this->request->post['email'])) {
 			$this->data['email'] = $this->request->post['email'];
-		} elseif (!empty($return_info)) { 
+		} elseif (!empty($return_info)) {
 			$this->data['email'] = $return_info['email'];
 		} else {
 			$this->data['email'] = '';
@@ -760,7 +760,7 @@ class ControllerSaleReturn extends Controller {
 
 		if (isset($this->request->post['telephone'])) {
 			$this->data['telephone'] = $this->request->post['telephone'];
-		} elseif (!empty($return_info)) { 
+		} elseif (!empty($return_info)) {
 			$this->data['telephone'] = $return_info['telephone'];
 		} else {
 			$this->data['telephone'] = '';
@@ -772,7 +772,7 @@ class ControllerSaleReturn extends Controller {
 			$this->data['product'] = $return_info['product'];
 		} else {
 			$this->data['product'] = '';
-		}	
+		}
 
 		if (isset($this->request->post['product_id'])) {
 			$this->data['product_id'] = $this->request->post['product_id'];
@@ -780,7 +780,7 @@ class ControllerSaleReturn extends Controller {
 			$this->data['product_id'] = $return_info['product_id'];
 		} else {
 			$this->data['product_id'] = '';
-		}	
+		}
 
 		if (isset($this->request->post['model'])) {
 			$this->data['model'] = $this->request->post['model'];
@@ -824,7 +824,7 @@ class ControllerSaleReturn extends Controller {
 			$this->data['return_action_id'] = $return_info['return_action_id'];
 		} else {
 			$this->data['return_action_id'] = '';
-		}				
+		}
 
 		$this->load->model('localisation/return_action');
 
@@ -877,7 +877,7 @@ class ControllerSaleReturn extends Controller {
 
 			$this->data['heading_title'] = $this->language->get('heading_title');
 
-			$this->data['text_wait'] = $this->language->get('text_wait');	
+			$this->data['text_wait'] = $this->language->get('text_wait');
 			$this->data['text_return_id'] = $this->language->get('text_return_id');
 			$this->data['text_order_id'] = $this->language->get('text_order_id');
 			$this->data['text_date_ordered'] = $this->language->get('text_date_ordered');
@@ -885,14 +885,14 @@ class ControllerSaleReturn extends Controller {
 			$this->data['text_email'] = $this->language->get('text_email');
 			$this->data['text_telephone'] = $this->language->get('text_telephone');
 			$this->data['text_return_status'] = $this->language->get('text_return_status');
-			$this->data['text_date_added'] = $this->language->get('text_date_added');	
-			$this->data['text_date_modified'] = $this->language->get('text_date_modified');				
+			$this->data['text_date_added'] = $this->language->get('text_date_added');
+			$this->data['text_date_modified'] = $this->language->get('text_date_modified');
 			$this->data['text_product'] = $this->language->get('text_product');
 			$this->data['text_model'] = $this->language->get('text_model');
 			$this->data['text_quantity'] = $this->language->get('text_quantity');
 			$this->data['text_return_reason'] = $this->language->get('text_return_reason');
-			$this->data['text_opened'] = $this->language->get('text_opened');		
-			$this->data['text_comment'] = $this->language->get('text_comment');			
+			$this->data['text_opened'] = $this->language->get('text_opened');
+			$this->data['text_comment'] = $this->language->get('text_comment');
 			$this->data['text_return_action'] = $this->language->get('text_return_action');
 
 			$this->data['entry_return_status'] = $this->language->get('entry_return_status');
@@ -901,12 +901,11 @@ class ControllerSaleReturn extends Controller {
 
 			$this->data['button_save'] = $this->language->get('button_save');
 			$this->data['button_cancel'] = $this->language->get('button_cancel');
-			$this->data['button_add_history'] = $this->language->get('button_add_history');				
+			$this->data['button_add_history'] = $this->language->get('button_add_history');
 
 			$this->data['tab_return'] = $this->language->get('tab_return');
 			$this->data['tab_product'] = $this->language->get('tab_product');
 			$this->data['tab_history'] = $this->language->get('tab_history');
-
 
 			$url = '';
 
@@ -968,7 +967,7 @@ class ControllerSaleReturn extends Controller {
 				'separator' => ' :: '
 			);
 
-			$this->data['cancel'] = $this->url->link('sale/return', 'token=' . $this->session->data['token'] . $url, 'SSL');			
+			$this->data['cancel'] = $this->url->link('sale/return', 'token=' . $this->session->data['token'] . $url, 'SSL');
 
 			$this->load->model('sale/order');
 
@@ -1006,7 +1005,7 @@ class ControllerSaleReturn extends Controller {
 				$this->data['return_status'] = $return_status_info['name'];
 			} else {
 				$this->data['return_status'] = '';
-			}		
+			}
 
 			$this->data['date_added'] = date($this->language->get('date_format_short'), strtotime($return_info['date_added']));
 			$this->data['date_modified'] = date($this->language->get('date_format_short'), strtotime($return_info['date_modified']));
@@ -1022,18 +1021,18 @@ class ControllerSaleReturn extends Controller {
 				$this->data['return_reason'] = $return_reason_info['name'];
 			} else {
 				$this->data['return_reason'] = '';
-			}			
+			}
 
 			$this->data['opened'] = $return_info['opened'] ? $this->language->get('text_yes') : $this->language->get('text_no');
 			$this->data['comment'] = nl2br($return_info['comment']);
 
 			$this->load->model('localisation/return_action');
 
-			$this->data['return_actions'] = $this->model_localisation_return_action->getReturnActions(); 
+			$this->data['return_actions'] = $this->model_localisation_return_action->getReturnActions();
 
 			$this->data['return_action_id'] = $return_info['return_action_id'];
 
-			$this->data['return_statuses'] = $this->model_localisation_return_status->getReturnStatuses();				
+			$this->data['return_statuses'] = $this->model_localisation_return_status->getReturnStatuses();
 
 			$this->data['return_status_id'] = $return_info['return_status_id'];
 
@@ -1043,7 +1042,7 @@ class ControllerSaleReturn extends Controller {
 				'common/footer'
 			);
 
-			$this->response->setOutput($this->render());		
+			$this->response->setOutput($this->render());
 		} else {
 			$this->language->load('error/not_found');
 
@@ -1073,7 +1072,7 @@ class ControllerSaleReturn extends Controller {
 				'common/footer'
 			);
 
-			$this->response->setOutput($this->render());			
+			$this->response->setOutput($this->render());
 		}
 	}
 
@@ -1100,15 +1099,15 @@ class ControllerSaleReturn extends Controller {
 
 		if ((utf8_strlen($this->request->post['product']) < 1) || (utf8_strlen($this->request->post['product']) > 255)) {
 			$this->error['product'] = $this->language->get('error_product');
-		}	
+		}
 
 		if ((utf8_strlen($this->request->post['model']) < 1) || (utf8_strlen($this->request->post['model']) > 64)) {
 			$this->error['model'] = $this->language->get('error_model');
-		}							
+		}
 
 		if (empty($this->request->post['return_reason_id'])) {
 			$this->error['reason'] = $this->language->get('error_reason');
-		}	
+		}
 
 		if ($this->error && !isset($this->error['warning'])) {
 			$this->error['warning'] = $this->language->get('error_warning');
@@ -1130,7 +1129,7 @@ class ControllerSaleReturn extends Controller {
 			return true;
 		} else {
 			return false;
-		}  
+		}
 	}
 
 	public function action() {
@@ -1143,7 +1142,7 @@ class ControllerSaleReturn extends Controller {
 				$json['error'] = $this->language->get('error_permission');
 			}
 
-			if (!$json) { 
+			if (!$json) {
 				$this->load->model('sale/return');
 
 				$json['success'] = $this->language->get('text_success');
@@ -1152,7 +1151,7 @@ class ControllerSaleReturn extends Controller {
 			}
 		}
 
-		$this->response->setOutput(json_encode($json));	
+		$this->response->setOutput(json_encode($json));
 	}
 
 	public function history() {
@@ -1164,11 +1163,11 @@ class ControllerSaleReturn extends Controller {
 		$this->load->model('sale/return');
 
 		if ($this->request->server['REQUEST_METHOD'] == 'POST') {
-			if (!$this->user->hasPermission('modify', 'sale/return')) { 
+			if (!$this->user->hasPermission('modify', 'sale/return')) {
 				$this->data['error'] = $this->language->get('error_permission');
 			}
 
-			if (!$this->data['error']) { 
+			if (!$this->data['error']) {
 				$this->model_sale_return->addReturnHistory($this->request->get['return_id'], $this->request->post);
 
 				$this->data['success'] = $this->language->get('text_success');
@@ -1186,7 +1185,7 @@ class ControllerSaleReturn extends Controller {
 			$page = $this->request->get['page'];
 		} else {
 			$page = 1;
-		}  
+		}
 
 		$this->data['histories'] = array();
 
@@ -1206,15 +1205,14 @@ class ControllerSaleReturn extends Controller {
 		$pagination = new Pagination();
 		$pagination->total = $history_total;
 		$pagination->page = $page;
-		$pagination->limit = 10; 
+		$pagination->limit = 10;
 		$pagination->text = $this->language->get('text_pagination');
 		$pagination->url = $this->url->link('sale/return/history', 'token=' . $this->session->data['token'] . '&return_id=' . $this->request->get['return_id'] . '&page={page}', 'SSL');
 
 		$this->data['pagination'] = $pagination->render();
 
-		$this->template = 'sale/return_history.tpl';		
+		$this->template = 'sale/return_history.tpl';
 
 		$this->response->setOutput($this->render());
 	}
 }
-?>

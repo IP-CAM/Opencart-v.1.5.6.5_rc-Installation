@@ -1,4 +1,4 @@
-<?php 
+<?php
 class ControllerAffiliateLogout extends Controller {
 	public function index() {
 		if ($this->affiliate->isLogged()) {
@@ -15,13 +15,13 @@ class ControllerAffiliateLogout extends Controller {
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_home'),
-			'href'      => $this->url->link('common/home'),        	
+			'href'      => $this->url->link('common/home'),
 			'separator' => false
 		);
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_account'),
-			'href'      => $this->url->link('affiliate/account', '', 'SSL'),       	
+			'href'      => $this->url->link('affiliate/account', '', 'SSL'),
 			'separator' => $this->language->get('text_separator')
 		);
 
@@ -51,10 +51,9 @@ class ControllerAffiliateLogout extends Controller {
 			'common/content_top',
 			'common/content_bottom',
 			'common/footer',
-			'common/header'	
+			'common/header'
 		);
 
-		$this->response->setOutput($this->render());	
+		$this->response->setOutput($this->render());
 	}
 }
-?>

@@ -1,8 +1,8 @@
 <?php
 class ControllerShippingPickup extends Controller {
-	private $error = array(); 
+	private $error = array();
 
-	public function index() {   
+	public function index() {
 		$this->language->load('shipping/pickup');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -10,7 +10,7 @@ class ControllerShippingPickup extends Controller {
 		$this->load->model('setting/setting');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-			$this->model_setting_setting->editSetting('pickup', $this->request->post);		
+			$this->model_setting_setting->editSetting('pickup', $this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -81,7 +81,7 @@ class ControllerShippingPickup extends Controller {
 			$this->data['pickup_sort_order'] = $this->request->post['pickup_sort_order'];
 		} else {
 			$this->data['pickup_sort_order'] = $this->config->get('pickup_sort_order');
-		}				
+		}
 
 		$this->template = 'shipping/pickup.tpl';
 		$this->children = array(
@@ -101,7 +101,6 @@ class ControllerShippingPickup extends Controller {
 			return true;
 		} else {
 			return false;
-		}	
+		}
 	}
 }
-?>

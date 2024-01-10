@@ -1,8 +1,8 @@
 <?php
 class ControllerModuleSlideshow extends Controller {
-	private $error = array(); 
+	private $error = array();
 
-	public function index() {   
+	public function index() {
 		$this->language->load('module/slideshow');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -10,7 +10,7 @@ class ControllerModuleSlideshow extends Controller {
 		$this->load->model('setting/setting');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-			$this->model_setting_setting->editSetting('slideshow', $this->request->post);		
+			$this->model_setting_setting->editSetting('slideshow', $this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -22,12 +22,12 @@ class ControllerModuleSlideshow extends Controller {
 		$this->data['text_enabled'] = $this->language->get('text_enabled');
 		$this->data['text_disabled'] = $this->language->get('text_disabled');
 		$this->data['text_content_top'] = $this->language->get('text_content_top');
-		$this->data['text_content_bottom'] = $this->language->get('text_content_bottom');		
+		$this->data['text_content_bottom'] = $this->language->get('text_content_bottom');
 		$this->data['text_column_left'] = $this->language->get('text_column_left');
 		$this->data['text_column_right'] = $this->language->get('text_column_right');
 
 		$this->data['entry_banner'] = $this->language->get('entry_banner');
-		$this->data['entry_dimension'] = $this->language->get('entry_dimension'); 
+		$this->data['entry_dimension'] = $this->language->get('entry_dimension');
 		$this->data['entry_layout'] = $this->language->get('entry_layout');
 		$this->data['entry_position'] = $this->language->get('entry_position');
 		$this->data['entry_status'] = $this->language->get('entry_status');
@@ -78,9 +78,9 @@ class ControllerModuleSlideshow extends Controller {
 
 		if (isset($this->request->post['slideshow_module'])) {
 			$this->data['modules'] = $this->request->post['slideshow_module'];
-		} elseif ($this->config->get('slideshow_module')) { 
+		} elseif ($this->config->get('slideshow_module')) {
 			$this->data['modules'] = $this->config->get('slideshow_module');
-		}	
+		}
 
 		$this->load->model('design/layout');
 
@@ -108,15 +108,14 @@ class ControllerModuleSlideshow extends Controller {
 			foreach ($this->request->post['slideshow_module'] as $key => $value) {
 				if (!$value['width'] || !$value['height']) {
 					$this->error['dimension'][$key] = $this->language->get('error_dimension');
-				}				
+				}
 			}
-		}	
+		}
 
 		if (!$this->error) {
 			return true;
 		} else {
 			return false;
-		}	
+		}
 	}
 }
-?>

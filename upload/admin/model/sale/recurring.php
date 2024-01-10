@@ -108,11 +108,11 @@ class ModelSaleRecurring extends Model {
 		foreach ($results as $result) {
 			$profiles[] = array(
 				'order_recurring_id' => $result['order_recurring_id'],
-				'order_id' => $result['order_id'],
-				'status' => $this->getStatus($result['status']),
-				'created' => $result['created'],
-				'profile_reference' => $result['profile_reference'],
-				'customer' => $result['customer'],
+				'order_id'           => $result['order_id'],
+				'status'             => $this->getStatus($result['status']),
+				'created'            => $result['created'],
+				'profile_reference'  => $result['profile_reference'],
+				'customer'           => $result['customer'],
 			);
 		}
 
@@ -127,16 +127,16 @@ class ModelSaleRecurring extends Model {
 		if ($result) {
 
 			$profile = array(
-				'order_recurring_id' => $result['order_recurring_id'],
-				'order_id' => $result['order_id'],
-				'status' => $this->getStatus($result['status']),
-				'status_id' => $result['status'],
-				'profile_id' => $result['profile_id'],
-				'profile_name' => $result['profile_name'],
+				'order_recurring_id'  => $result['order_recurring_id'],
+				'order_id'            => $result['order_id'],
+				'status'              => $this->getStatus($result['status']),
+				'status_id'           => $result['status'],
+				'profile_id'          => $result['profile_id'],
+				'profile_name'        => $result['profile_name'],
 				'profile_description' => $result['profile_description'],
-				'profile_reference' => $result['profile_reference'],
-				'product_name' => $result['product_name'],
-				'product_quantity' => $result['product_quantity'],
+				'profile_reference'   => $result['profile_reference'],
+				'product_name'        => $result['product_name'],
+				'product_quantity'    => $result['product_quantity'],
 			);
 		}
 
@@ -198,8 +198,8 @@ class ModelSaleRecurring extends Model {
 
 			$transactions[] = array(
 				'created' => $result['created'],
-				'amount' => $result['amount'],
-				'type' => $type,
+				'amount'  => $result['amount'],
+				'type'    => $type,
 			);
 		}
 
@@ -240,4 +240,3 @@ class ModelSaleRecurring extends Model {
 		return $result;
 	}
 }
-?>

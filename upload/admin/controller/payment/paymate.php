@@ -1,6 +1,6 @@
-<?php 
+<?php
 class ControllerPaymentPayMate extends Controller {
-	private $error = array(); 
+	private $error = array();
 
 	public function index() {
 		$this->language->load('payment/paymate');
@@ -10,7 +10,7 @@ class ControllerPaymentPayMate extends Controller {
 		$this->load->model('setting/setting');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-			$this->model_setting_setting->editSetting('paymate', $this->request->post);				
+			$this->model_setting_setting->editSetting('paymate', $this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -28,8 +28,8 @@ class ControllerPaymentPayMate extends Controller {
 		$this->data['entry_username'] = $this->language->get('entry_username');
 		$this->data['entry_password'] = $this->language->get('entry_password');
 		$this->data['entry_test'] = $this->language->get('entry_test');
-		$this->data['entry_total'] = $this->language->get('entry_total');	
-		$this->data['entry_order_status'] = $this->language->get('entry_order_status');			
+		$this->data['entry_total'] = $this->language->get('entry_total');
+		$this->data['entry_order_status'] = $this->language->get('entry_order_status');
 		$this->data['entry_geo_zone'] = $this->language->get('entry_geo_zone');
 		$this->data['entry_status'] = $this->language->get('entry_status');
 		$this->data['entry_sort_order'] = $this->language->get('entry_sort_order');
@@ -102,14 +102,14 @@ class ControllerPaymentPayMate extends Controller {
 		if (isset($this->request->post['paymate_total'])) {
 			$this->data['paymate_total'] = $this->request->post['paymate_total'];
 		} else {
-			$this->data['paymate_total'] = $this->config->get('paymate_total'); 
-		} 
+			$this->data['paymate_total'] = $this->config->get('paymate_total');
+		}
 
 		if (isset($this->request->post['paymate_order_status_id'])) {
 			$this->data['paymate_order_status_id'] = $this->request->post['paymate_order_status_id'];
 		} else {
-			$this->data['paymate_order_status_id'] = $this->config->get('paymate_order_status_id'); 
-		} 
+			$this->data['paymate_order_status_id'] = $this->config->get('paymate_order_status_id');
+		}
 
 		$this->load->model('localisation/order_status');
 
@@ -118,8 +118,8 @@ class ControllerPaymentPayMate extends Controller {
 		if (isset($this->request->post['paymate_geo_zone_id'])) {
 			$this->data['paymate_geo_zone_id'] = $this->request->post['paymate_geo_zone_id'];
 		} else {
-			$this->data['paymate_geo_zone_id'] = $this->config->get('paymate_geo_zone_id'); 
-		} 
+			$this->data['paymate_geo_zone_id'] = $this->config->get('paymate_geo_zone_id');
+		}
 
 		$this->load->model('localisation/geo_zone');
 
@@ -163,7 +163,6 @@ class ControllerPaymentPayMate extends Controller {
 			return true;
 		} else {
 			return false;
-		}	
+		}
 	}
 }
-?>

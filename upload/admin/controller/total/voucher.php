@@ -1,8 +1,8 @@
 <?php
 class ControllerTotalVoucher extends Controller {
-	private $error = array(); 
+	private $error = array();
 
-	public function index() { 
+	public function index() {
 		$this->language->load('total/voucher');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -88,7 +88,6 @@ class ControllerTotalVoucher extends Controller {
 			return true;
 		} else {
 			return false;
-		}	
+		}
 	}
 }
-?>

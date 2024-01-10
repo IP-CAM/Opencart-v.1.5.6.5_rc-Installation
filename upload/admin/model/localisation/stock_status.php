@@ -1,4 +1,4 @@
-<?php 
+<?php
 class ModelLocalisationStockStatus extends Model {
 	public function addStockStatus($data) {
 		foreach ($data['stock_status'] as $language_id => $value) {
@@ -40,7 +40,7 @@ class ModelLocalisationStockStatus extends Model {
 		if ($data) {
 			$sql = "SELECT * FROM " . DB_PREFIX . "stock_status WHERE language_id = '" . (int)$this->config->get('config_language_id') . "'";
 
-			$sql .= " ORDER BY name";	
+			$sql .= " ORDER BY name";
 
 			if (isset($data['order']) && ($data['order'] == 'DESC')) {
 				$sql .= " DESC";
@@ -51,14 +51,14 @@ class ModelLocalisationStockStatus extends Model {
 			if (isset($data['start']) || isset($data['limit'])) {
 				if ($data['start'] < 0) {
 					$data['start'] = 0;
-				}					
+				}
 
 				if ($data['limit'] < 1) {
 					$data['limit'] = 20;
-				}	
+				}
 
 				$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
-			}			
+			}
 
 			$query = $this->db->query($sql);
 
@@ -72,9 +72,9 @@ class ModelLocalisationStockStatus extends Model {
 				$stock_status_data = $query->rows;
 
 				$this->cache->set('stock_status.' . (int)$this->config->get('config_language_id'), $stock_status_data);
-			}	
+			}
 
-			return $stock_status_data;			
+			return $stock_status_data;
 		}
 	}
 
@@ -94,6 +94,5 @@ class ModelLocalisationStockStatus extends Model {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "stock_status WHERE language_id = '" . (int)$this->config->get('config_language_id') . "'");
 
 		return $query->row['total'];
-	}	
+	}
 }
-?>

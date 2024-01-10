@@ -1,6 +1,6 @@
 <?php
 class ControllerReportProductViewed extends Controller {
-	public function index() {     
+	public function index() {
 		$this->language->load('report/product_viewed');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -38,9 +38,9 @@ class ControllerReportProductViewed extends Controller {
 			'limit' => $this->config->get('config_admin_limit')
 		);
 
-		$product_viewed_total = $this->model_report_product->getTotalProductsViewed($data); 
+		$product_viewed_total = $this->model_report_product->getTotalProductsViewed($data);
 
-		$product_views_total = $this->model_report_product->getTotalProductViews(); 
+		$product_views_total = $this->model_report_product->getTotalProductViews();
 
 		$this->data['products'] = array();
 
@@ -57,7 +57,7 @@ class ControllerReportProductViewed extends Controller {
 				'name'    => $result['name'],
 				'model'   => $result['model'],
 				'viewed'  => $result['viewed'],
-				'percent' => $percent . '%'			
+				'percent' => $percent . '%'
 			);
 		}
 
@@ -72,7 +72,7 @@ class ControllerReportProductViewed extends Controller {
 
 		$this->data['button_reset'] = $this->language->get('button_reset');
 
-		$url = '';		
+		$url = '';
 
 		if (isset($this->request->get['page'])) {
 			$url .= '&page=' . $this->request->get['page'];
@@ -118,4 +118,3 @@ class ControllerReportProductViewed extends Controller {
 		$this->redirect($this->url->link('report/product_viewed', 'token=' . $this->session->data['token'], 'SSL'));
 	}
 }
-?>

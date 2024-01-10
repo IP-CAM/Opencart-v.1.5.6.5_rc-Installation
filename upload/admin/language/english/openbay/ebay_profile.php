@@ -74,7 +74,7 @@ $_['lang_image_super']          = 'Supersize images';
 $_['lang_image_gallery_plus']   = 'Gallery plus';
 $_['lang_image_all_ebay']       = 'Add all images to eBay';
 $_['lang_image_all_template']   = 'Add all images to template';
-$_['lang_image_exclude_default']= 'Exclude default image<span class="help">Only for bulk listing feature! Will not include the default product image in theme image list</span>';
+$_['lang_image_exclude_default'] = 'Exclude default image<span class="help">Only for bulk listing feature! Will not include the default product image in theme image list</span>';
 $_['lang_confirm_delete']       = 'Are you sure you want to delete the profile?';
 
 //General profile
@@ -90,4 +90,3 @@ $_['invalid_permission']        = 'You do not have permission to edit profiles';
 $_['lang_error_name']           = 'You must enter a profile name';
 $_['lang_no_template']          = 'Template ID does not exist';
 $_['lang_error_missing_settings'] = 'You cannot add,edit or delete profiles until you syncronise your eBay settings';
-?>

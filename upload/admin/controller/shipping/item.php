@@ -1,8 +1,8 @@
 <?php
-class ControllerShippingItem extends Controller { 
-	private $error = array(); 
+class ControllerShippingItem extends Controller {
+	private $error = array();
 
-	public function index() {  
+	public function index() {
 		$this->language->load('shipping/item');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -10,7 +10,7 @@ class ControllerShippingItem extends Controller {
 		$this->load->model('setting/setting');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-			$this->model_setting_setting->editSetting('item', $this->request->post);		
+			$this->model_setting_setting->editSetting('item', $this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -99,7 +99,7 @@ class ControllerShippingItem extends Controller {
 			$this->data['item_sort_order'] = $this->request->post['item_sort_order'];
 		} else {
 			$this->data['item_sort_order'] = $this->config->get('item_sort_order');
-		}	
+		}
 
 		$this->template = 'shipping/item.tpl';
 		$this->children = array(
@@ -119,7 +119,6 @@ class ControllerShippingItem extends Controller {
 			return true;
 		} else {
 			return false;
-		}	
+		}
 	}
 }
-?>

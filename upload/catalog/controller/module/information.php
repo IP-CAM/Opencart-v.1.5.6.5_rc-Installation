@@ -1,4 +1,4 @@
-<?php  
+<?php
 class ControllerModuleInformation extends Controller {
 	protected function index() {
 		$this->language->load('module/information');
@@ -31,4 +31,3 @@ class ControllerModuleInformation extends Controller {
 		$this->render();
 	}
 }
-?>

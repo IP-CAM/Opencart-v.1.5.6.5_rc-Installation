@@ -119,7 +119,6 @@ $_['new_link_amazonus_sku_column'] = 'Amazon item SKU';
 $_['new_link_action_column'] = 'Action';
 $_['item_links_table_name'] = 'Item links';
 
-
 //Market places
 $_['marketplaces_field_text'] = 'Marketplace';
 $_['marketplaces_help'] = 'You can choose default marketplace in Amazon US extension settings.';
@@ -128,7 +127,6 @@ $_['text_france'] = 'France';
 $_['text_italy'] = 'Italy';
 $_['text_spain'] = 'Spain';
 $_['text_united_kingdom'] = 'United Kingdom';
-
 
 //Saved listings tab
 $_['saved_listings_description'] = 'This is the list of product listings which are saved locally and ready to be uploaded to Amazon. Click upload to post.';
@@ -184,4 +182,3 @@ $_['column_amazonus_sku'] = 'Amazon item SKU';
 
 //Messages
 $_['text_links_removed'] = 'Amazon product links deleted';
-?>

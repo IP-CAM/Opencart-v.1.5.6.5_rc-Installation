@@ -17,9 +17,9 @@ class ControllerPaymentBankTransfer extends Controller {
 			$this->template = $this->config->get('config_template') . '/template/payment/bank_transfer.tpl';
 		} else {
 			$this->template = 'default/template/payment/bank_transfer.tpl';
-		}	
+		}
 
-		$this->render(); 
+		$this->render();
 	}
 
 	public function confirm() {
@@ -34,4 +34,3 @@ class ControllerPaymentBankTransfer extends Controller {
 		$this->model_checkout_order->confirm($this->session->data['order_id'], $this->config->get('bank_transfer_order_status_id'), $comment, true);
 	}
 }
-?>

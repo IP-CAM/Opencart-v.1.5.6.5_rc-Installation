@@ -1,11 +1,11 @@
-<?php 
+<?php
 class ControllerCatalogProfile extends Controller {
-	private $error = array(); 
+	private $error = array();
 
 	public function index() {
 		$this->language->load('catalog/profile');
 
-		$this->document->setTitle($this->language->get('heading_title')); 
+		$this->document->setTitle($this->language->get('heading_title'));
 
 		$this->load->model('catalog/profile');
 
@@ -24,7 +24,7 @@ class ControllerCatalogProfile extends Controller {
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('heading_title'),
-			'href'      => $this->url->link('catalog/profile', 'token=' . $this->session->data['token'], 'SSL'),       		
+			'href'      => $this->url->link('catalog/profile', 'token=' . $this->session->data['token'], 'SSL'),
 			'separator' => ' :: '
 		);
 
@@ -52,9 +52,9 @@ class ControllerCatalogProfile extends Controller {
 
 			$this->data['profiles'][] = array(
 				'profile_id' => $profile['profile_id'],
-				'name' => $profile['name'],
+				'name'       => $profile['name'],
 				'sort_order' => $profile['sort_order'],
-				'action' => $action,
+				'action'     => $action,
 			);
 		}
 
@@ -389,6 +389,4 @@ class ControllerCatalogProfile extends Controller {
 			return false;
 		}
 	}
-
 }
-?>

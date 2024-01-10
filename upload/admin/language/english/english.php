@@ -64,7 +64,7 @@ $_['button_add_transaction']        = 'Add Transaction';
 $_['button_add_total']              = 'Add Total';
 $_['button_add_reward']             = 'Add Reward Points';
 $_['button_add_route']              = 'Add Route';
-$_['button_add_rule' ]              = 'Add Rule';
+$_['button_add_rule']              = 'Add Rule';
 $_['button_add_module']             = 'Add Module';
 $_['button_add_link']               = 'Add Link';
 $_['button_update_total']           = 'Update Totals';
@@ -118,4 +118,3 @@ $_['error_upload_6']                = 'Warning: Missing a temporary folder!';
 $_['error_upload_7']                = 'Warning: Failed to write file to disk!';
 $_['error_upload_8']                = 'Warning: File upload stopped by extension!';
 $_['error_upload_999']              = 'Warning: No error code available!';
-?>

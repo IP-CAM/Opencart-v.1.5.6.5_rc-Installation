@@ -139,6 +139,7 @@ class ModelOpenbayOpenbay extends Model {
 
 				if ($this->lasterror == true) {
 					$updatelog .= $this->lastmsg;
+
 					return array('connection' => true, 'msg' => $this->lastmsg);
 				} else {
 					$updatelog .= "Received list of files\n";
@@ -188,7 +189,6 @@ class ModelOpenbayOpenbay extends Model {
 							$updatelog .= "FAILED TO UPDATE FILE: " . $dir . $file['name'] . "\n";
 						}
 
-
 						unlink($tmpFile);
 
 						while ($dirLevel != 0) {
@@ -203,9 +203,7 @@ class ModelOpenbayOpenbay extends Model {
 
 					@ftp_close($connection);
 
-					/**
-					 * Run the patch files
-					 */
+					// Run the patch files
 					$this->load->model('openbay/ebay_patch');
 					$this->model_openbay_ebay_patch->runPatch(false);
 					$this->load->model('openbay/amazon_patch');
@@ -213,9 +211,7 @@ class ModelOpenbayOpenbay extends Model {
 					$this->load->model('openbay/amazonus_patch');
 					$this->model_openbay_amazonus_patch->runPatch(false);
 
-					/**
-					 * File remove operation (clean up old files)
-					 */
+					// File remove operation (clean up old files)
 					$updatelog .= "\n\n\nStarting Remove\n\n\n";
 
 					$connection = @ftp_connect($data['server']);
@@ -252,7 +248,7 @@ class ModelOpenbayOpenbay extends Model {
 										$dirLevel++;
 									} else {
 										// folder does not exist, therefore, file does not exist.
-										$updatelog .= "$location not found\n";
+										$updatelog .= "{$location} not found\n";
 										$error = true;
 										break;
 									}
@@ -296,19 +292,16 @@ class ModelOpenbayOpenbay extends Model {
 	}
 
 	public function getNotifications() {
-		$data = $this->call('update/getNotifications/');
-		return $data;
+		return $this->call('update/getNotifications/');
 	}
 
 	public function getVersion() {
-		$data = $this->call('update/getStableVersion/');
-		return $data;
+		return $this->call('update/getStableVersion/');
 	}
 
 	public function faqGet($route) {
 		if ($this->faqIsDismissed($route) != true) {
-			$data = $this->call('faq/get/', array('route' => $route));
-			return $data;
+			return $this->call('faq/get/', array('route' => $route));
 		} else {
 			return false;
 		}
@@ -374,7 +367,7 @@ class ModelOpenbayOpenbay extends Model {
 		}
 	}
 
-	private function call($call, array $post = null, array $options = array(), $content_type = 'json') {
+	private function call($call, ?array $post = null, array $options = array(), $content_type = 'json') {
 		if (defined("HTTP_CATALOG")) {
 			$domain = HTTP_CATALOG;
 		} else {
@@ -382,31 +375,31 @@ class ModelOpenbayOpenbay extends Model {
 		}
 
 		$data = array(
-			'token' => '',
-			'language' => $this->config->get('openbay_language'),
-			'secret' => '',
-			'server' => 1,
-			'domain' => $domain,
+			'token'           => '',
+			'language'        => $this->config->get('openbay_language'),
+			'secret'          => '',
+			'server'          => 1,
+			'domain'          => $domain,
 			'openbay_version' => (int)$this->config->get('openbay_version'),
-			'data' => $post,
-			'content_type' => $content_type,
-			'ocversion' => VERSION
+			'data'            => $post,
+			'content_type'    => $content_type,
+			'ocversion'       => VERSION
 		);
 
 		$useragent = "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.1) Gecko/20061204 Firefox/2.0.0.1";
 
 		$defaults = array(
-			CURLOPT_POST => 1,
-			CURLOPT_HEADER => 0,
-			CURLOPT_URL => $this->url . $call,
-			CURLOPT_USERAGENT => $useragent,
-			CURLOPT_FRESH_CONNECT => 1,
+			CURLOPT_POST           => 1,
+			CURLOPT_HEADER         => 0,
+			CURLOPT_URL            => $this->url . $call,
+			CURLOPT_USERAGENT      => $useragent,
+			CURLOPT_FRESH_CONNECT  => 1,
 			CURLOPT_RETURNTRANSFER => 1,
-			CURLOPT_FORBID_REUSE => 1,
-			CURLOPT_TIMEOUT => 0,
+			CURLOPT_FORBID_REUSE   => 1,
+			CURLOPT_TIMEOUT        => 0,
 			CURLOPT_SSL_VERIFYPEER => 0,
 			CURLOPT_SSL_VERIFYHOST => 0,
-			CURLOPT_POSTFIELDS => http_build_query($data, '', "&")
+			CURLOPT_POSTFIELDS     => http_build_query($data, '', "&")
 		);
 
 		$ch = curl_init();
@@ -414,11 +407,10 @@ class ModelOpenbayOpenbay extends Model {
 		$result = curl_exec($ch);
 		curl_close($ch);
 
-
 		if ($content_type == 'json') {
 			$encoding = mb_detect_encoding($result);
 
-			/* some json data may have BOM due to php not handling types correctly */
+			// some json data may have BOM due to php not handling types correctly
 			if ($encoding == 'UTF-8') {
 				$result = preg_replace('/[^(\x20-\x7F)]*/', '', $result);
 			}
@@ -526,34 +518,34 @@ class ModelOpenbayOpenbay extends Model {
 		}
 
 		if (!empty($data['filter_price'])) {
-			$sql .= " AND p.price >= '" . (double)$data['filter_price'] . "'";
+			$sql .= " AND p.price >= '" . (float)$data['filter_price'] . "'";
 		}
 
 		if (!empty($data['filter_price_to'])) {
-			$sql .= " AND p.price <= '" . (double)$data['filter_price_to'] . "'";
+			$sql .= " AND p.price <= '" . (float)$data['filter_price_to'] . "'";
 		}
 
-		if (isset($data['filter_quantity']) && !is_null($data['filter_quantity'])) {
+		if (isset($data['filter_quantity']) && null !== $data['filter_quantity']) {
 			$sql .= " AND p.quantity >= '" . $this->db->escape($data['filter_quantity']) . "'";
 		}
 
-		if (isset($data['filter_quantity_to']) && !is_null($data['filter_quantity_to'])) {
+		if (isset($data['filter_quantity_to']) && null !== $data['filter_quantity_to']) {
 			$sql .= " AND p.quantity <= '" . $this->db->escape($data['filter_quantity_to']) . "'";
 		}
 
-		if (isset($data['filter_status']) && !is_null($data['filter_status'])) {
+		if (isset($data['filter_status']) && null !== $data['filter_status']) {
 			$sql .= " AND p.status = '" . (int)$data['filter_status'] . "'";
 		}
 
-		if (isset($data['filter_sku']) && !is_null($data['filter_sku'])) {
+		if (isset($data['filter_sku']) && null !== $data['filter_sku']) {
 			$sql .= " AND p.sku != ''";
 		}
 
-		if (isset($data['filter_desc']) && !is_null($data['filter_desc'])) {
+		if (isset($data['filter_desc']) && null !== $data['filter_desc']) {
 			$sql .= " AND pd.description != ''";
 		}
 
-		if (isset($data['filter_manufacturer']) && !is_null($data['filter_manufacturer'])) {
+		if (isset($data['filter_manufacturer']) && null !== $data['filter_manufacturer']) {
 			$sql .= " AND p.manufacturer_id = '" . (int)$data['filter_manufacturer'] . "'";
 		}
 
@@ -658,34 +650,34 @@ class ModelOpenbayOpenbay extends Model {
 		}
 
 		if (!empty($data['filter_price'])) {
-			$sql .= " AND p.price >= '" . (double)$data['filter_price'] . "'";
+			$sql .= " AND p.price >= '" . (float)$data['filter_price'] . "'";
 		}
 
 		if (!empty($data['filter_price_to'])) {
-			$sql .= " AND p.price <= '" . (double)$data['filter_price_to'] . "'";
+			$sql .= " AND p.price <= '" . (float)$data['filter_price_to'] . "'";
 		}
 
-		if (isset($data['filter_quantity']) && !is_null($data['filter_quantity'])) {
+		if (isset($data['filter_quantity']) && null !== $data['filter_quantity']) {
 			$sql .= " AND p.quantity >= '" . $this->db->escape($data['filter_quantity']) . "'";
 		}
 
-		if (isset($data['filter_quantity_to']) && !is_null($data['filter_quantity_to'])) {
+		if (isset($data['filter_quantity_to']) && null !== $data['filter_quantity_to']) {
 			$sql .= " AND p.quantity <= '" . $this->db->escape($data['filter_quantity_to']) . "'";
 		}
 
-		if (isset($data['filter_status']) && !is_null($data['filter_status'])) {
+		if (isset($data['filter_status']) && null !== $data['filter_status']) {
 			$sql .= " AND p.status = '" . (int)$data['filter_status'] . "'";
 		}
 
-		if (isset($data['filter_sku']) && !is_null($data['filter_sku'])) {
+		if (isset($data['filter_sku']) && null !== $data['filter_sku']) {
 			$sql .= " AND p.sku != ''";
 		}
 
-		if (isset($data['filter_desc']) && !is_null($data['filter_desc'])) {
+		if (isset($data['filter_desc']) && null !== $data['filter_desc']) {
 			$sql .= " AND pd.description != ''";
 		}
 
-		if (isset($data['filter_manufacturer']) && !is_null($data['filter_manufacturer'])) {
+		if (isset($data['filter_manufacturer']) && null !== $data['filter_manufacturer']) {
 			$sql .= " AND p.manufacturer = '" . (int)$data['filter_manufacturer'] . "'";
 		}
 
@@ -729,4 +721,3 @@ class ModelOpenbayOpenbay extends Model {
 		return $query->rows;
 	}
 }
-?>

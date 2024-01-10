@@ -1,5 +1,5 @@
 <?php
-// Heading 
+// Heading
 $_['heading_title']    = 'Account';
 
 // Text
@@ -18,4 +18,3 @@ $_['text_return']      = 'Returns';
 $_['text_transaction'] = 'Transactions';
 $_['text_newsletter']  = 'Newsletter';
 $_['text_recurring']   = 'Recurring payments';
-?>

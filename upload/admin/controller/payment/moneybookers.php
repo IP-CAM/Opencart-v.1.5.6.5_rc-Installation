@@ -1,6 +1,6 @@
 <?php
 class ControllerPaymentMoneyBookers extends Controller {
-	private $error = array(); 
+	private $error = array();
 
 	public function index() {
 		$this->language->load('payment/moneybookers');
@@ -10,7 +10,7 @@ class ControllerPaymentMoneyBookers extends Controller {
 		$this->load->model('setting/setting');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-			$this->model_setting_setting->editSetting('moneybookers', $this->request->post);				
+			$this->model_setting_setting->editSetting('moneybookers', $this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -24,12 +24,12 @@ class ControllerPaymentMoneyBookers extends Controller {
 		$this->data['text_all_zones'] = $this->language->get('text_all_zones');
 
 		$this->data['entry_email'] = $this->language->get('entry_email');
-		$this->data['entry_total'] = $this->language->get('entry_total');	
-		$this->data['entry_order_status'] = $this->language->get('entry_order_status');	
-		$this->data['entry_pending_status'] = $this->language->get('entry_pending_status');	
-		$this->data['entry_canceled_status'] = $this->language->get('entry_canceled_status');	
-		$this->data['entry_failed_status'] = $this->language->get('entry_failed_status');	
-		$this->data['entry_chargeback_status'] = $this->language->get('entry_chargeback_status');	
+		$this->data['entry_total'] = $this->language->get('entry_total');
+		$this->data['entry_order_status'] = $this->language->get('entry_order_status');
+		$this->data['entry_pending_status'] = $this->language->get('entry_pending_status');
+		$this->data['entry_canceled_status'] = $this->language->get('entry_canceled_status');
+		$this->data['entry_failed_status'] = $this->language->get('entry_failed_status');
+		$this->data['entry_chargeback_status'] = $this->language->get('entry_chargeback_status');
 		$this->data['entry_geo_zone'] = $this->language->get('entry_geo_zone');
 		$this->data['entry_status'] = $this->language->get('entry_status');
 		$this->data['entry_sort_order'] = $this->language->get('entry_sort_order');
@@ -62,7 +62,7 @@ class ControllerPaymentMoneyBookers extends Controller {
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_payment'),
-			'href'      => $this->url->link('extension/payment', 'token=' . $this->session->data['token'], 'SSL'),      		
+			'href'      => $this->url->link('extension/payment', 'token=' . $this->session->data['token'], 'SSL'),
 			'separator' => ' :: '
 		);
 
@@ -91,14 +91,14 @@ class ControllerPaymentMoneyBookers extends Controller {
 		if (isset($this->request->post['moneybookers_total'])) {
 			$this->data['moneybookers_total'] = $this->request->post['moneybookers_total'];
 		} else {
-			$this->data['moneybookers_total'] = $this->config->get('moneybookers_total'); 
-		} 
+			$this->data['moneybookers_total'] = $this->config->get('moneybookers_total');
+		}
 
 		if (isset($this->request->post['moneybookers_order_status_id'])) {
 			$this->data['moneybookers_order_status_id'] = $this->request->post['moneybookers_order_status_id'];
 		} else {
-			$this->data['moneybookers_order_status_id'] = $this->config->get('moneybookers_order_status_id'); 
-		} 
+			$this->data['moneybookers_order_status_id'] = $this->config->get('moneybookers_order_status_id');
+		}
 
 		if (isset($this->request->post['moneybookers_pending_status_id'])) {
 			$this->data['moneybookers_pending_status_id'] = $this->request->post['moneybookers_pending_status_id'];
@@ -131,8 +131,8 @@ class ControllerPaymentMoneyBookers extends Controller {
 		if (isset($this->request->post['moneybookers_geo_zone_id'])) {
 			$this->data['moneybookers_geo_zone_id'] = $this->request->post['moneybookers_geo_zone_id'];
 		} else {
-			$this->data['moneybookers_geo_zone_id'] = $this->config->get('moneybookers_geo_zone_id'); 
-		} 	
+			$this->data['moneybookers_geo_zone_id'] = $this->config->get('moneybookers_geo_zone_id');
+		}
 
 		$this->load->model('localisation/geo_zone');
 
@@ -184,7 +184,6 @@ class ControllerPaymentMoneyBookers extends Controller {
 			return true;
 		} else {
 			return false;
-		}	
+		}
 	}
 }
-?>

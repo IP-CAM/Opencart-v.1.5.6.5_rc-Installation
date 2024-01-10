@@ -15,7 +15,7 @@ class ControllerPaymentPaypoint extends Controller {
 			$this->data['digest'] = md5($this->session->data['order_id'] . $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false) . $this->config->get('paypoint_password'));
 		} else {
 			$this->data['digest'] = '';
-		}		
+		}
 
 		$this->data['bill_name'] = $order_info['payment_firstname'] . ' ' . $order_info['payment_lastname'];
 		$this->data['bill_addr_1'] = $order_info['payment_address_1'];
@@ -77,7 +77,7 @@ class ControllerPaymentPaypoint extends Controller {
 			$order_id = $this->request->get['trans_id'];
 		} else {
 			$order_id = 0;
-		}	
+		}
 
 		$this->load->model('checkout/order');
 
@@ -186,4 +186,3 @@ class ControllerPaymentPaypoint extends Controller {
 		}
 	}
 }
-?>

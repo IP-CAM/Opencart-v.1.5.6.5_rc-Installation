@@ -29,7 +29,7 @@ class ControllerPaymentLiqPay extends Controller {
 			$this->template = $this->config->get('config_template') . '/template/payment/liqpay.tpl';
 		} else {
 			$this->template = 'default/template/payment/liqpay.tpl';
-		}	
+		}
 
 		$this->render();
 	}
@@ -46,8 +46,7 @@ class ControllerPaymentLiqPay extends Controller {
 		if ($signature == $this->request->post['signature']) {
 			$this->load->model('checkout/order');
 
-			$this->model_checkout_order->confirm($order_id, $this->config->get('config_order_status_id'));			
+			$this->model_checkout_order->confirm($order_id, $this->config->get('config_order_status_id'));
 		}
 	}
 }
-?>

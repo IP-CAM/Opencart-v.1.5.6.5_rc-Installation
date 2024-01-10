@@ -3,7 +3,7 @@ class ControllerExtensionFeed extends Controller {
 	public function index() {
 		$this->language->load('extension/feed');
 
-		$this->document->setTitle($this->language->get('heading_title')); 
+		$this->document->setTitle($this->language->get('heading_title'));
 
 		$this->data['breadcrumbs'] = array();
 
@@ -128,7 +128,7 @@ class ControllerExtensionFeed extends Controller {
 				$class->install();
 			}
 
-			$this->redirect($this->url->link('extension/feed', 'token=' . $this->session->data['token'], 'SSL'));			
+			$this->redirect($this->url->link('extension/feed', 'token=' . $this->session->data['token'], 'SSL'));
 		}
 	}
 
@@ -160,4 +160,3 @@ class ControllerExtensionFeed extends Controller {
 		}
 	}
 }
-?>

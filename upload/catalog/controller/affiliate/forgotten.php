@@ -33,7 +33,7 @@ class ControllerAffiliateForgotten extends Controller {
 			$mail->username = $this->config->get('config_smtp_username');
 			$mail->password = $this->config->get('config_smtp_password');
 			$mail->port = $this->config->get('config_smtp_port');
-			$mail->timeout = $this->config->get('config_smtp_timeout');				
+			$mail->timeout = $this->config->get('config_smtp_timeout');
 			$mail->setTo($this->request->post['email']);
 			$mail->setFrom($this->config->get('config_email'));
 			$mail->setSender($this->config->get('config_name'));
@@ -50,19 +50,19 @@ class ControllerAffiliateForgotten extends Controller {
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_home'),
-			'href'      => $this->url->link('common/home'),        	
+			'href'      => $this->url->link('common/home'),
 			'separator' => false
 		);
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_account'),
-			'href'      => $this->url->link('affiliate/account', '', 'SSL'),     	
+			'href'      => $this->url->link('affiliate/account', '', 'SSL'),
 			'separator' => $this->language->get('text_separator')
 		);
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_forgotten'),
-			'href'      => $this->url->link('affiliate/forgotten', '', 'SSL'),       	
+			'href'      => $this->url->link('affiliate/forgotten', '', 'SSL'),
 			'separator' => $this->language->get('text_separator')
 		);
 
@@ -98,10 +98,10 @@ class ControllerAffiliateForgotten extends Controller {
 			'common/content_top',
 			'common/content_bottom',
 			'common/footer',
-			'common/header'	
+			'common/header'
 		);
 
-		$this->response->setOutput($this->render());		
+		$this->response->setOutput($this->render());
 	}
 
 	protected function validate() {
@@ -118,4 +118,3 @@ class ControllerAffiliateForgotten extends Controller {
 		}
 	}
 }
-?>

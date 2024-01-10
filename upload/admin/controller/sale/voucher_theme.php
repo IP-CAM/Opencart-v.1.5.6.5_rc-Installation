@@ -1,5 +1,5 @@
-<?php 
-class ControllerSaleVoucherTheme extends Controller { 
+<?php
+class ControllerSaleVoucherTheme extends Controller {
 	private $error = array();
 
 	public function index() {
@@ -158,7 +158,7 @@ class ControllerSaleVoucherTheme extends Controller {
 		);
 
 		$this->data['insert'] = $this->url->link('sale/voucher_theme/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
-		$this->data['delete'] = $this->url->link('sale/voucher_theme/delete', 'token=' . $this->session->data['token'] . $url, 'SSL');	
+		$this->data['delete'] = $this->url->link('sale/voucher_theme/delete', 'token=' . $this->session->data['token'] . $url, 'SSL');
 
 		$this->data['voucher_themes'] = array();
 
@@ -187,14 +187,14 @@ class ControllerSaleVoucherTheme extends Controller {
 				'selected'         => isset($this->request->post['selected']) && in_array($result['voucher_theme_id'], $this->request->post['selected']),
 				'action'           => $action
 			);
-		}	
+		}
 
 		$this->data['heading_title'] = $this->language->get('heading_title');
 
 		$this->data['text_no_results'] = $this->language->get('text_no_results');
 
 		$this->data['column_name'] = $this->language->get('column_name');
-		$this->data['column_action'] = $this->language->get('column_action');		
+		$this->data['column_action'] = $this->language->get('column_action');
 
 		$this->data['button_insert'] = $this->language->get('button_insert');
 		$this->data['button_delete'] = $this->language->get('button_delete');
@@ -263,7 +263,7 @@ class ControllerSaleVoucherTheme extends Controller {
 
 		$this->data['text_image_manager'] = $this->language->get('text_image_manager');
 		$this->data['text_browse'] = $this->language->get('text_browse');
-		$this->data['text_clear'] = $this->language->get('text_clear');			
+		$this->data['text_clear'] = $this->language->get('text_clear');
 
 		$this->data['entry_name'] = $this->language->get('entry_name');
 		$this->data['entry_image'] = $this->language->get('entry_image');
@@ -367,7 +367,7 @@ class ControllerSaleVoucherTheme extends Controller {
 			'common/footer'
 		);
 
-		$this->response->setOutput($this->render());	
+		$this->response->setOutput($this->render());
 	}
 
 	protected function validateForm() {
@@ -404,14 +404,13 @@ class ControllerSaleVoucherTheme extends Controller {
 
 			if ($voucher_total) {
 				$this->error['warning'] = sprintf($this->language->get('error_voucher'), $voucher_total);
-			}  
+			}
 		}
 
-		if (!$this->error) { 
+		if (!$this->error) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 }
-?>

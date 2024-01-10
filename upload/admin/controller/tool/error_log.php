@@ -1,8 +1,8 @@
-<?php 
-class ControllerToolErrorLog extends Controller { 
+<?php
+class ControllerToolErrorLog extends Controller {
 	private $error = array();
 
-	public function index() {		
+	public function index() {
 		$this->language->load('tool/error_log');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -23,7 +23,7 @@ class ControllerToolErrorLog extends Controller {
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_home'),
-			'href'      => $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL'),       		
+			'href'      => $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL'),
 			'separator' => false
 		);
 
@@ -57,13 +57,12 @@ class ControllerToolErrorLog extends Controller {
 
 		$file = DIR_LOGS . $this->config->get('config_error_filename');
 
-		$handle = fopen($file, 'w+'); 
+		$handle = fopen($file, 'w+');
 
-		fclose($handle); 			
+		fclose($handle);
 
 		$this->session->data['success'] = $this->language->get('text_success');
 
-		$this->redirect($this->url->link('tool/error_log', 'token=' . $this->session->data['token'], 'SSL'));		
+		$this->redirect($this->url->link('tool/error_log', 'token=' . $this->session->data['token'], 'SSL'));
 	}
 }
-?>

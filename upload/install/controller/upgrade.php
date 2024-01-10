@@ -9,7 +9,7 @@ class ControllerUpgrade extends Controller {
 			$this->model_upgrade->mysql();
 
 			$this->redirect($this->url->link('upgrade/success'));
-		}		
+		}
 
 		if (isset($this->error['warning'])) {
 			$this->data['error_warning'] = $this->error['warning'];
@@ -39,12 +39,12 @@ class ControllerUpgrade extends Controller {
 	}
 
 	private function validate() {
-		if (DB_DRIVER == 'mysql') {		
+		if (DB_DRIVER == 'mysql') {
 			if (!$connection = @mysql_connect(DB_HOSTNAME, DB_USERNAME, DB_PASSWORD)) {
 				$this->error['warning'] = 'Error: Could not connect to the database please make sure the database server, username and password is correct in the config.php file!';
 			} else {
 				if (!mysql_select_db(DB_DATABASE, $connection)) {
-					$this->error['warning'] = 'Error: Database "'. DB_DATABASE . '" does not exist!';
+					$this->error['warning'] = 'Error: Database "' . DB_DATABASE . '" does not exist!';
 				}
 
 				mysql_close($connection);
@@ -58,4 +58,3 @@ class ControllerUpgrade extends Controller {
 		}
 	}
 }
-?>

@@ -1,6 +1,6 @@
 <?php
 class ControllerLocalisationLengthClass extends Controller {
-	private $error = array();  
+	private $error = array();
 
 	public function index() {
 		$this->language->load('localisation/length_class');
@@ -147,7 +147,7 @@ class ControllerLocalisationLengthClass extends Controller {
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_home'),
-			'href'      => $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL'),       		
+			'href'      => $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL'),
 			'separator' => false
 		);
 
@@ -198,7 +198,7 @@ class ControllerLocalisationLengthClass extends Controller {
 		$this->data['column_title'] = $this->language->get('column_title');
 		$this->data['column_unit'] = $this->language->get('column_unit');
 		$this->data['column_value'] = $this->language->get('column_value');
-		$this->data['column_action'] = $this->language->get('column_action');	
+		$this->data['column_action'] = $this->language->get('column_action');
 
 		$this->data['button_insert'] = $this->language->get('button_insert');
 		$this->data['button_delete'] = $this->language->get('button_delete');
@@ -316,7 +316,7 @@ class ControllerLocalisationLengthClass extends Controller {
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('heading_title'),
-			'href'      => $this->url->link('localisation/length_class', 'token=' . $this->session->data['token'] . $url, 'SSL'),      		
+			'href'      => $this->url->link('localisation/length_class', 'token=' . $this->session->data['token'] . $url, 'SSL'),
 			'separator' => ' :: '
 		);
 
@@ -342,7 +342,7 @@ class ControllerLocalisationLengthClass extends Controller {
 			$this->data['length_class_description'] = $this->model_localisation_length_class->getLengthClassDescriptions($this->request->get['length_class_id']);
 		} else {
 			$this->data['length_class_description'] = array();
-		}	
+		}
 
 		if (isset($this->request->post['value'])) {
 			$this->data['value'] = $this->request->post['value'];
@@ -350,7 +350,7 @@ class ControllerLocalisationLengthClass extends Controller {
 			$this->data['value'] = $length_class_info['value'];
 		} else {
 			$this->data['value'] = '';
-		}			
+		}
 
 		$this->template = 'localisation/length_class_form.tpl';
 		$this->children = array(
@@ -407,6 +407,5 @@ class ControllerLocalisationLengthClass extends Controller {
 		} else {
 			return false;
 		}
-	}	
+	}
 }
-?>

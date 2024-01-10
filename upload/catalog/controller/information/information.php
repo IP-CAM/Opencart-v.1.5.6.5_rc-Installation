@@ -1,6 +1,6 @@
-<?php 
+<?php
 class ControllerInformationInformation extends Controller {
-	public function index() {  
+	public function index() {
 		$this->language->load('information/information');
 
 		$this->load->model('catalog/information');
@@ -26,7 +26,7 @@ class ControllerInformationInformation extends Controller {
 
 			$this->data['breadcrumbs'][] = array(
 				'text'      => $information_info['title'],
-				'href'      => $this->url->link('information/information', 'information_id=' .  $information_id),      		
+				'href'      => $this->url->link('information/information', 'information_id=' . $information_id),
 				'separator' => $this->language->get('text_separator')
 			);
 
@@ -99,7 +99,7 @@ class ControllerInformationInformation extends Controller {
 			$information_id = (int)$this->request->get['information_id'];
 		} else {
 			$information_id = 0;
-		}      
+		}
 
 		$information_info = $this->model_catalog_information->getInformation($information_id);
 
@@ -114,10 +114,9 @@ class ControllerInformationInformation extends Controller {
 			$output .= '  <h1>' . $information_info['title'] . '</h1>' . "\n";
 			$output .= html_entity_decode($information_info['description'], ENT_QUOTES, 'UTF-8') . "\n";
 			$output .= '  </body>' . "\n";
-			$output .= '</html>' . "\n";			
+			$output .= '</html>' . "\n";
 
 			$this->response->setOutput($output);
 		}
 	}
 }
-?>

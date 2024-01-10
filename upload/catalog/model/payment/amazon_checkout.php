@@ -41,7 +41,7 @@ class ModelPaymentAmazonCheckout extends Model {
 
 	public function addTaxesForTotals($order_id, $totals) {
 		foreach ($totals as $total) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "order_total_tax` (`order_total_id`, `code`, `tax`) SELECT `order_total_id`, `code`, " . (double)$total['cba_tax'] . " FROM `" . DB_PREFIX . "order_total` WHERE `order_id` = " . (int)$order_id . " AND `code` = '" . $this->db->escape($total['code']) . "' AND `title` = '" . $this->db->escape($total['title']) . "'");
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "order_total_tax` (`order_total_id`, `code`, `tax`) SELECT `order_total_id`, `code`, " . (float)$total['cba_tax'] . " FROM `" . DB_PREFIX . "order_total` WHERE `order_id` = " . (int)$order_id . " AND `code` = '" . $this->db->escape($total['code']) . "' AND `title` = '" . $this->db->escape($total['title']) . "'");
 		}
 	}
 
@@ -55,4 +55,3 @@ class ModelPaymentAmazonCheckout extends Model {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` (`store_id`, `group`, `key`, `value`, `serialized`) VALUES (0, 'amazon_checkout', 'amazon_checkout_last_cron_job_run', NOW(), 0)");
 	}
 }
-?>

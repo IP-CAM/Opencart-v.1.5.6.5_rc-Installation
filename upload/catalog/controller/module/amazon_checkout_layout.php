@@ -36,4 +36,3 @@ class ControllerModuleAmazonCheckoutLayout extends Controller {
 		}
 	}
 }
-?>

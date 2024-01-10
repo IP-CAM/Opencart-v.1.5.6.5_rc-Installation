@@ -1,6 +1,6 @@
-<?php 
+<?php
 class ControllerPaymentPerpetualPayments extends Controller {
-	private $error = array(); 
+	private $error = array();
 
 	public function index() {
 		$this->language->load('payment/perpetual_payments');
@@ -10,7 +10,7 @@ class ControllerPaymentPerpetualPayments extends Controller {
 		$this->load->model('setting/setting');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-			$this->model_setting_setting->editSetting('perpetual_payments', $this->request->post);				
+			$this->model_setting_setting->editSetting('perpetual_payments', $this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -28,8 +28,8 @@ class ControllerPaymentPerpetualPayments extends Controller {
 		$this->data['entry_auth_id'] = $this->language->get('entry_auth_id');
 		$this->data['entry_auth_pass'] = $this->language->get('entry_auth_pass');
 		$this->data['entry_test'] = $this->language->get('entry_test');
-		$this->data['entry_total'] = $this->language->get('entry_total');	
-		$this->data['entry_order_status'] = $this->language->get('entry_order_status');		
+		$this->data['entry_total'] = $this->language->get('entry_total');
+		$this->data['entry_order_status'] = $this->language->get('entry_order_status');
 		$this->data['entry_geo_zone'] = $this->language->get('entry_geo_zone');
 		$this->data['entry_status'] = $this->language->get('entry_status');
 		$this->data['entry_sort_order'] = $this->language->get('entry_sort_order');
@@ -59,7 +59,7 @@ class ControllerPaymentPerpetualPayments extends Controller {
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_home'),
-			'href'      => $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL'),       		
+			'href'      => $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL'),
 			'separator' => false
 		);
 
@@ -100,14 +100,14 @@ class ControllerPaymentPerpetualPayments extends Controller {
 		if (isset($this->request->post['perpetual_payments_total'])) {
 			$this->data['perpetual_payments_total'] = $this->request->post['perpetual_payments_total'];
 		} else {
-			$this->data['perpetual_payments_total'] = $this->config->get('perpetual_payments_total'); 
-		} 
+			$this->data['perpetual_payments_total'] = $this->config->get('perpetual_payments_total');
+		}
 
 		if (isset($this->request->post['perpetual_payments_order_status_id'])) {
 			$this->data['perpetual_payments_order_status_id'] = $this->request->post['perpetual_payments_order_status_id'];
 		} else {
-			$this->data['perpetual_payments_order_status_id'] = $this->config->get('perpetual_payments_order_status_id'); 
-		} 
+			$this->data['perpetual_payments_order_status_id'] = $this->config->get('perpetual_payments_order_status_id');
+		}
 
 		$this->load->model('localisation/order_status');
 
@@ -116,8 +116,8 @@ class ControllerPaymentPerpetualPayments extends Controller {
 		if (isset($this->request->post['perpetual_payments_geo_zone_id'])) {
 			$this->data['perpetual_payments_geo_zone_id'] = $this->request->post['perpetual_payments_geo_zone_id'];
 		} else {
-			$this->data['perpetual_payments_geo_zone_id'] = $this->config->get('perpetual_payments_geo_zone_id'); 
-		} 
+			$this->data['perpetual_payments_geo_zone_id'] = $this->config->get('perpetual_payments_geo_zone_id');
+		}
 
 		$this->load->model('localisation/geo_zone');
 
@@ -161,7 +161,6 @@ class ControllerPaymentPerpetualPayments extends Controller {
 			return true;
 		} else {
 			return false;
-		}	
+		}
 	}
 }
-?>

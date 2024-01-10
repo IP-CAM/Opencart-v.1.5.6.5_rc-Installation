@@ -240,20 +240,20 @@ class ControllerPaymentAmazonCheckout extends Controller {
 		$this->data['breadcrumbs'] = array();
 
 		$this->data['breadcrumbs'][] = array(
-			'text' => $this->language->get('text_home'),
-			'href' => $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL'),
+			'text'      => $this->language->get('text_home'),
+			'href'      => $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL'),
 			'separator' => false
 		);
 
 		$this->data['breadcrumbs'][] = array(
-			'text' => $this->language->get('text_payment'),
-			'href' => $this->url->link('extension/payment', 'token=' . $this->session->data['token'], 'SSL'),
+			'text'      => $this->language->get('text_payment'),
+			'href'      => $this->url->link('extension/payment', 'token=' . $this->session->data['token'], 'SSL'),
 			'separator' => ' :: '
 		);
 
 		$this->data['breadcrumbs'][] = array(
-			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('payment/amazon_checkout', 'token=' . $this->session->data['token'], 'SSL'),
+			'text'      => $this->language->get('heading_title'),
+			'href'      => $this->url->link('payment/amazon_checkout', 'token=' . $this->session->data['token'], 'SSL'),
 			'separator' => ' :: '
 		);
 
@@ -265,18 +265,18 @@ class ControllerPaymentAmazonCheckout extends Controller {
 
 		$this->data['button_colours'] = array(
 			'orange' => $this->language->get('text_orange'),
-			'tan' => $this->language->get('text_tan')
+			'tan'    => $this->language->get('text_tan')
 		);
 
 		$this->data['button_backgrounds'] = array(
 			'white' => $this->language->get('text_white'),
 			'light' => $this->language->get('text_light'),
-			'dark' => $this->language->get('text_dark'),
+			'dark'  => $this->language->get('text_dark'),
 		);
 
 		$this->data['button_sizes'] = array(
-			'medium' => $this->language->get('text_medium'),
-			'large' => $this->language->get('text_large'),
+			'medium'  => $this->language->get('text_medium'),
+			'large'   => $this->language->get('text_large'),
 			'x-large' => $this->language->get('text_x_large'),
 		);
 
@@ -323,8 +323,11 @@ class ControllerPaymentAmazonCheckout extends Controller {
 
 				$this->load->library('cba');
 
-				$cba = new CBA($this->config->get('amazon_checkout_merchant_id'), $this->config->get('amazon_checkout_access_key'),
-						$this->config->get('amazon_checkout_access_secret'));
+				$cba = new CBA(
+					$this->config->get('amazon_checkout_merchant_id'),
+					$this->config->get('amazon_checkout_access_key'),
+					$this->config->get('amazon_checkout_access_secret')
+				);
 
 				$response = $cba->orderAdjustment($flat);
 
@@ -378,15 +381,15 @@ class ControllerPaymentAmazonCheckout extends Controller {
 
 				$this->data['products'][] = array(
 					'amazon_order_item_code' => $order_item_code,
-					'order_product_id' => $product['order_product_id'],
-					'product_id' => $product['product_id'],
-					'name' => $product['name'],
-					'model' => $product['model'],
-					'option' => $product_options,
-					'quantity' => $product['quantity'],
-					'price' => $this->currency->format($product['price'], $order_info['currency_code'], $order_info['currency_value']),
-					'total' => $this->currency->format($product['total'], $order_info['currency_code'], $order_info['currency_value']),
-					'href' => $this->url->link('catalog/product/update', 'token=' . $this->session->data['token'] . '&product_id=' . $product['product_id'], 'SSL')
+					'order_product_id'       => $product['order_product_id'],
+					'product_id'             => $product['product_id'],
+					'name'                   => $product['name'],
+					'model'                  => $product['model'],
+					'option'                 => $product_options,
+					'quantity'               => $product['quantity'],
+					'price'                  => $this->currency->format($product['price'], $order_info['currency_code'], $order_info['currency_value']),
+					'total'                  => $this->currency->format($product['total'], $order_info['currency_code'], $order_info['currency_value']),
+					'href'                   => $this->url->link('catalog/product/update', 'token=' . $this->session->data['token'] . '&product_id=' . $product['product_id'], 'SSL')
 				);
 			}
 
@@ -459,4 +462,3 @@ class ControllerPaymentAmazonCheckout extends Controller {
 		return empty($this->errors);
 	}
 }
-?>

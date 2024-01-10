@@ -1,8 +1,8 @@
-<?php 
-class ControllerTotalLowOrderFee extends Controller { 
-	private $error = array(); 
+<?php
+class ControllerTotalLowOrderFee extends Controller {
+	private $error = array();
 
-	public function index() { 
+	public function index() {
 		$this->language->load('total/low_order_fee');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -42,7 +42,7 @@ class ControllerTotalLowOrderFee extends Controller {
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_home'),
-			'href'      => $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL'),      		
+			'href'      => $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL'),
 			'separator' => false
 		);
 
@@ -114,7 +114,6 @@ class ControllerTotalLowOrderFee extends Controller {
 			return true;
 		} else {
 			return false;
-		}	
+		}
 	}
 }
-?>

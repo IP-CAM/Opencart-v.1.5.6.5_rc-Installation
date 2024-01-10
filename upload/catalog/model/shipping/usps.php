@@ -31,19 +31,19 @@ class ModelShippingUsps extends Model {
 			if ($address['iso_code_2'] == 'US') {
 				$xml  = '<RateV4Request USERID="' . $this->config->get('usps_user_id') . '">';
 				$xml .= '	<Package ID="1">';
-				$xml .=	'		<Service>ALL</Service>';
-				$xml .=	'		<ZipOrigination>' . substr($this->config->get('usps_postcode'), 0, 5) . '</ZipOrigination>';
-				$xml .=	'		<ZipDestination>' . substr($postcode, 0, 5) . '</ZipDestination>';
-				$xml .=	'		<Pounds>' . $pounds . '</Pounds>';
-				$xml .=	'		<Ounces>' . $ounces . '</Ounces>';
+				$xml .= '		<Service>ALL</Service>';
+				$xml .= '		<ZipOrigination>' . substr($this->config->get('usps_postcode'), 0, 5) . '</ZipOrigination>';
+				$xml .= '		<ZipDestination>' . substr($postcode, 0, 5) . '</ZipDestination>';
+				$xml .= '		<Pounds>' . $pounds . '</Pounds>';
+				$xml .= '		<Ounces>' . $ounces . '</Ounces>';
 
 				// Prevent common size mismatch error from USPS (Size cannot be Regular if Container is Rectangular for some reason)
 				if ($this->config->get('usps_container') == 'RECTANGULAR' && $this->config->get('usps_size') == 'REGULAR') {
 					$this->config->set('usps_container', 'VARIABLE');
 				}
 
-				$xml .=	'		<Container>' . $this->config->get('usps_container') . '</Container>';
-				$xml .=	'		<Size>' . $this->config->get('usps_size') . '</Size>';
+				$xml .= '		<Container>' . $this->config->get('usps_container') . '</Container>';
+				$xml .= '		<Size>' . $this->config->get('usps_size') . '</Size>';
 				$xml .= '		<Width>' . $this->config->get('usps_width') . '</Width>';
 				$xml .= '		<Length>' . $this->config->get('usps_length') . '</Length>';
 				$xml .= '		<Height>' . $this->config->get('usps_height') . '</Height>';
@@ -51,9 +51,8 @@ class ModelShippingUsps extends Model {
 				// Calculate girth based on usps calculation
 				$xml .= '		<Girth>' . (round(((float)$this->config->get('usps_length') + (float)$this->config->get('usps_width') * 2 + (float)$this->config->get('usps_height') * 2), 1)) . '</Girth>';
 
-
-				$xml .=	'		<Machinable>' . ($this->config->get('usps_machinable') ? 'true' : 'false') . '</Machinable>';
-				$xml .=	'	</Package>';
+				$xml .= '		<Machinable>' . ($this->config->get('usps_machinable') ? 'true' : 'false') . '</Machinable>';
+				$xml .= '	</Package>';
 				$xml .= '</RateV4Request>';
 
 				$request = 'API=RateV4&XML=' . urlencode($xml);
@@ -282,31 +281,31 @@ class ModelShippingUsps extends Model {
 
 				if (isset($country[$address['iso_code_2']])) {
 					$xml  = '<IntlRateV2Request USERID="' . $this->config->get('usps_user_id') . '">';
-					$xml .=	'	<Package ID="1">';
-					$xml .=	'		<Pounds>' . $pounds . '</Pounds>';
-					$xml .=	'		<Ounces>' . $ounces . '</Ounces>';
-					$xml .=	'		<MailType>All</MailType>';
-					$xml .=	'		<GXG>';
-					$xml .=	'		  <POBoxFlag>N</POBoxFlag>';
-					$xml .=	'		  <GiftFlag>N</GiftFlag>';
-					$xml .=	'		</GXG>';
-					$xml .=	'		<ValueOfContents>' . $this->cart->getSubTotal() . '</ValueOfContents>';
-					$xml .=	'		<Country>' . $country[$address['iso_code_2']] . '</Country>';
+					$xml .= '	<Package ID="1">';
+					$xml .= '		<Pounds>' . $pounds . '</Pounds>';
+					$xml .= '		<Ounces>' . $ounces . '</Ounces>';
+					$xml .= '		<MailType>All</MailType>';
+					$xml .= '		<GXG>';
+					$xml .= '		  <POBoxFlag>N</POBoxFlag>';
+					$xml .= '		  <GiftFlag>N</GiftFlag>';
+					$xml .= '		</GXG>';
+					$xml .= '		<ValueOfContents>' . $this->cart->getSubTotal() . '</ValueOfContents>';
+					$xml .= '		<Country>' . $country[$address['iso_code_2']] . '</Country>';
 
 					// Intl only supports RECT and NONRECT
 					if ($this->config->get('usps_container') == 'VARIABLE') {
 						$this->config->set('usps_container', 'NONRECTANGULAR');
 					}
 
-					$xml .=	'		<Container>' . $this->config->get('usps_container') . '</Container>';
-					$xml .=	'		<Size>' . $this->config->get('usps_size') . '</Size>';
+					$xml .= '		<Container>' . $this->config->get('usps_container') . '</Container>';
+					$xml .= '		<Size>' . $this->config->get('usps_size') . '</Size>';
 					$xml .= '		<Width>' . $this->config->get('usps_width') . '</Width>';
 					$xml .= '		<Length>' . $this->config->get('usps_length') . '</Length>';
 					$xml .= '		<Height>' . $this->config->get('usps_height') . '</Height>';
 					$xml .= '		<Girth>' . $this->config->get('usps_girth') . '</Girth>';
 					$xml .= '		<CommercialFlag>N</CommercialFlag>';
-					$xml .=	'	</Package>';
-					$xml .=	'</IntlRateV2Request>';
+					$xml .= '	</Package>';
+					$xml .= '</IntlRateV2Request>';
 
 					$request = 'API=IntlRateV2&XML=' . urlencode($xml);
 				} else {
@@ -345,7 +344,7 @@ class ModelShippingUsps extends Model {
 					$intl_rate_response = $dom->getElementsByTagName('IntlRateV2Response')->item(0);
 					$error = $dom->getElementsByTagName('Error')->item(0);
 
-					$firstclasses = array (
+					$firstclasses = array(
 						'First-Class Mail Parcel',
 						'First-Class Mail Large Envelope',
 						'First-Class Mail Letter',
@@ -368,9 +367,9 @@ class ModelShippingUsps extends Model {
 										if ($classid == '0') {
 											$mailservice = $postage->getElementsByTagName('MailService')->item(0)->nodeValue;
 
-											foreach ($firstclasses as $k => $firstclass)  {
+											foreach ($firstclasses as $k => $firstclass) {
 												if ($firstclass == $mailservice) {
-													$classid = $classid . $k;
+													$classid .= $k;
 													break;
 												}
 											}
@@ -472,4 +471,3 @@ class ModelShippingUsps extends Model {
 		return $method_data;
 	}
 }
-?>

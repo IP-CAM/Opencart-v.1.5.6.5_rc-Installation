@@ -1,6 +1,6 @@
-<?php 
+<?php
 class ControllerFeedGoogleBase extends Controller {
-	private $error = array(); 
+	private $error = array();
 
 	public function index() {
 		$this->language->load('feed/google_base');
@@ -10,7 +10,7 @@ class ControllerFeedGoogleBase extends Controller {
 		$this->load->model('setting/setting');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-			$this->model_setting_setting->editSetting('google_base', $this->request->post);				
+			$this->model_setting_setting->editSetting('google_base', $this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -75,7 +75,7 @@ class ControllerFeedGoogleBase extends Controller {
 		);
 
 		$this->response->setOutput($this->render());
-	} 
+	}
 
 	protected function validate() {
 		if (!$this->user->hasPermission('modify', 'feed/google_base')) {
@@ -86,7 +86,6 @@ class ControllerFeedGoogleBase extends Controller {
 			return true;
 		} else {
 			return false;
-		}	
-	}	
+		}
+	}
 }
-?>

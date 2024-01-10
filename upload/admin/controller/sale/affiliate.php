@@ -1,5 +1,5 @@
-<?php    
-class ControllerSaleAffiliate extends Controller { 
+<?php
+class ControllerSaleAffiliate extends Controller {
 	private $error = array();
 
 	public function index() {
@@ -146,7 +146,7 @@ class ControllerSaleAffiliate extends Controller {
 
 			if (isset($this->request->get['filter_approved'])) {
 				$url .= '&filter_approved=' . $this->request->get['filter_approved'];
-			}		
+			}
 
 			if (isset($this->request->get['filter_date_added'])) {
 				$url .= '&filter_date_added=' . $this->request->get['filter_date_added'];
@@ -175,7 +175,7 @@ class ControllerSaleAffiliate extends Controller {
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
-		$this->load->model('sale/affiliate');	
+		$this->load->model('sale/affiliate');
 
 		if (!$this->user->hasPermission('modify', 'sale/affiliate')) {
 			$this->error['warning'] = $this->language->get('error_permission');
@@ -210,7 +210,7 @@ class ControllerSaleAffiliate extends Controller {
 
 			if (isset($this->request->get['filter_approved'])) {
 				$url .= '&filter_approved=' . $this->request->get['filter_approved'];
-			}	
+			}
 
 			if (isset($this->request->get['filter_date_added'])) {
 				$url .= '&filter_date_added=' . $this->request->get['filter_date_added'];
@@ -226,13 +226,13 @@ class ControllerSaleAffiliate extends Controller {
 
 			if (isset($this->request->get['page'])) {
 				$url .= '&page=' . $this->request->get['page'];
-			}	
+			}
 
-			$this->redirect($this->url->link('sale/affiliate', 'token=' . $this->session->data['token'] . $url, 'SSL'));					
+			$this->redirect($this->url->link('sale/affiliate', 'token=' . $this->session->data['token'] . $url, 'SSL'));
 		}
 
 		$this->getList();
-	} 
+	}
 
 	protected function getList() {
 		if (isset($this->request->get['filter_name'])) {
@@ -263,12 +263,12 @@ class ControllerSaleAffiliate extends Controller {
 			$filter_date_added = $this->request->get['filter_date_added'];
 		} else {
 			$filter_date_added = null;
-		}	
+		}
 
 		if (isset($this->request->get['sort'])) {
 			$sort = $this->request->get['sort'];
 		} else {
-			$sort = 'name'; 
+			$sort = 'name';
 		}
 
 		if (isset($this->request->get['order'])) {
@@ -299,7 +299,7 @@ class ControllerSaleAffiliate extends Controller {
 
 		if (isset($this->request->get['filter_approved'])) {
 			$url .= '&filter_approved=' . $this->request->get['filter_approved'];
-		}	
+		}
 
 		if (isset($this->request->get['filter_date_added'])) {
 			$url .= '&filter_date_added=' . $this->request->get['filter_date_added'];
@@ -321,7 +321,7 @@ class ControllerSaleAffiliate extends Controller {
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_home'),
-			'href'      => $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL'),       		
+			'href'      => $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL'),
 			'separator' => false
 		);
 
@@ -338,10 +338,10 @@ class ControllerSaleAffiliate extends Controller {
 		$this->data['affiliates'] = array();
 
 		$data = array(
-			'filter_name'       => $filter_name, 
-			'filter_email'      => $filter_email, 
-			'filter_status'     => $filter_status, 
-			'filter_approved'   => $filter_approved, 
+			'filter_name'       => $filter_name,
+			'filter_email'      => $filter_email,
+			'filter_status'     => $filter_status,
+			'filter_approved'   => $filter_approved,
 			'filter_date_added' => $filter_date_added,
 			'sort'              => $sort,
 			'order'             => $order,
@@ -372,14 +372,14 @@ class ControllerSaleAffiliate extends Controller {
 				'selected'     => isset($this->request->post['selected']) && in_array($result['affiliate_id'], $this->request->post['selected']),
 				'action'       => $action
 			);
-		}	
+		}
 
 		$this->data['heading_title'] = $this->language->get('heading_title');
 
 		$this->data['text_enabled'] = $this->language->get('text_enabled');
 		$this->data['text_disabled'] = $this->language->get('text_disabled');
 		$this->data['text_yes'] = $this->language->get('text_yes');
-		$this->data['text_no'] = $this->language->get('text_no');		
+		$this->data['text_no'] = $this->language->get('text_no');
 		$this->data['text_no_results'] = $this->language->get('text_no_results');
 
 		$this->data['column_name'] = $this->language->get('column_name');
@@ -388,7 +388,7 @@ class ControllerSaleAffiliate extends Controller {
 		$this->data['column_status'] = $this->language->get('column_status');
 		$this->data['column_approved'] = $this->language->get('column_approved');
 		$this->data['column_date_added'] = $this->language->get('column_date_added');
-		$this->data['column_action'] = $this->language->get('column_action');		
+		$this->data['column_action'] = $this->language->get('column_action');
 
 		$this->data['button_approve'] = $this->language->get('button_approve');
 		$this->data['button_insert'] = $this->language->get('button_insert');
@@ -427,7 +427,7 @@ class ControllerSaleAffiliate extends Controller {
 
 		if (isset($this->request->get['filter_approved'])) {
 			$url .= '&filter_approved=' . $this->request->get['filter_approved'];
-		}	
+		}
 
 		if (isset($this->request->get['filter_date_added'])) {
 			$url .= '&filter_date_added=' . $this->request->get['filter_date_added'];
@@ -650,7 +650,7 @@ class ControllerSaleAffiliate extends Controller {
 
 		if (isset($this->request->get['filter_approved'])) {
 			$url .= '&filter_approved=' . $this->request->get['filter_approved'];
-		}	
+		}
 
 		if (isset($this->request->get['filter_date_added'])) {
 			$url .= '&filter_date_added=' . $this->request->get['filter_date_added'];
@@ -704,7 +704,7 @@ class ControllerSaleAffiliate extends Controller {
 
 		if (isset($this->request->post['firstname'])) {
 			$this->data['firstname'] = $this->request->post['firstname'];
-		} elseif (!empty($affiliate_info)) { 
+		} elseif (!empty($affiliate_info)) {
 			$this->data['firstname'] = $affiliate_info['firstname'];
 		} else {
 			$this->data['firstname'] = '';
@@ -904,7 +904,7 @@ class ControllerSaleAffiliate extends Controller {
 			$this->data['password'] = '';
 		}
 
-		if (isset($this->request->post['confirm'])) { 
+		if (isset($this->request->post['confirm'])) {
 			$this->data['confirm'] = $this->request->post['confirm'];
 		} else {
 			$this->data['confirm'] = '';
@@ -1006,7 +1006,7 @@ class ControllerSaleAffiliate extends Controller {
 			return true;
 		} else {
 			return false;
-		}  
+		}
 	}
 
 	public function country() {
@@ -1027,7 +1027,7 @@ class ControllerSaleAffiliate extends Controller {
 				'address_format'    => $country_info['address_format'],
 				'postcode_required' => $country_info['postcode_required'],
 				'zone'              => $this->model_localisation_zone->getZonesByCountryId($this->request->get['country_id']),
-				'status'            => $country_info['status']		
+				'status'            => $country_info['status']
 			);
 		}
 
@@ -1039,7 +1039,7 @@ class ControllerSaleAffiliate extends Controller {
 
 		$this->load->model('sale/affiliate');
 
-		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->user->hasPermission('modify', 'sale/affiliate')) { 
+		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->user->hasPermission('modify', 'sale/affiliate')) {
 			$this->model_sale_affiliate->addTransaction($this->request->get['affiliate_id'], $this->request->post['description'], $this->request->post['amount']);
 
 			$this->data['success'] = $this->language->get('text_success');
@@ -1064,7 +1064,7 @@ class ControllerSaleAffiliate extends Controller {
 			$page = $this->request->get['page'];
 		} else {
 			$page = 1;
-		}  
+		}
 
 		$this->data['transactions'] = array();
 
@@ -1091,7 +1091,7 @@ class ControllerSaleAffiliate extends Controller {
 
 		$this->data['pagination'] = $pagination->render();
 
-		$this->template = 'sale/affiliate_transaction.tpl';		
+		$this->template = 'sale/affiliate_transaction.tpl';
 
 		$this->response->setOutput($this->render());
 	}
@@ -1119,6 +1119,5 @@ class ControllerSaleAffiliate extends Controller {
 		}
 
 		$this->response->setOutput(json_encode($affiliate_data));
-	}		
+	}
 }
-?>

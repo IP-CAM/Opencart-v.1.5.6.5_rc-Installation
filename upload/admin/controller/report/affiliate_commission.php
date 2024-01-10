@@ -1,6 +1,6 @@
 <?php
 class ControllerReportAffiliateCommission extends Controller {
-	public function index() {     
+	public function index() {
 		$this->language->load('report/affiliate_commission');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -56,13 +56,13 @@ class ControllerReportAffiliateCommission extends Controller {
 		$this->data['affiliates'] = array();
 
 		$data = array(
-			'filter_date_start'	=> $filter_date_start, 
-			'filter_date_end'	=> $filter_date_end, 
+			'filter_date_start' => $filter_date_start,
+			'filter_date_end'   => $filter_date_end,
 			'start'             => ($page - 1) * $this->config->get('config_admin_limit'),
 			'limit'             => $this->config->get('config_admin_limit')
 		);
 
-		$affiliate_total = $this->model_report_affiliate->getTotalCommission($data); 
+		$affiliate_total = $this->model_report_affiliate->getTotalCommission($data);
 
 		$results = $this->model_report_affiliate->getCommission($data);
 
@@ -124,7 +124,7 @@ class ControllerReportAffiliateCommission extends Controller {
 		$this->data['pagination'] = $pagination->render();
 
 		$this->data['filter_date_start'] = $filter_date_start;
-		$this->data['filter_date_end'] = $filter_date_end;	
+		$this->data['filter_date_end'] = $filter_date_end;
 
 		$this->template = 'report/affiliate_commission.tpl';
 		$this->children = array(
@@ -135,4 +135,3 @@ class ControllerReportAffiliateCommission extends Controller {
 		$this->response->setOutput($this->render());
 	}
 }
-?>

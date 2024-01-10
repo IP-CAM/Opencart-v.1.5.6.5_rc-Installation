@@ -5,34 +5,34 @@ class ControllerPaymentKlarnaInvoice extends Controller {
 
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
-		if ($order_info) {      
+		if ($order_info) {
 			$this->language->load('payment/klarna_invoice');
 
 			$this->data['text_additional'] = $this->language->get('text_additional');
-			$this->data['text_payment_option'] = $this->language->get('text_payment_option');	
+			$this->data['text_payment_option'] = $this->language->get('text_payment_option');
 			$this->data['text_wait'] = $this->language->get('text_wait');
-			$this->data['text_day'] = $this->language->get('text_day');	
-			$this->data['text_month'] = $this->language->get('text_month');	
-			$this->data['text_year'] = $this->language->get('text_year');	
-			$this->data['text_male'] = $this->language->get('text_male');	
-			$this->data['text_female'] = $this->language->get('text_female');		
+			$this->data['text_day'] = $this->language->get('text_day');
+			$this->data['text_month'] = $this->language->get('text_month');
+			$this->data['text_year'] = $this->language->get('text_year');
+			$this->data['text_male'] = $this->language->get('text_male');
+			$this->data['text_female'] = $this->language->get('text_female');
 
 			$this->data['entry_pno'] = $this->language->get('entry_pno');
-			$this->data['entry_dob'] = $this->language->get('entry_dob');	
-			$this->data['entry_gender'] = $this->language->get('entry_gender');	
-			$this->data['entry_street'] = $this->language->get('entry_street');	
-			$this->data['entry_house_no'] = $this->language->get('entry_house_no');	
+			$this->data['entry_dob'] = $this->language->get('entry_dob');
+			$this->data['entry_gender'] = $this->language->get('entry_gender');
+			$this->data['entry_street'] = $this->language->get('entry_street');
+			$this->data['entry_house_no'] = $this->language->get('entry_house_no');
 			$this->data['entry_house_ext'] = $this->language->get('entry_house_ext');
-			$this->data['entry_phone_no'] = $this->language->get('entry_phone_no');	
+			$this->data['entry_phone_no'] = $this->language->get('entry_phone_no');
 			$this->data['entry_company'] = $this->language->get('entry_company');
 
-			$this->data['button_confirm'] = $this->language->get('button_confirm');		
+			$this->data['button_confirm'] = $this->language->get('button_confirm');
 
 			$this->data['days'] = array();
 
 			for ($i = 1; $i <= 31; $i++) {
 				$this->data['days'][] = array(
-					'text'  => sprintf('%02d', $i), 
+					'text'  => sprintf('%02d', $i),
 					'value' => $i
 				);
 			}
@@ -41,10 +41,10 @@ class ControllerPaymentKlarnaInvoice extends Controller {
 
 			for ($i = 1; $i <= 12; $i++) {
 				$this->data['months'][] = array(
-					'text'  => sprintf('%02d', $i), 
+					'text'  => sprintf('%02d', $i),
 					'value' => $i
 				);
-			}			
+			}
 
 			$this->data['years'] = array();
 
@@ -53,7 +53,7 @@ class ControllerPaymentKlarnaInvoice extends Controller {
 					'text'  => $i,
 					'value' => $i
 				);
-			}	
+			}
 
 			// Store Taxes to send to Klarna
 			$total_data = array();
@@ -61,7 +61,7 @@ class ControllerPaymentKlarnaInvoice extends Controller {
 
 			$this->load->model('setting/extension');
 
-			$sort_order = array(); 
+			$sort_order = array();
 
 			$results = $this->model_setting_extension->getExtensions('total');
 
@@ -180,7 +180,7 @@ class ControllerPaymentKlarnaInvoice extends Controller {
 				$json['error'] = $this->language->get('error_address_match');
 			}
 
-			if (!$json) {		
+			if (!$json) {
 				$klarna_invoice = $this->config->get('klarna_invoice');
 
 				if ($klarna_invoice[$order_info['payment_iso_code_3']]['server'] == 'live') {
@@ -206,35 +206,35 @@ class ControllerPaymentKlarnaInvoice extends Controller {
 						$encoding = 2;
 						$currency = 0;
 						break;
-					// Finland
+						// Finland
 					case 'FIN':
 						$country = 73;
 						$language = 37;
 						$encoding = 4;
 						$currency = 2;
 						break;
-					// Denmark
+						// Denmark
 					case 'DNK':
 						$country = 59;
 						$language = 27;
 						$encoding = 5;
 						$currency = 3;
 						break;
-					// Norway	
+						// Norway
 					case 'NOR':
 						$country = 164;
 						$language = 97;
 						$encoding = 3;
 						$currency = 1;
 						break;
-					// Germany	
+						// Germany
 					case 'DEU':
 						$country = 81;
 						$language = 28;
 						$encoding = 6;
 						$currency = 2;
 						break;
-					// Netherlands															
+						// Netherlands
 					case 'NLD':
 						$country = 154;
 						$language = 101;
@@ -343,20 +343,20 @@ class ControllerPaymentKlarnaInvoice extends Controller {
 					$pno,
 					$gender,
 					'',
-					'', 
-					(string)$order_info['order_id'], 
 					'',
-					$address, 
-					$address, 
+					(string)$order_info['order_id'],
+					'',
+					$address,
+					$address,
 					$order_info['ip'],
-					0, 
-					$currency, 
+					0,
+					$currency,
 					$country,
-					$language, 
+					$language,
 					(int)$klarna_invoice[$order_info['payment_iso_code_3']]['merchant'],
-					$digest, 
+					$digest,
 					$encoding,
-					$pclass, 
+					$pclass,
 					$goods_list,
 					$order_info['comment'],
 					array('delay_adjust' => 1),
@@ -371,12 +371,12 @@ class ControllerPaymentKlarnaInvoice extends Controller {
 				$xml .= '  <methodName>add_invoice</methodName>';
 				$xml .= '  <params>';
 
-				foreach ($transaction as $parameter)  {
+				foreach ($transaction as $parameter) {
 					$xml .= '    <param><value>' . $this->constructXmlrpc($parameter) . '</value></param>';
 				}
 
 				$xml .= '  </params>';
-				$xml .= '</methodCall>';        
+				$xml .= '</methodCall>';
 
 				$header  = 'Content-Type: text/xml' . "\n";
 				$header .= 'Content-Length: ' . strlen($xml) . "\n";
@@ -407,7 +407,7 @@ class ControllerPaymentKlarnaInvoice extends Controller {
 						$log = new Log('klarna_invoice.log');
 						$log->write('Failed to create an invoice for order #' . $order_info['order_id'] . '. Message: ' . utf8_encode($match[1]) . ' Code: ' . $match2[1]);
 
-						$json['error'] = utf8_encode($match[1]); 
+						$json['error'] = utf8_encode($match[1]);
 					} else {
 						$xml = new DOMDocument();
 						$xml->loadXML($response);
@@ -498,11 +498,11 @@ class ControllerPaymentKlarnaInvoice extends Controller {
 		$numbers = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
 
 		$characters = array('-', '/', ' ', '#', '.', 'a', 'b', 'c', 'd', 'e',
-						'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
-						'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A',
-						'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
-						'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W',
-						'X', 'Y', 'Z');
+			'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
+			'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A',
+			'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+			'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W',
+			'X', 'Y', 'Z');
 
 		$specialchars = array('-', '/', ' ', '#', '.');
 
@@ -550,4 +550,3 @@ class ControllerPaymentKlarnaInvoice extends Controller {
 		return $defpos;
 	}
 }
-?>

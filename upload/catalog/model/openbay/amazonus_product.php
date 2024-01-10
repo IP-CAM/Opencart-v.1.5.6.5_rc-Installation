@@ -23,10 +23,10 @@ class ModelOpenbayAmazonusProduct extends Model {
 	}
 
 	public function linkItems(array $data) {
-		foreach($data as $amazonusSku => $productId) {
+		foreach ($data as $amazonusSku => $productId) {
 			$varRow = $this->db->query("SELECT `var` FROM `" . DB_PREFIX . "amazonus_product`
 				WHERE `sku` = '" . $amazonusSku . "' AND `product_id` = '" . (int)$productId . "'")->row;
-			$var = isset($varRow['var']) ? $varRow['var'] : '';
+			$var = $varRow['var'] ?? '';
 			$this->linkProduct($amazonusSku, $productId, $var);
 		}
 	}
@@ -45,11 +45,11 @@ class ModelOpenbayAmazonusProduct extends Model {
 			SET `status` = 'error'
 			WHERE `sku` = '" . $this->db->escape($data['sku']) . "' AND `insertion_id` = '" . $this->db->escape($data['insertion_id']) . "'
 			");
-	 }
+	}
 
 	public function deleteErrors($insertionId) {
-		 $this->db->query("DELETE FROM `" . DB_PREFIX . "amazonus_product_error` WHERE `insertion_id` = '" . $this->db->escape($insertionId) . "'");
-	 }
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "amazonus_product_error` WHERE `insertion_id` = '" . $this->db->escape($insertionId) . "'");
+	}
 
 	public function setSubmitError($insertionId, $message) {
 		$skuRows = $this->db->query("SELECT `sku`
@@ -57,23 +57,24 @@ class ModelOpenbayAmazonusProduct extends Model {
 			WHERE `insertion_id` = '" . $this->db->escape($insertionId) . "'
 			")->rows;
 
-		foreach($skuRows as $skuRow) {
+		foreach ($skuRows as $skuRow) {
 			$data = array(
-				'sku' => $skuRow['sku'],
-				'error_code' => '0',
-				'message' => $message,
+				'sku'          => $skuRow['sku'],
+				'error_code'   => '0',
+				'message'      => $message,
 				'insertion_id' => $insertionId
 			);
 			$this->insertError($data);
 		}
-	 }
+	}
 
 	public function linkProduct($amazonus_sku, $product_id, $var = '') {
 		$count = $this->db->query("SELECT COUNT(*) as 'count' FROM `" . DB_PREFIX . "amazonus_product_link` WHERE `product_id` = '" . (int)$product_id . "' AND `amazonus_sku` = '" . $this->db->escape($amazonus_sku) . "' AND `var` = '" . $this->db->escape($var) . "' LIMIT 1")->row;
-		if($count['count'] == 0) {
+		if ($count['count'] == 0) {
 			$this->db->query(
 				"INSERT INTO `" . DB_PREFIX . "amazonus_product_link`
-				SET `product_id` = '" . (int)$product_id . "', `amazonus_sku` = '" . $this->db->escape($amazonus_sku) . "', `var` = '" . $this->db->escape($var) . "'");
+				SET `product_id` = '" . (int)$product_id . "', `amazonus_sku` = '" . $this->db->escape($amazonus_sku) . "', `var` = '" . $this->db->escape($var) . "'"
+			);
 		}
 	}
 
@@ -89,13 +90,13 @@ class ModelOpenbayAmazonusProduct extends Model {
 
 			$option = null;
 			foreach ($optionStocks as $optionIterator) {
-				if($optionIterator['var'] === $var) {
+				if ($optionIterator['var'] === $var) {
 					$option = $optionIterator;
 					break;
 				}
 			}
 
-			if($option != null) {
+			if ($option != null) {
 				$result = $option['stock'];
 			}
 		} else {
@@ -106,6 +107,7 @@ class ModelOpenbayAmazonusProduct extends Model {
 				$result = $product_info['quantity'];
 			}
 		}
+
 		return $result;
 	}
 
@@ -132,7 +134,7 @@ class ModelOpenbayAmazonusProduct extends Model {
 		$sqlValues = array();
 
 		foreach ($data as $product) {
-			$sqlValues[] = " ('" . $this->db->escape($product['sku']) . "', " . (int)$product['quantity'] . ", '" . $this->db->escape($product['asin']) . "', " . (double) $product['price'] . ") ";
+			$sqlValues[] = " ('" . $this->db->escape($product['sku']) . "', " . (int)$product['quantity'] . ", '" . $this->db->escape($product['asin']) . "', " . (float)$product['price'] . ") ";
 		}
 
 		$sql .= implode(',', $sqlValues);
@@ -146,4 +148,3 @@ class ModelOpenbayAmazonusProduct extends Model {
 		$this->db->query("UPDATE " . DB_PREFIX . "setting SET `value` = '0', serialized = 0 WHERE `key` = 'openbay_amazonus_processing_listing_reports'");
 	}
 }
-?>

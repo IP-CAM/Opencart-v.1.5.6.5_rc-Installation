@@ -1,9 +1,9 @@
-<?php  
+<?php
 class ControllerInformationSitemap extends Controller {
 	public function index() {
 		$this->language->load('information/sitemap');
 
-		$this->document->setTitle($this->language->get('heading_title')); 
+		$this->document->setTitle($this->language->get('heading_title'));
 
 		$this->data['breadcrumbs'] = array();
 
@@ -15,7 +15,7 @@ class ControllerInformationSitemap extends Controller {
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('heading_title'),
-			'href'      => $this->url->link('information/sitemap'),      	
+			'href'      => $this->url->link('information/sitemap'),
 			'separator' => $this->language->get('text_separator')
 		);
 
@@ -61,8 +61,8 @@ class ControllerInformationSitemap extends Controller {
 				$level_2_data[] = array(
 					'name'     => $category_2['name'],
 					'children' => $level_3_data,
-					'href'     => $this->url->link('product/category', 'path=' . $category_1['category_id'] . '_' . $category_2['category_id'])	
-				);					
+					'href'     => $this->url->link('product/category', 'path=' . $category_1['category_id'] . '_' . $category_2['category_id'])
+				);
 			}
 
 			$this->data['categories'][] = array(
@@ -113,4 +113,3 @@ class ControllerInformationSitemap extends Controller {
 		$this->response->setOutput($this->render());
 	}
 }
-?>

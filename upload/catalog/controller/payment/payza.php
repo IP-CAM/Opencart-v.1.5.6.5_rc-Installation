@@ -22,7 +22,7 @@ class ControllerPaymentPayza extends Controller {
 			$this->template = $this->config->get('config_template') . '/template/payment/payza.tpl';
 		} else {
 			$this->template = 'default/template/payment/payza.tpl';
-		}		
+		}
 
 		$this->render();
 	}
@@ -35,4 +35,3 @@ class ControllerPaymentPayza extends Controller {
 		}
 	}
 }
-?>

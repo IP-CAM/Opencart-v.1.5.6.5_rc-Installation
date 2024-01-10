@@ -1,5 +1,5 @@
 <?php
-class ControllerCatalogInformation extends Controller { 
+class ControllerCatalogInformation extends Controller {
 	private $error = array();
 
 	public function index() {
@@ -158,7 +158,7 @@ class ControllerCatalogInformation extends Controller {
 		);
 
 		$this->data['insert'] = $this->url->link('catalog/information/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
-		$this->data['delete'] = $this->url->link('catalog/information/delete', 'token=' . $this->session->data['token'] . $url, 'SSL');	
+		$this->data['delete'] = $this->url->link('catalog/information/delete', 'token=' . $this->session->data['token'] . $url, 'SSL');
 
 		$this->data['informations'] = array();
 
@@ -188,7 +188,7 @@ class ControllerCatalogInformation extends Controller {
 				'selected'       => isset($this->request->post['selected']) && in_array($result['information_id'], $this->request->post['selected']),
 				'action'         => $action
 			);
-		}	
+		}
 
 		$this->data['heading_title'] = $this->language->get('heading_title');
 
@@ -196,7 +196,7 @@ class ControllerCatalogInformation extends Controller {
 
 		$this->data['column_title'] = $this->language->get('column_title');
 		$this->data['column_sort_order'] = $this->language->get('column_sort_order');
-		$this->data['column_action'] = $this->language->get('column_action');		
+		$this->data['column_action'] = $this->language->get('column_action');
 
 		$this->data['button_insert'] = $this->language->get('button_insert');
 		$this->data['button_delete'] = $this->language->get('button_delete');
@@ -320,7 +320,7 @@ class ControllerCatalogInformation extends Controller {
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_home'),
-			'href'      => $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL'),     		
+			'href'      => $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL'),
 			'separator' => false
 		);
 
@@ -366,7 +366,7 @@ class ControllerCatalogInformation extends Controller {
 			$this->data['information_store'] = $this->model_catalog_information->getInformationStores($this->request->get['information_id']);
 		} else {
 			$this->data['information_store'] = array(0);
-		}		
+		}
 
 		if (isset($this->request->post['keyword'])) {
 			$this->data['keyword'] = $this->request->post['keyword'];
@@ -481,4 +481,3 @@ class ControllerCatalogInformation extends Controller {
 		}
 	}
 }
-?>

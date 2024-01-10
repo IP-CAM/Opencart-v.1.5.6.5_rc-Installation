@@ -37,7 +37,7 @@ class ControllerStep2 extends Controller {
 	}
 
 	private function validate() {
-		if (phpversion() < '5.0') {
+		if (PHP_VERSION < '5.0') {
 			$this->error['warning'] = 'Warning: You need to use PHP5 or above for OpenCart to work!';
 		}
 
@@ -119,4 +119,3 @@ class ControllerStep2 extends Controller {
 		}
 	}
 }
-?>

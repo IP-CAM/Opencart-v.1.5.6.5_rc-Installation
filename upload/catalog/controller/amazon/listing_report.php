@@ -12,10 +12,11 @@ class ControllerAmazonListingReport extends Controller {
 
 		$token = $this->config->get('openbay_amazon_token');
 
-		$incomingToken = isset($this->request->post['token']) ? $this->request->post['token'] : '';
+		$incomingToken = $this->request->post['token'] ?? '';
 
 		if ($incomingToken !== $token) {
 			$logger->write('amazon/listing_reports - Incorrect token: ' . $incomingToken);
+
 			return;
 		}
 
@@ -23,6 +24,7 @@ class ControllerAmazonListingReport extends Controller {
 
 		if (!$decrypted) {
 			$logger->write('amazon/listing_reports - Failed to decrypt data');
+
 			return;
 		}
 
@@ -35,10 +37,10 @@ class ControllerAmazonListingReport extends Controller {
 		foreach ($request['products'] as $product) {
 			$data[] = array(
 				'marketplace' => $request['marketplace'],
-				'sku' => $product['sku'],
-				'quantity' => $product['quantity'],
-				'asin' => $product['asin'],
-				'price' => $product['price'],
+				'sku'         => $product['sku'],
+				'quantity'    => $product['quantity'],
+				'asin'        => $product['asin'],
+				'price'       => $product['price'],
 			);
 		}
 
@@ -51,4 +53,3 @@ class ControllerAmazonListingReport extends Controller {
 		$logger->write('amazon/listing_reports - Finished');
 	}
 }
-?>

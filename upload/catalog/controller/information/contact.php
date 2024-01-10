@@ -1,6 +1,6 @@
-<?php 
+<?php
 class ControllerInformationContact extends Controller {
-	private $error = array(); 
+	private $error = array();
 
 	public function index() {
 		$this->language->load('information/contact');
@@ -17,7 +17,7 @@ class ControllerInformationContact extends Controller {
 			$mail->username = $this->config->get('config_smtp_username');
 			$mail->password = $this->config->get('config_smtp_password');
 			$mail->port = $this->config->get('config_smtp_port');
-			$mail->timeout = $this->config->get('config_smtp_timeout');				
+			$mail->timeout = $this->config->get('config_smtp_timeout');
 			$mail->setTo($this->config->get('config_email'));
 			$mail->setFrom($this->request->post['email']);
 			$mail->setSender($this->request->post['name']);
@@ -32,7 +32,7 @@ class ControllerInformationContact extends Controller {
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_home'),
-			'href'      => $this->url->link('common/home'),        	
+			'href'      => $this->url->link('common/home'),
 			'separator' => false
 		);
 
@@ -65,19 +65,19 @@ class ControllerInformationContact extends Controller {
 			$this->data['error_email'] = $this->error['email'];
 		} else {
 			$this->data['error_email'] = '';
-		}		
+		}
 
 		if (isset($this->error['enquiry'])) {
 			$this->data['error_enquiry'] = $this->error['enquiry'];
 		} else {
 			$this->data['error_enquiry'] = '';
-		}		
+		}
 
 		if (isset($this->error['captcha'])) {
 			$this->data['error_captcha'] = $this->error['captcha'];
 		} else {
 			$this->data['error_captcha'] = '';
-		}	
+		}
 
 		$this->data['button_continue'] = $this->language->get('button_continue');
 
@@ -109,7 +109,7 @@ class ControllerInformationContact extends Controller {
 			$this->data['captcha'] = $this->request->post['captcha'];
 		} else {
 			$this->data['captcha'] = '';
-		}		
+		}
 
 		if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/information/contact.tpl')) {
 			$this->template = $this->config->get('config_template') . '/template/information/contact.tpl';
@@ -132,7 +132,7 @@ class ControllerInformationContact extends Controller {
 	public function success() {
 		$this->language->load('information/contact');
 
-		$this->document->setTitle($this->language->get('heading_title')); 
+		$this->document->setTitle($this->language->get('heading_title'));
 
 		$this->data['breadcrumbs'] = array();
 
@@ -195,7 +195,7 @@ class ControllerInformationContact extends Controller {
 			return true;
 		} else {
 			return false;
-		}  	  
+		}
 	}
 
 	public function captcha() {
@@ -206,6 +206,5 @@ class ControllerInformationContact extends Controller {
 		$this->session->data['captcha'] = $captcha->getCode();
 
 		$captcha->showImage();
-	}	
+	}
 }
-?>

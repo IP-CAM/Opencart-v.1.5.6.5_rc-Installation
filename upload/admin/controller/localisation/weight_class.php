@@ -1,6 +1,6 @@
 <?php
 class ControllerLocalisationWeightClass extends Controller {
-	private $error = array();  
+	private $error = array();
 
 	public function index() {
 		$this->language->load('localisation/weight_class');
@@ -198,7 +198,7 @@ class ControllerLocalisationWeightClass extends Controller {
 		$this->data['column_title'] = $this->language->get('column_title');
 		$this->data['column_unit'] = $this->language->get('column_unit');
 		$this->data['column_value'] = $this->language->get('column_value');
-		$this->data['column_action'] = $this->language->get('column_action');	
+		$this->data['column_action'] = $this->language->get('column_action');
 
 		$this->data['button_insert'] = $this->language->get('button_insert');
 		$this->data['button_delete'] = $this->language->get('button_delete');
@@ -284,13 +284,13 @@ class ControllerLocalisationWeightClass extends Controller {
 			$this->data['error_title'] = $this->error['title'];
 		} else {
 			$this->data['error_title'] = array();
-		}	
+		}
 
 		if (isset($this->error['unit'])) {
 			$this->data['error_unit'] = $this->error['unit'];
 		} else {
 			$this->data['error_unit'] = array();
-		}	
+		}
 
 		$url = '';
 
@@ -322,7 +322,7 @@ class ControllerLocalisationWeightClass extends Controller {
 
 		if (!isset($this->request->get['weight_class_id'])) {
 			$this->data['action'] = $this->url->link('localisation/weight_class/insert', 'token=' . $this->session->data['token'] . $url, 'SSL');
-		} else { 
+		} else {
 			$this->data['action'] = $this->url->link('localisation/weight_class/update', 'token=' . $this->session->data['token'] . '&weight_class_id=' . $this->request->get['weight_class_id'] . $url, 'SSL');
 		}
 
@@ -342,7 +342,7 @@ class ControllerLocalisationWeightClass extends Controller {
 			$this->data['weight_class_description'] = $this->model_localisation_weight_class->getWeightClassDescriptions($this->request->get['weight_class_id']);
 		} else {
 			$this->data['weight_class_description'] = array();
-		}	
+		}
 
 		if (isset($this->request->post['value'])) {
 			$this->data['value'] = $this->request->post['value'];
@@ -407,6 +407,5 @@ class ControllerLocalisationWeightClass extends Controller {
 		} else {
 			return false;
 		}
-	}	
+	}
 }
-?>

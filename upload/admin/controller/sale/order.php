@@ -298,7 +298,7 @@ class ControllerSaleOrder extends Controller {
 
 		$data = array(
 			'filter_order_id'        => $filter_order_id,
-			'filter_customer'	     => $filter_customer,
+			'filter_customer'        => $filter_customer,
 			'filter_order_status_id' => $filter_order_status_id,
 			'filter_total'           => $filter_total,
 			'filter_date_added'      => $filter_date_added,
@@ -1663,13 +1663,13 @@ class ControllerSaleOrder extends Controller {
 				$this->data['products'][] = array(
 					'order_product_id' => $product['order_product_id'],
 					'product_id'       => $product['product_id'],
-					'name'    	 	   => $product['name'],
-					'model'    		   => $product['model'],
-					'option'   		   => $option_data,
-					'quantity'		   => $product['quantity'],
-					'price'    		   => $this->currency->format($product['price'] + ($this->config->get('config_tax') ? $product['tax'] : 0), $order_info['currency_code'], $order_info['currency_value']),
-					'total'    		   => $this->currency->format($product['total'] + ($this->config->get('config_tax') ? ($product['tax'] * $product['quantity']) : 0), $order_info['currency_code'], $order_info['currency_value']),
-					'href'     		   => $this->url->link('catalog/product/update', 'token=' . $this->session->data['token'] . '&product_id=' . $product['product_id'], 'SSL')
+					'name'             => $product['name'],
+					'model'            => $product['model'],
+					'option'           => $option_data,
+					'quantity'         => $product['quantity'],
+					'price'            => $this->currency->format($product['price'] + ($this->config->get('config_tax') ? $product['tax'] : 0), $order_info['currency_code'], $order_info['currency_value']),
+					'total'            => $this->currency->format($product['total'] + ($this->config->get('config_tax') ? ($product['tax'] * $product['quantity']) : 0), $order_info['currency_code'], $order_info['currency_value']),
+					'href'             => $this->url->link('catalog/product/update', 'token=' . $this->session->data['token'] . '&product_id=' . $product['product_id'], 'SSL')
 				);
 			}
 
@@ -1912,9 +1912,9 @@ class ControllerSaleOrder extends Controller {
 				$this->data['maxmind_id'] = '';
 			}
 
-			if($this->hasAction('payment/' . $order_info['payment_code'] . '/orderAction') == true){
+			if ($this->hasAction('payment/' . $order_info['payment_code'] . '/orderAction') == true) {
 				$this->data['payment_action'] = $this->getChild('payment/' . $order_info['payment_code'] . '/orderAction');
-			}else{
+			} else {
 				$this->data['payment_action'] = '';
 			}
 
@@ -2233,7 +2233,7 @@ class ControllerSaleOrder extends Controller {
 				if (file_exists($file)) {
 					header('Content-Type: application/octet-stream');
 					header('Content-Description: File Transfer');
-					header('Content-Disposition: attachment; filename="' . ($mask ? $mask : basename($file)) . '"');
+					header('Content-Disposition: attachment; filename="' . ($mask ?: basename($file)) . '"');
 					header('Content-Transfer-Encoding: binary');
 					header('Expires: 0');
 					header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
@@ -2455,7 +2455,7 @@ class ControllerSaleOrder extends Controller {
 					'country'   => $order_info['shipping_country']
 				);
 
-				$shipping_address = str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format))));
+				$shipping_address = str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\\s\\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format))));
 
 				if ($order_info['payment_address_format']) {
 					$format = $order_info['payment_address_format'];
@@ -2489,7 +2489,7 @@ class ControllerSaleOrder extends Controller {
 					'country'   => $order_info['payment_country']
 				);
 
-				$payment_address = str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format))));
+				$payment_address = str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\\s\\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format))));
 
 				$product_data = array();
 
@@ -2537,7 +2537,7 @@ class ControllerSaleOrder extends Controller {
 				$total_data = $this->model_sale_order->getOrderTotals($order_id);
 
 				$this->data['orders'][] = array(
-					'order_id'	         => $order_id,
+					'order_id'           => $order_id,
 					'invoice_no'         => $invoice_no,
 					'date_added'         => date($this->language->get('date_format_short'), strtotime($order_info['date_added'])),
 					'store_name'         => $order_info['store_name'],
@@ -2567,4 +2567,3 @@ class ControllerSaleOrder extends Controller {
 		$this->response->setOutput($this->render());
 	}
 }
-?>

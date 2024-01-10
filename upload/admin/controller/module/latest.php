@@ -1,8 +1,8 @@
 <?php
 class ControllerModuleLatest extends Controller {
-	private $error = array(); 
+	private $error = array();
 
-	public function index() {   
+	public function index() {
 		$this->language->load('module/latest');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -10,7 +10,7 @@ class ControllerModuleLatest extends Controller {
 		$this->load->model('setting/setting');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-			$this->model_setting_setting->editSetting('latest', $this->request->post);		
+			$this->model_setting_setting->editSetting('latest', $this->request->post);
 
 			$this->cache->delete('product');
 
@@ -24,7 +24,7 @@ class ControllerModuleLatest extends Controller {
 		$this->data['text_enabled'] = $this->language->get('text_enabled');
 		$this->data['text_disabled'] = $this->language->get('text_disabled');
 		$this->data['text_content_top'] = $this->language->get('text_content_top');
-		$this->data['text_content_bottom'] = $this->language->get('text_content_bottom');		
+		$this->data['text_content_bottom'] = $this->language->get('text_content_bottom');
 		$this->data['text_column_left'] = $this->language->get('text_column_left');
 		$this->data['text_column_right'] = $this->language->get('text_column_right');
 
@@ -80,9 +80,9 @@ class ControllerModuleLatest extends Controller {
 
 		if (isset($this->request->post['latest_module'])) {
 			$this->data['modules'] = $this->request->post['latest_module'];
-		} elseif ($this->config->get('latest_module')) { 
+		} elseif ($this->config->get('latest_module')) {
 			$this->data['modules'] = $this->config->get('latest_module');
-		}				
+		}
 
 		$this->load->model('design/layout');
 
@@ -108,13 +108,12 @@ class ControllerModuleLatest extends Controller {
 					$this->error['image'][$key] = $this->language->get('error_image');
 				}
 			}
-		}		
+		}
 
 		if (!$this->error) {
 			return true;
 		} else {
 			return false;
-		}	
+		}
 	}
 }
-?>

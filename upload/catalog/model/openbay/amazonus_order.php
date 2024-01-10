@@ -4,8 +4,8 @@ class ModelOpenbayAmazonusOrder extends Model {
 		$amazonusOrderId = $this->getAmazonusOrderId($orderId);
 
 		$requestXml = "<Request>
-  <AmazonOrderId>$amazonusOrderId</AmazonOrderId>
-  <MerchantOrderId>$orderId</MerchantOrderId>
+  <AmazonOrderId>{$amazonusOrderId}</AmazonOrderId>
+  <MerchantOrderId>{$orderId}</MerchantOrderId>
 </Request>";
 
 		$this->openbay->amazonus->callNoResponse('order/acknowledge', $requestXml, false);
@@ -38,10 +38,10 @@ class ModelOpenbayAmazonusOrder extends Model {
 	}
 
 	public function decreaseProductQuantity($productId, $delta, $var = '') {
-		if($productId == 0) {
+		if ($productId == 0) {
 			return;
 		}
-		if($var == '') {
+		if ($var == '') {
 			$this->db->query("
 				UPDATE `" . DB_PREFIX . "product`
 				SET `quantity` = GREATEST(`quantity` - '" . (int)$delta . "', 0)
@@ -147,7 +147,7 @@ class ModelOpenbayAmazonusOrder extends Model {
 			VALUES (" . (int)$orderId . ", '" . $this->db->escape($amazonusOrderId) . "')");
 	}
 
-	/* $data = array(PRODUCT_SKU => ORDER_ITEM_ID) */
+	// $data = array(PRODUCT_SKU => ORDER_ITEM_ID)
 	public function addAmazonusOrderProducts($orderId, $data) {
 		foreach ($data as $sku => $orderItemId) {
 
@@ -207,14 +207,14 @@ class ModelOpenbayAmazonusOrder extends Model {
 			return $row['amazonus_order_id'];
 		}
 
-		return NULL;
+		return null;
 	}
 
 	public function getProductOptionsByVar($productVar) {
 		$options = array();
 
 		$optionValueIds = explode(':', $productVar);
-		foreach($optionValueIds as $optionValueId) {
+		foreach ($optionValueIds as $optionValueId) {
 			$optionDetailsRow = $this->db->query("SELECT
 				pov.product_option_id,
 				pov.product_option_value_id,
@@ -233,13 +233,13 @@ class ModelOpenbayAmazonusOrder extends Model {
 				od.option_id = pov.option_id AND od.language_id = '" . (int)$this->config->get('config_language_id') . "'
 			")->row;
 
-			if(!empty($optionDetailsRow)) {
+			if (!empty($optionDetailsRow)) {
 				$options[] = array(
-					'product_option_id' => (int)$optionDetailsRow['product_option_id'],
+					'product_option_id'       => (int)$optionDetailsRow['product_option_id'],
 					'product_option_value_id' => (int)$optionDetailsRow['product_option_value_id'],
-					'name' => $optionDetailsRow['name'],
-					'value' => $optionDetailsRow['value'],
-					'type' => $optionDetailsRow['type']
+					'name'                    => $optionDetailsRow['name'],
+					'value'                   => $optionDetailsRow['value'],
+					'type'                    => $optionDetailsRow['type']
 				);
 			}
 		}
@@ -247,4 +247,3 @@ class ModelOpenbayAmazonusOrder extends Model {
 		return $options;
 	}
 }
-?>

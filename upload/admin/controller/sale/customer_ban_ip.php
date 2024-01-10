@@ -1,5 +1,5 @@
-<?php    
-class ControllerSaleCustomerBanIp extends Controller { 
+<?php
+class ControllerSaleCustomerBanIp extends Controller {
 	private $error = array();
 
 	public function index() {
@@ -114,7 +114,7 @@ class ControllerSaleCustomerBanIp extends Controller {
 		if (isset($this->request->get['sort'])) {
 			$sort = $this->request->get['sort'];
 		} else {
-			$sort = 'ip'; 
+			$sort = 'ip';
 		}
 
 		if (isset($this->request->get['order'])) {
@@ -189,7 +189,7 @@ class ControllerSaleCustomerBanIp extends Controller {
 				'selected'           => isset($this->request->post['selected']) && in_array($result['customer_ban_ip_id'], $this->request->post['selected']),
 				'action'             => $action
 			);
-		}	
+		}
 
 		$this->data['heading_title'] = $this->language->get('heading_title');
 
@@ -197,7 +197,7 @@ class ControllerSaleCustomerBanIp extends Controller {
 
 		$this->data['column_ip'] = $this->language->get('column_ip');
 		$this->data['column_customer'] = $this->language->get('column_customer');
-		$this->data['column_action'] = $this->language->get('column_action');		
+		$this->data['column_action'] = $this->language->get('column_action');
 
 		$this->data['button_insert'] = $this->language->get('button_insert');
 		$this->data['button_delete'] = $this->language->get('button_delete');
@@ -323,7 +323,7 @@ class ControllerSaleCustomerBanIp extends Controller {
 
 		if (isset($this->request->post['ip'])) {
 			$this->data['ip'] = $this->request->post['ip'];
-		} elseif (!empty($customer_ban_ip_info)) { 
+		} elseif (!empty($customer_ban_ip_info)) {
 			$this->data['ip'] = $customer_ban_ip_info['ip'];
 		} else {
 			$this->data['ip'] = '';
@@ -363,7 +363,6 @@ class ControllerSaleCustomerBanIp extends Controller {
 			return true;
 		} else {
 			return false;
-		}  
+		}
 	}
 }
-?>

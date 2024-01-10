@@ -1,4 +1,4 @@
-<?php 
+<?php
 class ModelLocalisationReturnReason extends Model {
 	public function addReturnReason($data) {
 		foreach ($data['return_reason'] as $language_id => $value) {
@@ -40,7 +40,7 @@ class ModelLocalisationReturnReason extends Model {
 		if ($data) {
 			$sql = "SELECT * FROM " . DB_PREFIX . "return_reason WHERE language_id = '" . (int)$this->config->get('config_language_id') . "'";
 
-			$sql .= " ORDER BY name";	
+			$sql .= " ORDER BY name";
 
 			if (isset($data['order']) && ($data['order'] == 'DESC')) {
 				$sql .= " DESC";
@@ -51,14 +51,14 @@ class ModelLocalisationReturnReason extends Model {
 			if (isset($data['start']) || isset($data['limit'])) {
 				if ($data['start'] < 0) {
 					$data['start'] = 0;
-				}				
+				}
 
 				if ($data['limit'] < 1) {
 					$data['limit'] = 20;
-				}	
+				}
 
 				$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
-			}	
+			}
 
 			$query = $this->db->query($sql);
 
@@ -72,9 +72,9 @@ class ModelLocalisationReturnReason extends Model {
 				$return_reason_data = $query->rows;
 
 				$this->cache->set('return_reason.' . (int)$this->config->get('config_language_id'), $return_reason_data);
-			}	
+			}
 
-			return $return_reason_data;				
+			return $return_reason_data;
 		}
 	}
 
@@ -94,6 +94,5 @@ class ModelLocalisationReturnReason extends Model {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "return_reason WHERE language_id = '" . (int)$this->config->get('config_language_id') . "'");
 
 		return $query->row['total'];
-	}	
+	}
 }
-?>

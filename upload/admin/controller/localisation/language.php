@@ -1,4 +1,4 @@
-<?php 
+<?php
 class ControllerLocalisationLanguage extends Controller {
 	private $error = array();
 
@@ -187,8 +187,8 @@ class ControllerLocalisationLanguage extends Controller {
 				'code'        => $result['code'],
 				'sort_order'  => $result['sort_order'],
 				'selected'    => isset($this->request->post['selected']) && in_array($result['language_id'], $this->request->post['selected']),
-				'action'      => $action	
-			);		
+				'action'      => $action
+			);
 		}
 
 		$this->data['heading_title'] = $this->language->get('heading_title');
@@ -304,19 +304,19 @@ class ControllerLocalisationLanguage extends Controller {
 			$this->data['error_locale'] = $this->error['locale'];
 		} else {
 			$this->data['error_locale'] = '';
-		}		
+		}
 
 		if (isset($this->error['image'])) {
 			$this->data['error_image'] = $this->error['image'];
 		} else {
 			$this->data['error_image'] = '';
-		}	
+		}
 
 		if (isset($this->error['directory'])) {
 			$this->data['error_directory'] = $this->error['directory'];
 		} else {
 			$this->data['error_directory'] = '';
-		}	
+		}
 
 		if (isset($this->error['filename'])) {
 			$this->data['error_filename'] = $this->error['filename'];
@@ -342,13 +342,13 @@ class ControllerLocalisationLanguage extends Controller {
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_home'),
-			'href'      => $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL'),      		
+			'href'      => $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL'),
 			'separator' => false
 		);
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('heading_title'),
-			'href'      => $this->url->link('localisation/language', 'token=' . $this->session->data['token'] . $url, 'SSL'),      		
+			'href'      => $this->url->link('localisation/language', 'token=' . $this->session->data['token'] . $url, 'SSL'),
 			'separator' => ' :: '
 		);
 
@@ -454,8 +454,8 @@ class ControllerLocalisationLanguage extends Controller {
 			$this->error['locale'] = $this->language->get('error_locale');
 		}
 
-		if (!$this->request->post['directory']) { 
-			$this->error['directory'] = $this->language->get('error_directory'); 
+		if (!$this->request->post['directory']) {
+			$this->error['directory'] = $this->language->get('error_directory');
 		}
 
 		if (!$this->request->post['filename']) {
@@ -476,7 +476,7 @@ class ControllerLocalisationLanguage extends Controller {
 	protected function validateDelete() {
 		if (!$this->user->hasPermission('modify', 'localisation/language')) {
 			$this->error['warning'] = $this->language->get('error_permission');
-		} 
+		}
 
 		$this->load->model('setting/store');
 		$this->load->model('sale/order');
@@ -491,7 +491,7 @@ class ControllerLocalisationLanguage extends Controller {
 
 				if ($this->config->get('config_admin_language') == $language_info['code']) {
 					$this->error['warning'] = $this->language->get('error_admin');
-				}	
+				}
 
 				$store_total = $this->model_setting_store->getTotalStoresByLanguage($language_info['code']);
 
@@ -504,7 +504,7 @@ class ControllerLocalisationLanguage extends Controller {
 
 			if ($order_total) {
 				$this->error['warning'] = sprintf($this->language->get('error_order'), $order_total);
-			}		
+			}
 		}
 
 		if (!$this->error) {
@@ -512,6 +512,5 @@ class ControllerLocalisationLanguage extends Controller {
 		} else {
 			return false;
 		}
-	}	
+	}
 }
-?>

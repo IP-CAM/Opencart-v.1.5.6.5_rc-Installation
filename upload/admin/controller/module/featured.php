@@ -1,16 +1,16 @@
 <?php
 class ControllerModuleFeatured extends Controller {
-	private $error = array(); 
+	private $error = array();
 
-	public function index() {   
+	public function index() {
 		$this->language->load('module/featured');
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
 		$this->load->model('setting/setting');
 
-		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {			
-			$this->model_setting_setting->editSetting('featured', $this->request->post);		
+		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
+			$this->model_setting_setting->editSetting('featured', $this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -22,7 +22,7 @@ class ControllerModuleFeatured extends Controller {
 		$this->data['text_enabled'] = $this->language->get('text_enabled');
 		$this->data['text_disabled'] = $this->language->get('text_disabled');
 		$this->data['text_content_top'] = $this->language->get('text_content_top');
-		$this->data['text_content_bottom'] = $this->language->get('text_content_bottom');		
+		$this->data['text_content_bottom'] = $this->language->get('text_content_bottom');
 		$this->data['text_column_left'] = $this->language->get('text_column_left');
 		$this->data['text_column_right'] = $this->language->get('text_column_right');
 
@@ -81,13 +81,13 @@ class ControllerModuleFeatured extends Controller {
 			$this->data['featured_product'] = $this->request->post['featured_product'];
 		} else {
 			$this->data['featured_product'] = $this->config->get('featured_product');
-		}	
+		}
 
 		$this->load->model('catalog/product');
 
 		if (isset($this->request->post['featured_product'])) {
 			$products = explode(',', $this->request->post['featured_product']);
-		} else {		
+		} else {
 			$products = explode(',', $this->config->get('featured_product'));
 		}
 
@@ -102,15 +102,15 @@ class ControllerModuleFeatured extends Controller {
 					'name'       => $product_info['name']
 				);
 			}
-		}	
+		}
 
 		$this->data['modules'] = array();
 
 		if (isset($this->request->post['featured_module'])) {
 			$this->data['modules'] = $this->request->post['featured_module'];
-		} elseif ($this->config->get('featured_module')) { 
+		} elseif ($this->config->get('featured_module')) {
 			$this->data['modules'] = $this->config->get('featured_module');
-		}		
+		}
 
 		$this->load->model('design/layout');
 
@@ -142,7 +142,6 @@ class ControllerModuleFeatured extends Controller {
 			return true;
 		} else {
 			return false;
-		}	
+		}
 	}
 }
-?>

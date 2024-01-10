@@ -1,8 +1,8 @@
 <?php
 class ControllerModuleStore extends Controller {
-	private $error = array(); 
+	private $error = array();
 
-	public function index() {   
+	public function index() {
 		$this->language->load('module/store');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -10,7 +10,7 @@ class ControllerModuleStore extends Controller {
 		$this->load->model('setting/setting');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-			$this->model_setting_setting->editSetting('store', $this->request->post);		
+			$this->model_setting_setting->editSetting('store', $this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -24,7 +24,7 @@ class ControllerModuleStore extends Controller {
 		$this->data['text_enabled'] = $this->language->get('text_enabled');
 		$this->data['text_disabled'] = $this->language->get('text_disabled');
 		$this->data['text_content_top'] = $this->language->get('text_content_top');
-		$this->data['text_content_bottom'] = $this->language->get('text_content_bottom');		
+		$this->data['text_content_bottom'] = $this->language->get('text_content_bottom');
 		$this->data['text_column_left'] = $this->language->get('text_column_left');
 		$this->data['text_column_right'] = $this->language->get('text_column_right');
 
@@ -73,13 +73,13 @@ class ControllerModuleStore extends Controller {
 			$this->data['store_admin'] = $this->request->post['store_admin'];
 		} else {
 			$this->data['store_admin'] = $this->config->get('store_admin');
-		}	
+		}
 
 		$this->data['modules'] = array();
 
 		if (isset($this->request->post['store_module'])) {
 			$this->data['modules'] = $this->request->post['store_module'];
-		} elseif ($this->config->get('store_module')) { 
+		} elseif ($this->config->get('store_module')) {
 			$this->data['modules'] = $this->config->get('store_module');
 		}
 
@@ -105,7 +105,6 @@ class ControllerModuleStore extends Controller {
 			return true;
 		} else {
 			return false;
-		}	
+		}
 	}
 }
-?>

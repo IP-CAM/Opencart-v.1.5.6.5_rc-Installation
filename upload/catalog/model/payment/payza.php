@@ -1,4 +1,4 @@
-<?php 
+<?php
 class ModelPaymentPayza extends Model {
 	public function getMethod($address, $total) {
 		$this->language->load('payment/payza');
@@ -13,11 +13,11 @@ class ModelPaymentPayza extends Model {
 			$status = true;
 		} else {
 			$status = false;
-		}	
+		}
 
 		$method_data = array();
 
-		if ($status) {  
+		if ($status) {
 			$method_data = array(
 				'code'       => 'payza',
 				'title'      => $this->language->get('text_title'),
@@ -28,4 +28,3 @@ class ModelPaymentPayza extends Model {
 		return $method_data;
 	}
 }
-?>

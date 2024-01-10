@@ -19,7 +19,7 @@ final class Openbay {
 	}
 
 	public function orderNew($order_id) {
-		/**
+		/*
 		 * Once and order has been imported from external marketplace and
 		 * and order_id has been created, this method should be called.
 		 *
@@ -40,7 +40,7 @@ final class Openbay {
 			$this->amazonus->orderNew($order_id);
 		}
 
-		/**
+		/*
 		 * If a 3rd party module needs to be notified about a new order
 		 * so it can update the stock then they should add a method to their
 		 * application here with the order id so they can get the info about it.
@@ -49,7 +49,7 @@ final class Openbay {
 	}
 
 	public function productUpdateListen($productId, $data) {
-		/**
+		/*
 		 * This call is performed after the product has been updated.
 		 * The $data variable holds all of the information that has
 		 * been sent through the $_POST.
@@ -72,7 +72,7 @@ final class Openbay {
 	}
 
 	public function putStockUpdateBulk($productIdArray, $endInactive = false) {
-		/**
+		/*
 		 * putStockUpdateBulk
 		 *
 		 * Takes an array of product id's where stock has been modified
@@ -98,10 +98,10 @@ final class Openbay {
 
 	public function testDbColumn($table, $column) {
 		//check profile table for default column
-		$res = $this->db->query("SHOW COLUMNS FROM `".DB_PREFIX.$table."` LIKE '".$column."'");
-		if($res->num_rows != 0) {
+		$res = $this->db->query("SHOW COLUMNS FROM `" . DB_PREFIX . $table . "` LIKE '" . $column . "'");
+		if ($res->num_rows != 0) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
@@ -111,13 +111,13 @@ final class Openbay {
 
 		$tables = array();
 
-		foreach($res->rows as $row) {
+		foreach ($res->rows as $row) {
 			$tables[] = $row['c'];
 		}
 
-		if(in_array($table, $tables)) {
+		if (in_array($table, $tables)) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
@@ -172,8 +172,8 @@ final class Openbay {
 		$rates = $this->getTaxRates($class_id);
 		$percentage = 0.00;
 
-		foreach($rates as $rate) {
-			if($rate['type'] == 'P') {
+		foreach ($rates as $rate) {
+			if ($rate['type'] == 'P') {
 				$percentage += $rate['rate'];
 			}
 		}
@@ -182,11 +182,11 @@ final class Openbay {
 	}
 
 	public function getZoneId($name, $country_id) {
-		$query = $this->db->query("SELECT `zone_id` FROM `" . DB_PREFIX . "zone` WHERE `country_id` = '" . (int)$country_id . "' AND status = '1' AND `name` = '".$this->db->escape($name)."'");
+		$query = $this->db->query("SELECT `zone_id` FROM `" . DB_PREFIX . "zone` WHERE `country_id` = '" . (int)$country_id . "' AND status = '1' AND `name` = '" . $this->db->escape($name) . "'");
 
-		if($query->num_rows > 0) {
+		if ($query->num_rows > 0) {
 			return $query->row['zone_id'];
-		}else{
+		} else {
 			return 0;
 		}
 	}
@@ -232,7 +232,7 @@ final class Openbay {
 			}
 		}
 
-		if(isset($order_voucher_query) && is_array($order_voucher_query)) {
+		if (isset($order_voucher_query) && is_array($order_voucher_query)) {
 			foreach ($order_voucher_query->rows as $voucher) {
 				$text .= '1x ' . $voucher['description'] . ' ' . $this->currency->format($voucher['amount'], $order_info['currency_code'], $order_info['currency_value']);
 			}
@@ -296,9 +296,7 @@ final class Openbay {
 	}
 
 	public function deleteOrder($order_id) {
-		/**
-		 * Called when an order is deleted - usually by the admin. Helpful to loop over the products to add the stock back to the markets.
-		 */
+		// Called when an order is deleted - usually by the admin. Helpful to loop over the products to add the stock back to the markets.
 		// eBay Module
 		if ($this->config->get('openbay_status') == 1) {
 			$this->ebay->deleteOrder($order_id);
@@ -316,21 +314,21 @@ final class Openbay {
 	}
 
 	public function getProductModelNumber($product_id, $sku = null) {
-		if($sku != null) {
-			$qry = $this->db->query("SELECT `sku` FROM `" . DB_PREFIX . "product_option_relation` WHERE `product_id` = '".(int)$product_id."' AND `var` = '".$this->db->escape($sku)."'");
+		if ($sku != null) {
+			$qry = $this->db->query("SELECT `sku` FROM `" . DB_PREFIX . "product_option_relation` WHERE `product_id` = '" . (int)$product_id . "' AND `var` = '" . $this->db->escape($sku) . "'");
 
-			if($qry->num_rows > 0) {
+			if ($qry->num_rows > 0) {
 				return $qry->row['sku'];
-			}else{
+			} else {
 				return false;
 			}
 
-		}else{
-			$qry = $this->db->query("SELECT `model` FROM `" . DB_PREFIX . "product` WHERE `product_id` = '".(int)$product_id."' LIMIT 1");
+		} else {
+			$qry = $this->db->query("SELECT `model` FROM `" . DB_PREFIX . "product` WHERE `product_id` = '" . (int)$product_id . "' LIMIT 1");
 
-			if($qry->num_rows > 0) {
+			if ($qry->num_rows > 0) {
 				return $qry->row['model'];
-			}else{
+			} else {
 				return false;
 			}
 		}
@@ -353,11 +351,11 @@ final class Openbay {
 	}
 
 	public function getUserByEmail($email) {
-		$qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer` WHERE `email` = '".$this->db->escape($email)."'");
+		$qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer` WHERE `email` = '" . $this->db->escape($email) . "'");
 
-		if($qry->num_rows){
+		if ($qry->num_rows) {
 			return $qry->row['customer_id'];
-		}else{
+		} else {
 			return false;
 		}
 	}
@@ -413,4 +411,3 @@ final class Openbay {
 		return $product_option_data;
 	}
 }
-?>

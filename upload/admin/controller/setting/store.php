@@ -1,6 +1,6 @@
 <?php
 class ControllerSettingStore extends Controller {
-	private $error = array(); 
+	private $error = array();
 
 	public function index() {
 		$this->language->load('setting/store');
@@ -102,7 +102,7 @@ class ControllerSettingStore extends Controller {
 		);
 
 		$this->data['insert'] = $this->url->link('setting/store/insert', 'token=' . $this->session->data['token'], 'SSL');
-		$this->data['delete'] = $this->url->link('setting/store/delete', 'token=' . $this->session->data['token'], 'SSL');	
+		$this->data['delete'] = $this->url->link('setting/store/delete', 'token=' . $this->session->data['token'], 'SSL');
 
 		$this->data['stores'] = array();
 
@@ -140,7 +140,7 @@ class ControllerSettingStore extends Controller {
 				'selected' => isset($this->request->post['selected']) && in_array($result['store_id'], $this->request->post['selected']),
 				'action'   => $action
 			);
-		}	
+		}
 
 		$this->data['heading_title'] = $this->language->get('heading_title');
 
@@ -148,7 +148,7 @@ class ControllerSettingStore extends Controller {
 
 		$this->data['column_name'] = $this->language->get('column_name');
 		$this->data['column_url'] = $this->language->get('column_url');
-		$this->data['column_action'] = $this->language->get('column_action');		
+		$this->data['column_action'] = $this->language->get('column_action');
 
 		$this->data['button_insert'] = $this->language->get('button_insert');
 		$this->data['button_delete'] = $this->language->get('button_delete');
@@ -176,7 +176,7 @@ class ControllerSettingStore extends Controller {
 		$this->response->setOutput($this->render());
 	}
 
-	public function getForm() { 
+	public function getForm() {
 		$this->data['heading_title'] = $this->language->get('heading_title');
 
 		$this->data['text_select'] = $this->language->get('text_select');
@@ -187,21 +187,21 @@ class ControllerSettingStore extends Controller {
 		$this->data['text_tax'] = $this->language->get('text_tax');
 		$this->data['text_account'] = $this->language->get('text_account');
 		$this->data['text_checkout'] = $this->language->get('text_checkout');
-		$this->data['text_stock'] = $this->language->get('text_stock');				
+		$this->data['text_stock'] = $this->language->get('text_stock');
 		$this->data['text_image_manager'] = $this->language->get('text_image_manager');
 		$this->data['text_browse'] = $this->language->get('text_browse');
-		$this->data['text_clear'] = $this->language->get('text_clear');			
-		$this->data['text_shipping'] = $this->language->get('text_shipping');	
-		$this->data['text_payment'] = $this->language->get('text_payment');	
+		$this->data['text_clear'] = $this->language->get('text_clear');
+		$this->data['text_shipping'] = $this->language->get('text_shipping');
+		$this->data['text_payment'] = $this->language->get('text_payment');
 
 		$this->data['entry_url'] = $this->language->get('entry_url');
-		$this->data['entry_ssl'] = $this->language->get('entry_ssl');	
+		$this->data['entry_ssl'] = $this->language->get('entry_ssl');
 		$this->data['entry_name'] = $this->language->get('entry_name');
 		$this->data['entry_owner'] = $this->language->get('entry_owner');
 		$this->data['entry_address'] = $this->language->get('entry_address');
 		$this->data['entry_email'] = $this->language->get('entry_email');
 		$this->data['entry_telephone'] = $this->language->get('entry_telephone');
-		$this->data['entry_fax'] = $this->language->get('entry_fax');				
+		$this->data['entry_fax'] = $this->language->get('entry_fax');
 		$this->data['entry_title'] = $this->language->get('entry_title');
 		$this->data['entry_meta_description'] = $this->language->get('entry_meta_description');
 		$this->data['entry_layout'] = $this->language->get('entry_layout');
@@ -213,7 +213,7 @@ class ControllerSettingStore extends Controller {
 		$this->data['entry_catalog_limit'] = $this->language->get('entry_catalog_limit');
 		$this->data['entry_tax'] = $this->language->get('entry_tax');
 		$this->data['entry_tax_default'] = $this->language->get('entry_tax_default');
-		$this->data['entry_tax_customer'] = $this->language->get('entry_tax_customer');		
+		$this->data['entry_tax_customer'] = $this->language->get('entry_tax_customer');
 		$this->data['entry_customer_group'] = $this->language->get('entry_customer_group');
 		$this->data['entry_customer_group_display'] = $this->language->get('entry_customer_group_display');
 		$this->data['entry_customer_price'] = $this->language->get('entry_customer_price');
@@ -330,7 +330,7 @@ class ControllerSettingStore extends Controller {
 			$this->data['error_image_additional'] = $this->error['image_additional'];
 		} else {
 			$this->data['error_image_additional'] = '';
-		}	
+		}
 
 		if (isset($this->error['image_related'])) {
 			$this->data['error_image_related'] = $this->error['image_related'];
@@ -427,7 +427,7 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['config_owner'])) {
 			$this->data['config_owner'] = $this->request->post['config_owner'];
 		} elseif (isset($store_info['config_owner'])) {
-			$this->data['config_owner'] = $store_info['config_owner'];		
+			$this->data['config_owner'] = $store_info['config_owner'];
 		} else {
 			$this->data['config_owner'] = '';
 		}
@@ -435,7 +435,7 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['config_address'])) {
 			$this->data['config_address'] = $this->request->post['config_address'];
 		} elseif (isset($store_info['config_address'])) {
-			$this->data['config_address'] = $store_info['config_address'];		
+			$this->data['config_address'] = $store_info['config_address'];
 		} else {
 			$this->data['config_address'] = '';
 		}
@@ -443,7 +443,7 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['config_email'])) {
 			$this->data['config_email'] = $this->request->post['config_email'];
 		} elseif (isset($store_info['config_email'])) {
-			$this->data['config_email'] = $store_info['config_email'];		
+			$this->data['config_email'] = $store_info['config_email'];
 		} else {
 			$this->data['config_email'] = '';
 		}
@@ -451,7 +451,7 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['config_telephone'])) {
 			$this->data['config_telephone'] = $this->request->post['config_telephone'];
 		} elseif (isset($store_info['config_telephone'])) {
-			$this->data['config_telephone'] = $store_info['config_telephone'];		
+			$this->data['config_telephone'] = $store_info['config_telephone'];
 		} else {
 			$this->data['config_telephone'] = '';
 		}
@@ -459,7 +459,7 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['config_fax'])) {
 			$this->data['config_fax'] = $this->request->post['config_fax'];
 		} elseif (isset($store_info['config_fax'])) {
-			$this->data['config_fax'] = $store_info['config_fax'];		
+			$this->data['config_fax'] = $store_info['config_fax'];
 		} else {
 			$this->data['config_fax'] = '';
 		}
@@ -475,7 +475,7 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['config_meta_description'])) {
 			$this->data['config_meta_description'] = $this->request->post['config_meta_description'];
 		} elseif (isset($store_info['config_meta_description'])) {
-			$this->data['config_meta_description'] = $store_info['config_meta_description'];		
+			$this->data['config_meta_description'] = $store_info['config_meta_description'];
 		} else {
 			$this->data['config_meta_description'] = '';
 		}
@@ -506,12 +506,12 @@ class ControllerSettingStore extends Controller {
 
 		foreach ($directories as $directory) {
 			$this->data['templates'][] = basename($directory);
-		}	
+		}
 
 		if (isset($this->request->post['config_country_id'])) {
 			$this->data['config_country_id'] = $this->request->post['config_country_id'];
 		} elseif (isset($store_info['config_country_id'])) {
-			$this->data['config_country_id'] = $store_info['config_country_id'];		
+			$this->data['config_country_id'] = $store_info['config_country_id'];
 		} else {
 			$this->data['config_country_id'] = $this->config->get('config_country_id');
 		}
@@ -523,7 +523,7 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['config_zone_id'])) {
 			$this->data['config_zone_id'] = $this->request->post['config_zone_id'];
 		} elseif (isset($store_info['config_zone_id'])) {
-			$this->data['config_zone_id'] = $store_info['config_zone_id'];				
+			$this->data['config_zone_id'] = $store_info['config_zone_id'];
 		} else {
 			$this->data['config_zone_id'] = $this->config->get('config_zone_id');
 		}
@@ -531,7 +531,7 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['config_language'])) {
 			$this->data['config_language'] = $this->request->post['config_language'];
 		} elseif (isset($store_info['config_language'])) {
-			$this->data['config_language'] = $store_info['config_language'];			
+			$this->data['config_language'] = $store_info['config_language'];
 		} else {
 			$this->data['config_language'] = $this->config->get('config_language');
 		}
@@ -543,7 +543,7 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['config_currency'])) {
 			$this->data['config_currency'] = $this->request->post['config_currency'];
 		} elseif (isset($store_info['config_currency'])) {
-			$this->data['config_currency'] = $store_info['config_currency'];			
+			$this->data['config_currency'] = $store_info['config_currency'];
 		} else {
 			$this->data['config_currency'] = $this->config->get('config_currency');
 		}
@@ -555,15 +555,15 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['config_catalog_limit'])) {
 			$this->data['config_catalog_limit'] = $this->request->post['config_catalog_limit'];
 		} elseif (isset($store_info['config_catalog_limit'])) {
-			$this->data['config_catalog_limit'] = $store_info['config_catalog_limit'];	
+			$this->data['config_catalog_limit'] = $store_info['config_catalog_limit'];
 		} else {
 			$this->data['config_catalog_limit'] = '12';
-		}		
+		}
 
 		if (isset($this->request->post['config_tax'])) {
 			$this->data['config_tax'] = $this->request->post['config_tax'];
 		} elseif (isset($store_info['config_tax'])) {
-			$this->data['config_tax'] = $store_info['config_tax'];			
+			$this->data['config_tax'] = $store_info['config_tax'];
 		} else {
 			$this->data['config_tax'] = '';
 		}
@@ -571,7 +571,7 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['config_tax_default'])) {
 			$this->data['config_tax_default'] = $this->request->post['config_tax_default'];
 		} elseif (isset($store_info['config_tax_default'])) {
-			$this->data['config_tax_default'] = $store_info['config_tax_default'];			
+			$this->data['config_tax_default'] = $store_info['config_tax_default'];
 		} else {
 			$this->data['config_tax_default'] = '';
 		}
@@ -579,7 +579,7 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['config_tax_customer'])) {
 			$this->data['config_tax_customer'] = $this->request->post['config_tax_customer'];
 		} elseif (isset($store_info['config_tax_customer'])) {
-			$this->data['config_tax_customer'] = $store_info['config_tax_customer'];			
+			$this->data['config_tax_customer'] = $store_info['config_tax_customer'];
 		} else {
 			$this->data['config_tax_customer'] = '';
 		}
@@ -587,7 +587,7 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['config_customer_group_id'])) {
 			$this->data['config_customer_group_id'] = $this->request->post['config_customer_group_id'];
 		} elseif (isset($store_info['config_customer_group_id'])) {
-			$this->data['config_customer_group_id'] = $store_info['config_customer_group_id'];			
+			$this->data['config_customer_group_id'] = $store_info['config_customer_group_id'];
 		} else {
 			$this->data['config_customer_group_id'] = '';
 		}
@@ -599,15 +599,15 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['config_customer_group_display'])) {
 			$this->data['config_customer_group_display'] = $this->request->post['config_customer_group_display'];
 		} elseif (isset($store_info['config_customer_group_display'])) {
-			$this->data['config_customer_group_display'] = $store_info['config_customer_group_display'];	
+			$this->data['config_customer_group_display'] = $store_info['config_customer_group_display'];
 		} else {
-			$this->data['config_customer_group_display'] = array();			
+			$this->data['config_customer_group_display'] = array();
 		}
 
 		if (isset($this->request->post['config_customer_price'])) {
 			$this->data['config_customer_price'] = $this->request->post['config_customer_price'];
 		} elseif (isset($store_info['config_customer_price'])) {
-			$this->data['config_customer_price'] = $store_info['config_customer_price'];			
+			$this->data['config_customer_price'] = $store_info['config_customer_price'];
 		} else {
 			$this->data['config_customer_price'] = '';
 		}
@@ -615,10 +615,10 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['config_account_id'])) {
 			$this->data['config_account_id'] = $this->request->post['config_account_id'];
 		} elseif (isset($store_info['config_account_id'])) {
-			$this->data['config_account_id'] = $store_info['config_account_id'];			
+			$this->data['config_account_id'] = $store_info['config_account_id'];
 		} else {
 			$this->data['config_account_id'] = '';
-		}		
+		}
 
 		$this->load->model('catalog/information');
 
@@ -627,7 +627,7 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['config_cart_weight'])) {
 			$this->data['config_cart_weight'] = $this->request->post['config_cart_weight'];
 		} elseif (isset($store_info['config_cart_weight'])) {
-			$this->data['config_cart_weight'] = $store_info['config_cart_weight'];	
+			$this->data['config_cart_weight'] = $store_info['config_cart_weight'];
 		} else {
 			$this->data['config_cart_weight'] = '';
 		}
@@ -635,7 +635,7 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['config_guest_checkout'])) {
 			$this->data['config_guest_checkout'] = $this->request->post['config_guest_checkout'];
 		} elseif (isset($store_info['config_guest_checkout'])) {
-			$this->data['config_guest_checkout'] = $store_info['config_guest_checkout'];		
+			$this->data['config_guest_checkout'] = $store_info['config_guest_checkout'];
 		} else {
 			$this->data['config_guest_checkout'] = '';
 		}
@@ -643,7 +643,7 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['config_checkout_id'])) {
 			$this->data['config_checkout_id'] = $this->request->post['config_checkout_id'];
 		} elseif (isset($store_info['config_checkout_id'])) {
-			$this->data['config_checkout_id'] = $store_info['config_checkout_id'];		
+			$this->data['config_checkout_id'] = $store_info['config_checkout_id'];
 		} else {
 			$this->data['config_checkout_id'] = '';
 		}
@@ -651,7 +651,7 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['config_order_status_id'])) {
 			$this->data['config_order_status_id'] = $this->request->post['config_order_status_id'];
 		} elseif (isset($store_info['config_order_status_id'])) {
-			$this->data['config_order_status_id'] = $store_info['config_order_status_id'];		
+			$this->data['config_order_status_id'] = $store_info['config_order_status_id'];
 		} else {
 			$this->data['config_order_status_id'] = '';
 		}
@@ -663,7 +663,7 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['config_stock_display'])) {
 			$this->data['config_stock_display'] = $this->request->post['config_stock_display'];
 		} elseif (isset($store_info['config_stock_display'])) {
-			$this->data['config_stock_display'] = $store_info['config_stock_display'];			
+			$this->data['config_stock_display'] = $store_info['config_stock_display'];
 		} else {
 			$this->data['config_stock_display'] = '';
 		}
@@ -671,7 +671,7 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['config_stock_checkout'])) {
 			$this->data['config_stock_checkout'] = $this->request->post['config_stock_checkout'];
 		} elseif (isset($store_info['config_stock_checkout'])) {
-			$this->data['config_stock_checkout'] = $store_info['config_stock_checkout'];		
+			$this->data['config_stock_checkout'] = $store_info['config_stock_checkout'];
 		} else {
 			$this->data['config_stock_checkout'] = '';
 		}
@@ -681,13 +681,13 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['config_logo'])) {
 			$this->data['config_logo'] = $this->request->post['config_logo'];
 		} elseif (isset($store_info['config_logo'])) {
-			$this->data['config_logo'] = $store_info['config_logo'];			
+			$this->data['config_logo'] = $store_info['config_logo'];
 		} else {
 			$this->data['config_logo'] = '';
 		}
 
 		if (isset($store_info['config_logo']) && file_exists(DIR_IMAGE . $store_info['config_logo']) && is_file(DIR_IMAGE . $store_info['config_logo'])) {
-			$this->data['logo'] = $this->model_tool_image->resize($store_info['config_logo'], 100, 100);		
+			$this->data['logo'] = $this->model_tool_image->resize($store_info['config_logo'], 100, 100);
 		} else {
 			$this->data['logo'] = $this->model_tool_image->resize('no_image.jpg', 100, 100);
 		}
@@ -695,7 +695,7 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['config_icon'])) {
 			$this->data['config_icon'] = $this->request->post['config_icon'];
 		} elseif (isset($store_info['config_icon'])) {
-			$this->data['config_icon'] = $store_info['config_icon'];			
+			$this->data['config_icon'] = $store_info['config_icon'];
 		} else {
 			$this->data['config_icon'] = '';
 		}
@@ -711,15 +711,15 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['config_image_category_height'])) {
 			$this->data['config_image_category_height'] = $this->request->post['config_image_category_height'];
 		} elseif (isset($store_info['config_image_category_height'])) {
-			$this->data['config_image_category_height'] = $store_info['config_image_category_height'];			
+			$this->data['config_image_category_height'] = $store_info['config_image_category_height'];
 		} else {
 			$this->data['config_image_category_height'] = 80;
-		}	
+		}
 
 		if (isset($this->request->post['config_image_thumb_width'])) {
 			$this->data['config_image_thumb_width'] = $this->request->post['config_image_thumb_width'];
 		} elseif (isset($store_info['config_image_thumb_width'])) {
-			$this->data['config_image_thumb_width'] = $store_info['config_image_thumb_width'];			
+			$this->data['config_image_thumb_width'] = $store_info['config_image_thumb_width'];
 		} else {
 			$this->data['config_image_thumb_width'] = 228;
 		}
@@ -727,7 +727,7 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['config_image_thumb_height'])) {
 			$this->data['config_image_thumb_height'] = $this->request->post['config_image_thumb_height'];
 		} elseif (isset($store_info['config_image_thumb_height'])) {
-			$this->data['config_image_thumb_height'] = $store_info['config_image_thumb_height'];				
+			$this->data['config_image_thumb_height'] = $store_info['config_image_thumb_height'];
 		} else {
 			$this->data['config_image_thumb_height'] = 228;
 		}
@@ -735,7 +735,7 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['config_image_popup_width'])) {
 			$this->data['config_image_popup_width'] = $this->request->post['config_image_popup_width'];
 		} elseif (isset($store_info['config_image_popup_width'])) {
-			$this->data['config_image_popup_width'] = $store_info['config_image_popup_width'];			
+			$this->data['config_image_popup_width'] = $store_info['config_image_popup_width'];
 		} else {
 			$this->data['config_image_popup_width'] = 500;
 		}
@@ -743,7 +743,7 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['config_image_popup_height'])) {
 			$this->data['config_image_popup_height'] = $this->request->post['config_image_popup_height'];
 		} elseif (isset($store_info['config_image_popup_height'])) {
-			$this->data['config_image_popup_height'] = $store_info['config_image_popup_height'];			
+			$this->data['config_image_popup_height'] = $store_info['config_image_popup_height'];
 		} else {
 			$this->data['config_image_popup_height'] = 500;
 		}
@@ -751,7 +751,7 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['config_image_product_width'])) {
 			$this->data['config_image_product_width'] = $this->request->post['config_image_product_width'];
 		} elseif (isset($store_info['config_image_product_width'])) {
-			$this->data['config_image_product_width'] = $store_info['config_image_product_width'];		
+			$this->data['config_image_product_width'] = $store_info['config_image_product_width'];
 		} else {
 			$this->data['config_image_product_width'] = 80;
 		}
@@ -759,7 +759,7 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['config_image_product_height'])) {
 			$this->data['config_image_product_height'] = $this->request->post['config_image_product_height'];
 		} elseif (isset($store_info['config_image_product_height'])) {
-			$this->data['config_image_product_height'] = $store_info['config_image_product_height'];		
+			$this->data['config_image_product_height'] = $store_info['config_image_product_height'];
 		} else {
 			$this->data['config_image_product_height'] = 80;
 		}
@@ -767,7 +767,7 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['config_image_category_width'])) {
 			$this->data['config_image_category_width'] = $this->request->post['config_image_category_width'];
 		} elseif (isset($store_info['config_image_category_width'])) {
-			$this->data['config_image_category_width'] = $store_info['config_image_category_width'];			
+			$this->data['config_image_category_width'] = $store_info['config_image_category_width'];
 		} else {
 			$this->data['config_image_category_width'] = 80;
 		}
@@ -775,7 +775,7 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['config_image_additional_width'])) {
 			$this->data['config_image_additional_width'] = $this->request->post['config_image_additional_width'];
 		} elseif (isset($store_info['config_image_additional_width'])) {
-			$this->data['config_image_additional_width'] = $store_info['config_image_additional_width'];			
+			$this->data['config_image_additional_width'] = $store_info['config_image_additional_width'];
 		} else {
 			$this->data['config_image_additional_width'] = 74;
 		}
@@ -783,7 +783,7 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['config_image_additional_height'])) {
 			$this->data['config_image_additional_height'] = $this->request->post['config_image_additional_height'];
 		} elseif (isset($store_info['config_image_additional_height'])) {
-			$this->data['config_image_additional_height'] = $store_info['config_image_additional_height'];				
+			$this->data['config_image_additional_height'] = $store_info['config_image_additional_height'];
 		} else {
 			$this->data['config_image_additional_height'] = 74;
 		}
@@ -791,7 +791,7 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['config_image_related_width'])) {
 			$this->data['config_image_related_width'] = $this->request->post['config_image_related_width'];
 		} elseif (isset($store_info['config_image_related_width'])) {
-			$this->data['config_image_related_width'] = $store_info['config_image_related_width'];		
+			$this->data['config_image_related_width'] = $store_info['config_image_related_width'];
 		} else {
 			$this->data['config_image_related_width'] = 80;
 		}
@@ -799,7 +799,7 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['config_image_related_height'])) {
 			$this->data['config_image_related_height'] = $this->request->post['config_image_related_height'];
 		} elseif (isset($store_info['config_image_related_height'])) {
-			$this->data['config_image_related_height'] = $store_info['config_image_related_height'];			
+			$this->data['config_image_related_height'] = $store_info['config_image_related_height'];
 		} else {
 			$this->data['config_image_related_height'] = 80;
 		}
@@ -807,7 +807,7 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['config_image_compare_width'])) {
 			$this->data['config_image_compare_width'] = $this->request->post['config_image_compare_width'];
 		} elseif (isset($store_info['config_image_compare_width'])) {
-			$this->data['config_image_compare_width'] = $store_info['config_image_compare_width'];			
+			$this->data['config_image_compare_width'] = $store_info['config_image_compare_width'];
 		} else {
 			$this->data['config_image_compare_width'] = 90;
 		}
@@ -815,7 +815,7 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['config_image_compare_height'])) {
 			$this->data['config_image_compare_height'] = $this->request->post['config_image_compare_height'];
 		} elseif (isset($store_info['config_image_compare_height'])) {
-			$this->data['config_image_compare_height'] = $store_info['config_image_compare_height'];			
+			$this->data['config_image_compare_height'] = $store_info['config_image_compare_height'];
 		} else {
 			$this->data['config_image_compare_height'] = 90;
 		}
@@ -823,7 +823,7 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['config_image_wishlist_width'])) {
 			$this->data['config_image_wishlist_width'] = $this->request->post['config_image_wishlist_width'];
 		} elseif (isset($store_info['config_image_wishlist_width'])) {
-			$this->data['config_image_wishlist_width'] = $store_info['config_image_wishlist_width'];			
+			$this->data['config_image_wishlist_width'] = $store_info['config_image_wishlist_width'];
 		} else {
 			$this->data['config_image_wishlist_width'] = 50;
 		}
@@ -831,7 +831,7 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['config_image_wishlist_height'])) {
 			$this->data['config_image_wishlist_height'] = $this->request->post['config_image_wishlist_height'];
 		} elseif (isset($store_info['config_image_wishlist_height'])) {
-			$this->data['config_image_wishlist_height'] = $store_info['config_image_wishlist_height'];			
+			$this->data['config_image_wishlist_height'] = $store_info['config_image_wishlist_height'];
 		} else {
 			$this->data['config_image_wishlist_height'] = 50;
 		}
@@ -839,7 +839,7 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['config_image_cart_width'])) {
 			$this->data['config_image_cart_width'] = $this->request->post['config_image_cart_width'];
 		} elseif (isset($store_info['config_image_cart_width'])) {
-			$this->data['config_image_cart_width'] = $store_info['config_image_cart_width'];			
+			$this->data['config_image_cart_width'] = $store_info['config_image_cart_width'];
 		} else {
 			$this->data['config_image_cart_width'] = 80;
 		}
@@ -847,7 +847,7 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['config_image_cart_height'])) {
 			$this->data['config_image_cart_height'] = $this->request->post['config_image_cart_height'];
 		} elseif (isset($store_info['config_image_cart_height'])) {
-			$this->data['config_image_cart_height'] = $store_info['config_image_cart_height'];			
+			$this->data['config_image_cart_height'] = $store_info['config_image_cart_height'];
 		} else {
 			$this->data['config_image_cart_height'] = 80;
 		}
@@ -880,7 +880,7 @@ class ControllerSettingStore extends Controller {
 
 		if (!$this->request->post['config_name']) {
 			$this->error['name'] = $this->language->get('error_name');
-		}	
+		}
 
 		if ((utf8_strlen($this->request->post['config_owner']) < 3) || (utf8_strlen($this->request->post['config_owner']) > 64)) {
 			$this->error['owner'] = $this->language->get('error_owner');
@@ -900,11 +900,11 @@ class ControllerSettingStore extends Controller {
 
 		if (!$this->request->post['config_title']) {
 			$this->error['title'] = $this->language->get('error_title');
-		}	
+		}
 
 		if (!empty($this->request->post['config_customer_group_display']) && !in_array($this->request->post['config_customer_group_id'], $this->request->post['config_customer_group_display'])) {
 			$this->error['customer_group_display'] = $this->language->get('error_customer_group_display');
-		}	
+		}
 
 		if (!$this->request->post['config_image_category_width'] || !$this->request->post['config_image_category_height']) {
 			$this->error['image_category'] = $this->language->get('error_image_category');
@@ -912,7 +912,7 @@ class ControllerSettingStore extends Controller {
 
 		if (!$this->request->post['config_image_thumb_width'] || !$this->request->post['config_image_thumb_height']) {
 			$this->error['image_thumb'] = $this->language->get('error_image_thumb');
-		}	
+		}
 
 		if (!$this->request->post['config_image_popup_width'] || !$this->request->post['config_image_popup_height']) {
 			$this->error['image_popup'] = $this->language->get('error_image_popup');
@@ -973,11 +973,11 @@ class ControllerSettingStore extends Controller {
 
 			if ($store_total) {
 				$this->error['warning'] = sprintf($this->language->get('error_store'), $store_total);
-			}	
+			}
 		}
 
 		if (!$this->error) {
-			return true; 
+			return true;
 		} else {
 			return false;
 		}
@@ -988,7 +988,7 @@ class ControllerSettingStore extends Controller {
 			$server = HTTPS_CATALOG;
 		} else {
 			$server = HTTP_CATALOG;
-		}		
+		}
 
 		if (file_exists(DIR_IMAGE . 'templates/' . basename($this->request->get['template']) . '.png')) {
 			$image = $server . 'image/templates/' . basename($this->request->get['template']) . '.png';
@@ -997,7 +997,7 @@ class ControllerSettingStore extends Controller {
 		}
 
 		$this->response->setOutput('<img src="' . $image . '" alt="" title="" style="border: 1px solid #EEEEEE;" />');
-	}		
+	}
 
 	public function country() {
 		$json = array();
@@ -1017,11 +1017,10 @@ class ControllerSettingStore extends Controller {
 				'address_format'    => $country_info['address_format'],
 				'postcode_required' => $country_info['postcode_required'],
 				'zone'              => $this->model_localisation_zone->getZonesByCountryId($this->request->get['country_id']),
-				'status'            => $country_info['status']		
+				'status'            => $country_info['status']
 			);
 		}
 
 		$this->response->setOutput(json_encode($json));
-	}	
+	}
 }
-?>

@@ -1,8 +1,8 @@
 <?php
 class ControllerModuleSpecial extends Controller {
-	private $error = array(); 
+	private $error = array();
 
-	public function index() {   
+	public function index() {
 		$this->language->load('module/special');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -10,7 +10,7 @@ class ControllerModuleSpecial extends Controller {
 		$this->load->model('setting/setting');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-			$this->model_setting_setting->editSetting('special', $this->request->post);		
+			$this->model_setting_setting->editSetting('special', $this->request->post);
 
 			$this->cache->delete('product');
 
@@ -24,7 +24,7 @@ class ControllerModuleSpecial extends Controller {
 		$this->data['text_enabled'] = $this->language->get('text_enabled');
 		$this->data['text_disabled'] = $this->language->get('text_disabled');
 		$this->data['text_content_top'] = $this->language->get('text_content_top');
-		$this->data['text_content_bottom'] = $this->language->get('text_content_bottom');		
+		$this->data['text_content_bottom'] = $this->language->get('text_content_bottom');
 		$this->data['text_column_left'] = $this->language->get('text_column_left');
 		$this->data['text_column_right'] = $this->language->get('text_column_right');
 
@@ -56,7 +56,7 @@ class ControllerModuleSpecial extends Controller {
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_home'),
-			'href'      => $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL'),       		
+			'href'      => $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL'),
 			'separator' => false
 		);
 
@@ -80,7 +80,7 @@ class ControllerModuleSpecial extends Controller {
 
 		if (isset($this->request->post['special_module'])) {
 			$this->data['modules'] = $this->request->post['special_module'];
-		} elseif ($this->config->get('special_module')) { 
+		} elseif ($this->config->get('special_module')) {
 			$this->data['modules'] = $this->config->get('special_module');
 		}
 
@@ -108,13 +108,12 @@ class ControllerModuleSpecial extends Controller {
 					$this->error['image'][$key] = $this->language->get('error_image');
 				}
 			}
-		}	
+		}
 
 		if (!$this->error) {
 			return true;
 		} else {
 			return false;
-		}	
+		}
 	}
 }
-?>

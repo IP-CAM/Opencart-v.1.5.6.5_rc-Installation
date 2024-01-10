@@ -15,19 +15,19 @@ class ControllerAccountDownload extends Controller {
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_home'),
-			'href'      => $this->url->link('common/home'),        	
+			'href'      => $this->url->link('common/home'),
 			'separator' => false
 		);
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_account'),
-			'href'      => $this->url->link('account/account', '', 'SSL'),       	
+			'href'      => $this->url->link('account/account', '', 'SSL'),
 			'separator' => $this->language->get('text_separator')
 		);
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_downloads'),
-			'href'      => $this->url->link('account/download', '', 'SSL'),       	
+			'href'      => $this->url->link('account/download', '', 'SSL'),
 			'separator' => $this->language->get('text_separator')
 		);
 
@@ -51,7 +51,7 @@ class ControllerAccountDownload extends Controller {
 				$page = $this->request->get['page'];
 			} else {
 				$page = 1;
-			}			
+			}
 
 			$this->data['downloads'] = array();
 
@@ -76,7 +76,7 @@ class ControllerAccountDownload extends Controller {
 					);
 
 					while (($size / 1024) > 1) {
-						$size = $size / 1024;
+						$size /= 1024;
 						$i++;
 					}
 
@@ -114,10 +114,10 @@ class ControllerAccountDownload extends Controller {
 				'common/content_top',
 				'common/content_bottom',
 				'common/footer',
-				'common/header'		
+				'common/header'
 			);
 
-			$this->response->setOutput($this->render());				
+			$this->response->setOutput($this->render());
 		} else {
 			$this->data['heading_title'] = $this->language->get('heading_title');
 
@@ -141,7 +141,7 @@ class ControllerAccountDownload extends Controller {
 				'common/content_top',
 				'common/content_bottom',
 				'common/footer',
-				'common/header'		
+				'common/header'
 			);
 
 			$this->response->setOutput($this->render());
@@ -172,13 +172,15 @@ class ControllerAccountDownload extends Controller {
 			if (!headers_sent()) {
 				if (file_exists($file)) {
 					header('Content-Type: application/octet-stream');
-					header('Content-Disposition: attachment; filename="' . ($mask ? $mask : basename($file)) . '"');
+					header('Content-Disposition: attachment; filename="' . ($mask ?: basename($file)) . '"');
 					header('Expires: 0');
 					header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
 					header('Pragma: public');
 					header('Content-Length: ' . filesize($file));
 
-					if (ob_get_level()) ob_end_clean();
+					if (ob_get_level()) {
+						ob_end_clean();
+					}
 
 					readfile($file, 'rb');
 
@@ -196,4 +198,3 @@ class ControllerAccountDownload extends Controller {
 		}
 	}
 }
-?>

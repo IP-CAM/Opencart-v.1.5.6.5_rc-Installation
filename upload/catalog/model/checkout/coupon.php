@@ -44,10 +44,10 @@ class ModelCheckoutCoupon extends Model {
 
 			foreach ($coupon_category_query->rows as $category) {
 				$coupon_category_data[] = $category['category_id'];
-			}			
-			
+			}
+
 			$product_data = array();
-			
+
 			if ($coupon_product_data || $coupon_category_data) {
 				foreach ($this->cart->getProducts() as $product) {
 					if (in_array($product['product_id'], $coupon_product_data)) {
@@ -63,9 +63,9 @@ class ModelCheckoutCoupon extends Model {
 							$product_data[] = $product['product_id'];
 
 							continue;
-						}						
+						}
 					}
-				}	
+				}
 
 				if (!$product_data) {
 					$status = false;
@@ -99,4 +99,3 @@ class ModelCheckoutCoupon extends Model {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "coupon_history` SET coupon_id = '" . (int)$coupon_id . "', order_id = '" . (int)$order_id . "', customer_id = '" . (int)$customer_id . "', amount = '" . (float)$amount . "', date_added = NOW()");
 	}
 }
-?>

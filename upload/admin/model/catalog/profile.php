@@ -2,11 +2,11 @@
 class ModelCatalogProfile extends Model {
 	public function getFrequencies() {
 		return array(
-			'day' => $this->language->get('text_day'),
-			'week' => $this->language->get('text_week'),
+			'day'        => $this->language->get('text_day'),
+			'week'       => $this->language->get('text_week'),
 			'semi_month' => $this->language->get('text_semi_month'),
-			'month' => $this->language->get('text_month'),
-			'year' => $this->language->get('text_year'),
+			'month'      => $this->language->get('text_month'),
+			'year'       => $this->language->get('text_year'),
 		);
 	}
 
@@ -35,12 +35,12 @@ class ModelCatalogProfile extends Model {
 	}
 
 	public function addProfile($data) {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "profile` SET `sort_order` = " . (int)$data['sort_order'] . ", `status` = " . (int)$data['status'] . ", `price` = " . (double)$data['price'] . ", `frequency` = '" . $this->db->escape($data['frequency']) . "', `duration` = " . (int)$data['duration'] . ", `cycle` = " . (int)$data['cycle'] . ", `trial_status` = " . (int)$data['trial_status'] . ", `trial_price` = " . (double)$data['trial_price'] . ", `trial_frequency` = '" . $this->db->escape($data['trial_frequency']) . "', `trial_duration` = " . (int)$data['trial_duration'] . ", `trial_cycle` = " . (int)$data['trial_cycle']);
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "profile` SET `sort_order` = " . (int)$data['sort_order'] . ", `status` = " . (int)$data['status'] . ", `price` = " . (float)$data['price'] . ", `frequency` = '" . $this->db->escape($data['frequency']) . "', `duration` = " . (int)$data['duration'] . ", `cycle` = " . (int)$data['cycle'] . ", `trial_status` = " . (int)$data['trial_status'] . ", `trial_price` = " . (float)$data['trial_price'] . ", `trial_frequency` = '" . $this->db->escape($data['trial_frequency']) . "', `trial_duration` = " . (int)$data['trial_duration'] . ", `trial_cycle` = " . (int)$data['trial_cycle']);
 
 		$profile_id = $this->db->getLastId();
 
 		foreach ($data['profile_description'] as $language_id => $profile_description) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "profile_description` (`profile_id`, `language_id`, `name`) VALUES (" . (int)$profile_id . ", " . (int)$language_id. ", '" . $this->db->escape($profile_description['name']) . "')");
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "profile_description` (`profile_id`, `language_id`, `name`) VALUES (" . (int)$profile_id . ", " . (int)$language_id . ", '" . $this->db->escape($profile_description['name']) . "')");
 		}
 
 		return $profile_id;
@@ -49,10 +49,10 @@ class ModelCatalogProfile extends Model {
 	public function updateProfile($profile_id, $data) {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "profile_description` WHERE profile_id = " . (int)$profile_id);
 
-		$this->db->query("UPDATE `" . DB_PREFIX . "profile` SET `sort_order` = " . (int)$data['sort_order'] . ", `status` = " . (int)$data['status'] . ", `price` = " . (double)$data['price'] . ", `frequency` = '" . $this->db->escape($data['frequency']) . "', `duration` = " . (int)$data['duration'] . ", `cycle` = " . (int)$data['cycle'] . ", `trial_status` = " . (int)$data['trial_status'] . ", `trial_price` = " . (double)$data['trial_price'] . ", `trial_frequency` = '" . $this->db->escape($data['trial_frequency']) . "', `trial_duration` = " . (int)$data['trial_duration'] . ", `trial_cycle` = " . (int)$data['trial_cycle'] . " WHERE profile_id = " . (int)$profile_id);
+		$this->db->query("UPDATE `" . DB_PREFIX . "profile` SET `sort_order` = " . (int)$data['sort_order'] . ", `status` = " . (int)$data['status'] . ", `price` = " . (float)$data['price'] . ", `frequency` = '" . $this->db->escape($data['frequency']) . "', `duration` = " . (int)$data['duration'] . ", `cycle` = " . (int)$data['cycle'] . ", `trial_status` = " . (int)$data['trial_status'] . ", `trial_price` = " . (float)$data['trial_price'] . ", `trial_frequency` = '" . $this->db->escape($data['trial_frequency']) . "', `trial_duration` = " . (int)$data['trial_duration'] . ", `trial_cycle` = " . (int)$data['trial_cycle'] . " WHERE profile_id = " . (int)$profile_id);
 
 		foreach ($data['profile_description'] as $language_id => $profile_description) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "profile_description` (`profile_id`, `language_id`, `name`) VALUES (" . (int)$profile_id . ", " . (int)$language_id. ", '" . $this->db->escape($profile_description['name']) . "')");
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "profile_description` (`profile_id`, `language_id`, `name`) VALUES (" . (int)$profile_id . ", " . (int)$language_id . ", '" . $this->db->escape($profile_description['name']) . "')");
 		}
 	}
 
@@ -75,4 +75,3 @@ class ModelCatalogProfile extends Model {
 		$this->addProfile($data);
 	}
 }
-?>

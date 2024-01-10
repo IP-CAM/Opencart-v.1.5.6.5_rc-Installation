@@ -1,4 +1,4 @@
-<?php 
+<?php
 class ModelPaymentPPProPF extends Model {
 	public function getMethod($address, $total) {
 		$this->load->language('payment/pp_pro_pf');
@@ -13,11 +13,11 @@ class ModelPaymentPPProPF extends Model {
 			$status = true;
 		} else {
 			$status = false;
-		}	
+		}
 
 		$method_data = array();
 
-		if ($status) {  
+		if ($status) {
 			$method_data = array(
 				'code'       => 'pp_pro_pf',
 				'title'      => $this->language->get('text_title'),
@@ -28,4 +28,3 @@ class ModelPaymentPPProPF extends Model {
 		return $method_data;
 	}
 }
-?>

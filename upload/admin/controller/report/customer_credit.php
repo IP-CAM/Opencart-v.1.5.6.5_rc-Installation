@@ -1,6 +1,6 @@
 <?php
 class ControllerReportCustomerCredit extends Controller {
-	public function index() {     
+	public function index() {
 		$this->language->load('report/customer_credit');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -56,13 +56,13 @@ class ControllerReportCustomerCredit extends Controller {
 		$this->data['customers'] = array();
 
 		$data = array(
-			'filter_date_start'	=> $filter_date_start, 
-			'filter_date_end'	=> $filter_date_end, 
+			'filter_date_start' => $filter_date_start,
+			'filter_date_end'   => $filter_date_end,
 			'start'             => ($page - 1) * $this->config->get('config_admin_limit'),
 			'limit'             => $this->config->get('config_admin_limit')
 		);
 
-		$customer_total = $this->model_report_customer->getTotalCredit($data); 
+		$customer_total = $this->model_report_customer->getTotalCredit($data);
 
 		$results = $this->model_report_customer->getCredit($data);
 
@@ -122,7 +122,7 @@ class ControllerReportCustomerCredit extends Controller {
 		$this->data['pagination'] = $pagination->render();
 
 		$this->data['filter_date_start'] = $filter_date_start;
-		$this->data['filter_date_end'] = $filter_date_end;		
+		$this->data['filter_date_end'] = $filter_date_end;
 
 		$this->template = 'report/customer_credit.tpl';
 		$this->children = array(
@@ -133,4 +133,3 @@ class ControllerReportCustomerCredit extends Controller {
 		$this->response->setOutput($this->render());
 	}
 }
-?>

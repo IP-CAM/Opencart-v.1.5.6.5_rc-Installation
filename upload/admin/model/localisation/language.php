@@ -7,7 +7,7 @@ class ModelLocalisationLanguage extends Model {
 
 		$language_id = $this->db->getLastId();
 
-		// Attribute 
+		// Attribute
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "attribute_description WHERE language_id = '" . (int)$this->config->get('config_language_id') . "'");
 
 		foreach ($query->rows as $attribute) {
@@ -74,7 +74,7 @@ class ModelLocalisationLanguage extends Model {
 
 		foreach ($query->rows as $information) {
 			$this->db->query("INSERT INTO " . DB_PREFIX . "information_description SET information_id = '" . (int)$information['information_id'] . "', language_id = '" . (int)$language_id . "', title = '" . $this->db->escape($information['title']) . "', description = '" . $this->db->escape($information['description']) . "'");
-		}		
+		}
 
 		$this->cache->delete('information');
 
@@ -83,11 +83,11 @@ class ModelLocalisationLanguage extends Model {
 
 		foreach ($query->rows as $length) {
 			$this->db->query("INSERT INTO " . DB_PREFIX . "length_class_description SET length_class_id = '" . (int)$length['length_class_id'] . "', language_id = '" . (int)$language_id . "', title = '" . $this->db->escape($length['title']) . "', unit = '" . $this->db->escape($length['unit']) . "'");
-		}	
+		}
 
 		$this->cache->delete('length_class');
 
-		// Option 
+		// Option
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "option_description WHERE language_id = '" . (int)$this->config->get('config_language_id') . "'");
 
 		foreach ($query->rows as $option) {
@@ -106,7 +106,7 @@ class ModelLocalisationLanguage extends Model {
 
 		foreach ($query->rows as $order_status) {
 			$this->db->query("INSERT INTO " . DB_PREFIX . "order_status SET order_status_id = '" . (int)$order_status['order_status_id'] . "', language_id = '" . (int)$language_id . "', name = '" . $this->db->escape($order_status['name']) . "'");
-		}	
+		}
 
 		$this->cache->delete('order_status');
 
@@ -119,21 +119,21 @@ class ModelLocalisationLanguage extends Model {
 
 		$this->cache->delete('product');
 
-		// Product Attribute 
+		// Product Attribute
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_attribute WHERE language_id = '" . (int)$this->config->get('config_language_id') . "'");
 
 		foreach ($query->rows as $product_attribute) {
 			$this->db->query("INSERT INTO " . DB_PREFIX . "product_attribute SET product_id = '" . (int)$product_attribute['product_id'] . "', attribute_id = '" . (int)$product_attribute['attribute_id'] . "', language_id = '" . (int)$language_id . "', text = '" . $this->db->escape($product_attribute['text']) . "'");
 		}
 
-		// Return Action 
+		// Return Action
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "return_action WHERE language_id = '" . (int)$this->config->get('config_language_id') . "'");
 
 		foreach ($query->rows as $return_action) {
 			$this->db->query("INSERT INTO " . DB_PREFIX . "return_action SET return_action_id = '" . (int)$return_action['return_action_id'] . "', language_id = '" . (int)$language_id . "', name = '" . $this->db->escape($return_action['name']) . "'");
 		}
 
-		// Return Reason 
+		// Return Reason
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "return_reason WHERE language_id = '" . (int)$this->config->get('config_language_id') . "'");
 
 		foreach ($query->rows as $return_reason) {
@@ -264,12 +264,12 @@ class ModelLocalisationLanguage extends Model {
 				'name',
 				'code',
 				'sort_order'
-			);	
+			);
 
 			if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-				$sql .= " ORDER BY " . $data['sort'];	
+				$sql .= " ORDER BY " . $data['sort'];
 			} else {
-				$sql .= " ORDER BY sort_order, name";	
+				$sql .= " ORDER BY sort_order, name";
 			}
 
 			if (isset($data['order']) && ($data['order'] == 'DESC')) {
@@ -281,11 +281,11 @@ class ModelLocalisationLanguage extends Model {
 			if (isset($data['start']) || isset($data['limit'])) {
 				if ($data['start'] < 0) {
 					$data['start'] = 0;
-				}					
+				}
 
 				if ($data['limit'] < 1) {
 					$data['limit'] = 20;
-				}	
+				}
 
 				$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
 			}
@@ -318,7 +318,7 @@ class ModelLocalisationLanguage extends Model {
 				$this->cache->set('language', $language_data);
 			}
 
-			return $language_data;			
+			return $language_data;
 		}
 	}
 
@@ -328,4 +328,3 @@ class ModelLocalisationLanguage extends Model {
 		return $query->row['total'];
 	}
 }
-?>

@@ -1,4 +1,4 @@
-<?php  
+<?php
 class ControllerModuleAccount extends Controller {
 	protected function index() {
 		$this->language->load('module/account');
@@ -47,4 +47,3 @@ class ControllerModuleAccount extends Controller {
 		$this->render();
 	}
 }
-?>

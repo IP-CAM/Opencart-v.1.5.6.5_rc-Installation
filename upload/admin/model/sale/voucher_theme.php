@@ -1,4 +1,4 @@
-<?php 
+<?php
 class ModelSaleVoucherTheme extends Model {
 	public function addVoucherTheme($data) {
 		$this->db->query("INSERT INTO " . DB_PREFIX . "voucher_theme SET image = '" . $this->db->escape(html_entity_decode($data['image'], ENT_QUOTES, 'UTF-8')) . "'");
@@ -39,7 +39,7 @@ class ModelSaleVoucherTheme extends Model {
 
 	public function getVoucherThemes($data = array()) {
 		if ($data) {
-			$sql = "SELECT * FROM " . DB_PREFIX . "voucher_theme vt LEFT JOIN " . DB_PREFIX . "voucher_theme_description vtd ON (vt.voucher_theme_id = vtd.voucher_theme_id) WHERE vtd.language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY vtd.name";	
+			$sql = "SELECT * FROM " . DB_PREFIX . "voucher_theme vt LEFT JOIN " . DB_PREFIX . "voucher_theme_description vtd ON (vt.voucher_theme_id = vtd.voucher_theme_id) WHERE vtd.language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY vtd.name";
 
 			if (isset($data['order']) && ($data['order'] == 'DESC')) {
 				$sql .= " DESC";
@@ -50,14 +50,14 @@ class ModelSaleVoucherTheme extends Model {
 			if (isset($data['start']) || isset($data['limit'])) {
 				if ($data['start'] < 0) {
 					$data['start'] = 0;
-				}				
+				}
 
 				if ($data['limit'] < 1) {
 					$data['limit'] = 20;
-				}	
+				}
 
 				$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
-			}	
+			}
 
 			$query = $this->db->query($sql);
 
@@ -71,9 +71,9 @@ class ModelSaleVoucherTheme extends Model {
 				$voucher_theme_data = $query->rows;
 
 				$this->cache->set('voucher_theme.' . (int)$this->config->get('config_language_id'), $voucher_theme_data);
-			}	
+			}
 
-			return $voucher_theme_data;				
+			return $voucher_theme_data;
 		}
 	}
 
@@ -93,6 +93,5 @@ class ModelSaleVoucherTheme extends Model {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "voucher_theme");
 
 		return $query->row['total'];
-	}	
+	}
 }
-?>

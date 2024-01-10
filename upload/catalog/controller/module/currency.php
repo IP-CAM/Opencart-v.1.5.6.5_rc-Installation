@@ -1,4 +1,4 @@
-<?php  
+<?php
 class ControllerModuleCurrency extends Controller {
 	protected function index() {
 		if (isset($this->request->post['currency_code'])) {
@@ -26,13 +26,13 @@ class ControllerModuleCurrency extends Controller {
 
 		$this->data['action'] = $this->url->link('module/currency', '', $connection);
 
-		$this->data['currency_code'] = $this->currency->getCode(); 
+		$this->data['currency_code'] = $this->currency->getCode();
 
 		$this->load->model('localisation/currency');
 
 		$this->data['currencies'] = array();
 
-		$results = $this->model_localisation_currency->getCurrencies();	
+		$results = $this->model_localisation_currency->getCurrencies();
 
 		foreach ($results as $result) {
 			if ($result['status']) {
@@ -40,7 +40,7 @@ class ControllerModuleCurrency extends Controller {
 					'title'        => $result['title'],
 					'code'         => $result['code'],
 					'symbol_left'  => $result['symbol_left'],
-					'symbol_right' => $result['symbol_right']				
+					'symbol_right' => $result['symbol_right']
 				);
 			}
 		}
@@ -60,10 +60,10 @@ class ControllerModuleCurrency extends Controller {
 
 			if ($data) {
 				$url = '&' . urldecode(http_build_query($data, '', '&'));
-			}	
+			}
 
 			$this->data['redirect'] = $this->url->link($route, $url, $connection);
-		}	
+		}
 
 		if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/module/currency.tpl')) {
 			$this->template = $this->config->get('config_template') . '/template/module/currency.tpl';
@@ -74,4 +74,3 @@ class ControllerModuleCurrency extends Controller {
 		$this->render();
 	}
 }
-?>

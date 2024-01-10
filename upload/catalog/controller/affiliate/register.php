@@ -1,4 +1,4 @@
-<?php 
+<?php
 class ControllerAffiliateRegister extends Controller {
 	private $error = array();
 
@@ -27,19 +27,19 @@ class ControllerAffiliateRegister extends Controller {
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_home'),
-			'href'      => $this->url->link('common/home'),        	
+			'href'      => $this->url->link('common/home'),
 			'separator' => false
 		);
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_account'),
-			'href'      => $this->url->link('affiliate/account', '', 'SSL'),      	
+			'href'      => $this->url->link('affiliate/account', '', 'SSL'),
 			'separator' => $this->language->get('text_separator')
 		);
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_register'),
-			'href'      => $this->url->link('affiliate/register', '', 'SSL'),      	
+			'href'      => $this->url->link('affiliate/register', '', 'SSL'),
 			'separator' => $this->language->get('text_separator')
 		);
 
@@ -94,13 +94,13 @@ class ControllerAffiliateRegister extends Controller {
 			$this->data['error_firstname'] = $this->error['firstname'];
 		} else {
 			$this->data['error_firstname'] = '';
-		}	
+		}
 
 		if (isset($this->error['lastname'])) {
 			$this->data['error_lastname'] = $this->error['lastname'];
 		} else {
 			$this->data['error_lastname'] = '';
-		}		
+		}
 
 		if (isset($this->error['email'])) {
 			$this->data['error_email'] = $this->error['email'];
@@ -226,7 +226,7 @@ class ControllerAffiliateRegister extends Controller {
 
 		if (isset($this->request->post['country_id'])) {
 			$this->data['country_id'] = $this->request->post['country_id'];
-		} else {	
+		} else {
 			$this->data['country_id'] = $this->config->get('config_country_id');
 		}
 
@@ -338,10 +338,10 @@ class ControllerAffiliateRegister extends Controller {
 			'common/content_top',
 			'common/content_bottom',
 			'common/footer',
-			'common/header'	
+			'common/header'
 		);
 
-		$this->response->setOutput($this->render());	
+		$this->response->setOutput($this->render());
 	}
 
 	protected function validate() {
@@ -432,11 +432,10 @@ class ControllerAffiliateRegister extends Controller {
 				'address_format'    => $country_info['address_format'],
 				'postcode_required' => $country_info['postcode_required'],
 				'zone'              => $this->model_localisation_zone->getZonesByCountryId($this->request->get['country_id']),
-				'status'            => $country_info['status']		
+				'status'            => $country_info['status']
 			);
 		}
 
 		$this->response->setOutput(json_encode($json));
-	}	
+	}
 }
-?>

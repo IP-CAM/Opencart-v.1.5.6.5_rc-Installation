@@ -1,8 +1,8 @@
 <?php
 class ControllerModuleBestSeller extends Controller {
-	private $error = array(); 
+	private $error = array();
 
-	public function index() {   
+	public function index() {
 		$this->language->load('module/bestseller');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -10,7 +10,7 @@ class ControllerModuleBestSeller extends Controller {
 		$this->load->model('setting/setting');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-			$this->model_setting_setting->editSetting('bestseller', $this->request->post);		
+			$this->model_setting_setting->editSetting('bestseller', $this->request->post);
 
 			$this->cache->delete('product');
 
@@ -24,7 +24,7 @@ class ControllerModuleBestSeller extends Controller {
 		$this->data['text_enabled'] = $this->language->get('text_enabled');
 		$this->data['text_disabled'] = $this->language->get('text_disabled');
 		$this->data['text_content_top'] = $this->language->get('text_content_top');
-		$this->data['text_content_bottom'] = $this->language->get('text_content_bottom');		
+		$this->data['text_content_bottom'] = $this->language->get('text_content_bottom');
 		$this->data['text_column_left'] = $this->language->get('text_column_left');
 		$this->data['text_column_right'] = $this->language->get('text_column_right');
 
@@ -80,9 +80,9 @@ class ControllerModuleBestSeller extends Controller {
 
 		if (isset($this->request->post['bestseller_module'])) {
 			$this->data['modules'] = $this->request->post['bestseller_module'];
-		} elseif ($this->config->get('bestseller_module')) { 
+		} elseif ($this->config->get('bestseller_module')) {
 			$this->data['modules'] = $this->config->get('bestseller_module');
-		}		
+		}
 
 		$this->load->model('design/layout');
 
@@ -114,7 +114,6 @@ class ControllerModuleBestSeller extends Controller {
 			return true;
 		} else {
 			return false;
-		}	
+		}
 	}
 }
-?>

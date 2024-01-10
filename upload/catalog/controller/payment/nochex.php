@@ -15,7 +15,7 @@ class ControllerPaymentNochex extends Controller {
 
 		// Nochex minimum requirements
 		// The merchant ID is usually your Nochex registered email address but can be altered for "Merchant" accounts see below
-		if ($this->config->get('nochex_email') != $this->config->get('nochex_merchant')){ // This MUST be changed on your Nochex account!!!!
+		if ($this->config->get('nochex_email') != $this->config->get('nochex_merchant')) { // This MUST be changed on your Nochex account!!!!
 			$this->data['merchant_id'] = $this->config->get('nochex_merchant');
 		} else {
 			$this->data['merchant_id'] = $this->config->get('nochex_email');
@@ -58,7 +58,7 @@ class ControllerPaymentNochex extends Controller {
 		}
 
 		$this->data['email_address'] = $order_info['email'];
-		$this->data['customer_phone_number']= $order_info['telephone'];
+		$this->data['customer_phone_number'] = $order_info['telephone'];
 		$this->data['test'] = $this->config->get('nochex_test');
 		$this->data['success_url'] = $this->url->link('checkout/success', '', 'SSL');
 		$this->data['cancel_url'] = $this->url->link('checkout/payment', '', 'SSL');
@@ -69,7 +69,7 @@ class ControllerPaymentNochex extends Controller {
 			$this->template = $this->config->get('config_template') . '/template/payment/nochex.tpl';
 		} else {
 			$this->template = 'default/template/payment/nochex.tpl';
-		}	
+		}
 
 		$this->render();
 	}
@@ -80,7 +80,7 @@ class ControllerPaymentNochex extends Controller {
 		if (isset($this->request->get['method']) && $this->request->get['method'] == 'decline') {
 			$this->session->data['error'] = $this->language->get('error_declined');
 
-			$this->redirect($this->url->link('checkout/cart')); 
+			$this->redirect($this->url->link('checkout/cart'));
 		}
 
 		if (isset($this->request->post['order_id'])) {
@@ -130,4 +130,3 @@ class ControllerPaymentNochex extends Controller {
 		$this->redirect($this->url->link('checkout/success', '', 'SSL'));
 	}
 }
-?>

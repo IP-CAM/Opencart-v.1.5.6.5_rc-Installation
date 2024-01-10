@@ -1,6 +1,6 @@
 <?php
 class ControllerPaymentPayza extends Controller {
-	private $error = array(); 
+	private $error = array();
 
 	public function index() {
 		$this->language->load('payment/payza');
@@ -10,7 +10,7 @@ class ControllerPaymentPayza extends Controller {
 		$this->load->model('setting/setting');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-			$this->model_setting_setting->editSetting('payza', $this->request->post);				
+			$this->model_setting_setting->editSetting('payza', $this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -26,8 +26,8 @@ class ControllerPaymentPayza extends Controller {
 		$this->data['entry_merchant'] = $this->language->get('entry_merchant');
 		$this->data['entry_security'] = $this->language->get('entry_security');
 		$this->data['entry_callback'] = $this->language->get('entry_callback');
-		$this->data['entry_total'] = $this->language->get('entry_total');	
-		$this->data['entry_order_status'] = $this->language->get('entry_order_status');		
+		$this->data['entry_total'] = $this->language->get('entry_total');
+		$this->data['entry_order_status'] = $this->language->get('entry_order_status');
 		$this->data['entry_geo_zone'] = $this->language->get('entry_geo_zone');
 		$this->data['entry_status'] = $this->language->get('entry_status');
 		$this->data['entry_sort_order'] = $this->language->get('entry_sort_order');
@@ -94,14 +94,14 @@ class ControllerPaymentPayza extends Controller {
 		if (isset($this->request->post['payza_total'])) {
 			$this->data['payza_total'] = $this->request->post['payza_total'];
 		} else {
-			$this->data['payza_total'] = $this->config->get('payza_total'); 
-		} 
+			$this->data['payza_total'] = $this->config->get('payza_total');
+		}
 
 		if (isset($this->request->post['payza_order_status_id'])) {
 			$this->data['payza_order_status_id'] = $this->request->post['payza_order_status_id'];
 		} else {
-			$this->data['payza_order_status_id'] = $this->config->get('payza_order_status_id'); 
-		} 
+			$this->data['payza_order_status_id'] = $this->config->get('payza_order_status_id');
+		}
 
 		$this->load->model('localisation/order_status');
 
@@ -110,8 +110,8 @@ class ControllerPaymentPayza extends Controller {
 		if (isset($this->request->post['payza_geo_zone_id'])) {
 			$this->data['payza_geo_zone_id'] = $this->request->post['payza_geo_zone_id'];
 		} else {
-			$this->data['payza_geo_zone_id'] = $this->config->get('payza_geo_zone_id'); 
-		} 
+			$this->data['payza_geo_zone_id'] = $this->config->get('payza_geo_zone_id');
+		}
 
 		$this->load->model('localisation/geo_zone');
 
@@ -155,7 +155,6 @@ class ControllerPaymentPayza extends Controller {
 			return true;
 		} else {
 			return false;
-		}	
+		}
 	}
 }
-?>

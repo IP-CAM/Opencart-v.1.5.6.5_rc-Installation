@@ -1,7 +1,7 @@
 <?php
 class ModelUpgrade extends Model {
 	public function mysql() {
-		// Upgrade script to opgrade opencart to the latest version. 
+		// Upgrade script to opgrade opencart to the latest version.
 		// Oldest version supported is 1.3.2
 
 		// Load the sql file
@@ -18,7 +18,7 @@ class ModelUpgrade extends Model {
 		$status = false;
 
 		// Get only the create statements
-		foreach($lines as $line) {
+		foreach ($lines as $line) {
 			// Set any prefix
 			$line = str_replace("CREATE TABLE `oc_", "CREATE TABLE `" . DB_PREFIX, $line);
 
@@ -49,12 +49,12 @@ class ModelUpgrade extends Model {
 		$statements = explode(';', $string);
 
 		foreach ($statements as $sql) {
-			// Get all fields		
+			// Get all fields
 			$field_data = array();
 
 			preg_match_all('#`(\w[\w\d]*)`\s+((tinyint|smallint|mediumint|bigint|int|tinytext|text|mediumtext|longtext|tinyblob|blob|mediumblob|longblob|varchar|char|datetime|date|float|double|decimal|timestamp|time|year|enum|set|binary|varbinary)(\((.*)\))?){1}\s*(collate (\w+)\s*)?(unsigned\s*)?((NOT\s*NULL\s*)|(NULL\s*))?(auto_increment\s*)?(default \'([^\']*)\'\s*)?#i', $sql, $match);
 
-			foreach(array_keys($match[0]) as $key) {
+			foreach (array_keys($match[0]) as $key) {
 				$field_data[] = array(
 					'name'          => trim($match[1][$key]),
 					'type'          => strtoupper(trim($match[3][$key])),
@@ -75,12 +75,12 @@ class ModelUpgrade extends Model {
 
 			if (isset($match[0])) {
 				preg_match_all('#`(\w[\w\d]*)`#', $match[0], $match);
-			} else{
+			} else {
 				$match = array();
 			}
 
 			if ($match) {
-				foreach($match[1] as $primary){
+				foreach ($match[1] as $primary) {
 					$primary_data[] = $primary;
 				}
 			}
@@ -92,19 +92,19 @@ class ModelUpgrade extends Model {
 
 			preg_match_all('#key\s*`\w[\w\d]*`\s*\(.*\)#i', $sql, $match);
 
-			foreach($match[0] as $key) {
+			foreach ($match[0] as $key) {
 				preg_match_all('#`(\w[\w\d]*)`#', $key, $match);
 
 				$indexes[] = $match;
 			}
 
-			foreach($indexes as $index){
+			foreach ($indexes as $index) {
 				$key = '';
 
-				foreach($index[1] as $field) {
+				foreach ($index[1] as $field) {
 					if ($key == '') {
 						$key = $field;
-					} else{
+					} else {
 						$index_data[$key][] = $field;
 					}
 				}
@@ -115,7 +115,7 @@ class ModelUpgrade extends Model {
 
 			preg_match_all('#(\w+)=(\w+)#', $sql, $option);
 
-			foreach(array_keys($option[0]) as $key) {
+			foreach (array_keys($option[0]) as $key) {
 				$option_data[$option[1][$key]] = $option[2][$key];
 			}
 
@@ -260,7 +260,7 @@ class ModelUpgrade extends Model {
 					$this->db->query("ALTER TABLE `" . $table['name'] . "` ADD PRIMARY KEY(" . implode(',', $primary_data) . ")");
 				}
 
-				// Add the new indexes				
+				// Add the new indexes
 				foreach ($table['index'] as $index) {
 					$index_data = array();
 
@@ -273,7 +273,7 @@ class ModelUpgrade extends Model {
 					}
 				}
 
-				// Add auto increment to primary keys again 
+				// Add auto increment to primary keys again
 				foreach ($table['field'] as $field) {
 					if ($field['autoincrement']) {
 						$sql = "ALTER TABLE `" . $table['name'] . "` CHANGE `" . $field['name'] . "` `" . $field['name'] . "` " . strtoupper($field['type']);
@@ -364,26 +364,25 @@ class ModelUpgrade extends Model {
 	// Function to repair any erroneous categories that are not in the category path table.
 	public function repairCategories($parent_id = 0) {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "category` WHERE `parent_id` = '" . (int)$parent_id . "'");
-		
+
 		foreach ($query->rows as $category) {
 			// Delete the path below the current one
 			$this->db->query("DELETE FROM `" . DB_PREFIX . "category_path` WHERE `category_id` = '" . (int)$category['category_id'] . "'");
-			
+
 			// Fix for records with no paths
 			$level = 0;
-			
+
 			$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "category_path` WHERE `category_id` = '" . (int)$parent_id . "' ORDER BY `level` ASC");
-			
+
 			foreach ($query->rows as $result) {
 				$this->db->query("INSERT INTO `" . DB_PREFIX . "category_path` SET `category_id` = '" . (int)$category['category_id'] . "', `path_id` = '" . (int)$result['path_id'] . "', `level` = '" . (int)$level . "'");
-				
+
 				$level++;
 			}
-			
+
 			$this->db->query("REPLACE INTO `" . DB_PREFIX . "category_path` SET `category_id` = '" . (int)$category['category_id'] . "', `path_id` = '" . (int)$category['category_id'] . "', `level` = '" . (int)$level . "'");
-						
+
 			$this->repairCategories($category['category_id']);
 		}
 	}
 }
-?>

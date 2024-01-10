@@ -1,5 +1,5 @@
-<?php  
-class ControllerReportCustomerOnline extends Controller {  
+<?php
+class ControllerReportCustomerOnline extends Controller {
 	public function index() {
 		$this->language->load('report/customer_online');
 
@@ -57,8 +57,8 @@ class ControllerReportCustomerOnline extends Controller {
 		$this->data['customers'] = array();
 
 		$data = array(
-			'filter_ip'       => $filter_ip, 
-			'filter_customer' => $filter_customer, 
+			'filter_ip'       => $filter_ip,
+			'filter_customer' => $filter_customer,
 			'start'           => ($page - 1) * 20,
 			'limit'           => 20
 		);
@@ -93,7 +93,7 @@ class ControllerReportCustomerOnline extends Controller {
 				'date_added' => date('d/m/Y H:i:s', strtotime($result['date_added'])),
 				'action'     => $action
 			);
-		}	
+		}
 
 		$this->data['heading_title'] = $this->language->get('heading_title');
 
@@ -123,21 +123,20 @@ class ControllerReportCustomerOnline extends Controller {
 		$pagination = new Pagination();
 		$pagination->total = $customer_total;
 		$pagination->page = $page;
-		$pagination->limit = 20; 
+		$pagination->limit = 20;
 		$pagination->url = $this->url->link('report/customer_online', 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL');
 
 		$this->data['pagination'] = $pagination->render();
 
 		$this->data['filter_customer'] = $filter_customer;
-		$this->data['filter_ip'] = $filter_ip;		
+		$this->data['filter_ip'] = $filter_ip;
 
 		$this->template = 'report/customer_online.tpl';
 		$this->children = array(
-			'common/header',	
-			'common/footer'	
+			'common/header',
+			'common/footer'
 		);
 
 		$this->response->setOutput($this->render());
 	}
 }
-?>

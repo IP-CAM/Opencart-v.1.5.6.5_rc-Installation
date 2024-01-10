@@ -42,4 +42,3 @@ $_['error_permission'] = 'Warning: You do not have permission to modify profiles
 $_['error_name'] = 'Profile Name must be greater than 3 and less than 255 characters!';
 
 $_['text_recurring_help']    = 'Recurring amounts are calculated by the frequency and cycles. <br />For example if you use a frequency of "week" and a cycle of "2", then the user will be billed every 2 weeks. <br />The duration is the number of times the user will make a payment, set this to 0 if you want payments until they are cancelled.';
-?>

@@ -27,30 +27,30 @@ class ControllerPaymentPPProPF extends Controller {
 		$this->data['cards'] = array();
 
 		$this->data['cards'][] = array(
-			'text'  => 'Visa', 
+			'text'  => 'Visa',
 			'value' => '0'
 		);
 
 		$this->data['cards'][] = array(
-			'text'  => 'MasterCard', 
+			'text'  => 'MasterCard',
 			'value' => '1'
 		);
 
 		$this->data['cards'][] = array(
-			'text'  => 'Maestro', 
+			'text'  => 'Maestro',
 			'value' => '9'
 		);
 
 		$this->data['cards'][] = array(
-			'text'  => 'Solo', 
+			'text'  => 'Solo',
 			'value' => 'S'
-		);		
+		);
 
 		$this->data['months'] = array();
 
 		for ($i = 1; $i <= 12; $i++) {
 			$this->data['months'][] = array(
-				'text'  => strftime('%B', mktime(0, 0, 0, $i, 1, 2000)), 
+				'text'  => strftime('%B', mktime(0, 0, 0, $i, 1, 2000)),
 				'value' => sprintf('%02d', $i)
 			);
 		}
@@ -59,9 +59,9 @@ class ControllerPaymentPPProPF extends Controller {
 
 		$this->data['year_valid'] = array();
 
-		for ($i = $today['year'] - 10; $i < $today['year'] + 1; $i++) {	
+		for ($i = $today['year'] - 10; $i < $today['year'] + 1; $i++) {
 			$this->data['year_valid'][] = array(
-				'text'  => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)), 
+				'text'  => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)),
 				'value' => strftime('%Y', mktime(0, 0, 0, 1, 1, $i))
 			);
 		}
@@ -71,7 +71,7 @@ class ControllerPaymentPPProPF extends Controller {
 		for ($i = $today['year']; $i < $today['year'] + 11; $i++) {
 			$this->data['year_expire'][] = array(
 				'text'  => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)),
-				'value' => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)) 
+				'value' => strftime('%Y', mktime(0, 0, 0, 1, 1, $i))
 			);
 		}
 
@@ -79,9 +79,9 @@ class ControllerPaymentPPProPF extends Controller {
 			$this->template = $this->config->get('config_template') . '/template/payment/pp_pro_pf.tpl';
 		} else {
 			$this->template = 'default/template/payment/pp_pro_pf.tpl';
-		}	
+		}
 
-		$this->render();		
+		$this->render();
 	}
 
 	public function send() {
@@ -92,7 +92,7 @@ class ControllerPaymentPPProPF extends Controller {
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
 		if (!$this->config->get('pp_pro_pf_transaction')) {
-			$payment_type = 'A';	
+			$payment_type = 'A';
 		} else {
 			$payment_type = 'S';
 		}
@@ -115,8 +115,8 @@ class ControllerPaymentPPProPF extends Controller {
 		$request .= '&EMAIL=' . urlencode($order_info['email']);
 		$request .= '&ACCT=' . urlencode(str_replace(' ', '', $this->request->post['cc_number']));
 		$request .= '&ACCTTYPE=' . urlencode($this->request->post['cc_type']);
-		$request .= '&CARDSTART=' . urlencode($this->request->post['cc_start_date_month'] . substr($this->request->post['cc_start_date_year'], - 2, 2));
-		$request .= '&EXPDATE=' . urlencode($this->request->post['cc_expire_date_month'] . substr($this->request->post['cc_expire_date_year'], - 2, 2));
+		$request .= '&CARDSTART=' . urlencode($this->request->post['cc_start_date_month'] . substr($this->request->post['cc_start_date_year'], -2, 2));
+		$request .= '&EXPDATE=' . urlencode($this->request->post['cc_expire_date_month'] . substr($this->request->post['cc_expire_date_year'], -2, 2));
 		$request .= '&CVV2=' . urlencode($this->request->post['cc_cvv2']);
 		$request .= '&CARDISSUE=' . urlencode($this->request->post['cc_issue']);
 		$request .= '&BUTTONSOURCE=' . urlencode('OpenCart_Cart_PFP');
@@ -170,30 +170,29 @@ class ControllerPaymentPPProPF extends Controller {
 
 			$this->model_checkout_order->update($this->session->data['order_id'], $this->config->get('pp_pro_pf_order_status_id'), $message, false);
 
-			$json['success'] = $this->url->link('checkout/success'); 
+			$json['success'] = $this->url->link('checkout/success');
 		} else {
 			switch ($response_info['RESULT']) {
-				case '1':
-				case '26':
-					$json['error'] = $this->language->get('error_config');
+				case '1'
+				:case '26'
+				:$json['error'] = $this->language->get('error_config');
 					break;
-				case '7':
-					$json['error'] = $this->language->get('error_address');
+				case '7'
+				:$json['error'] = $this->language->get('error_address');
 					break;
-				case '12':
-					$json['error'] = $this->language->get('error_declined');
+				case '12'
+				:$json['error'] = $this->language->get('error_declined');
 					break;
-				case '23':
-				case '24':
-					$json['error'] = $this->language->get('error_invalid');
+				case '23'
+				:case '24'
+				:$json['error'] = $this->language->get('error_invalid');
 					break;
-				default:
-					$json['error'] = $this->language->get('error_general');
+				default
+				:$json['error'] = $this->language->get('error_general');
 					break;
-			}		
+			}
 		}
 
 		$this->response->setOutput(json_encode($json));
 	}
 }
-?>

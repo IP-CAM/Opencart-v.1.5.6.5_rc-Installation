@@ -1,4 +1,4 @@
-<?php 
+<?php
 class ControllerAccountLogin extends Controller {
 	private $error = array();
 
@@ -41,7 +41,7 @@ class ControllerAccountLogin extends Controller {
 					if ($this->config->get('config_tax_customer') == 'shipping') {
 						$this->session->data['shipping_country_id'] = $address_info['country_id'];
 						$this->session->data['shipping_zone_id'] = $address_info['zone_id'];
-						$this->session->data['shipping_postcode'] = $address_info['postcode'];	
+						$this->session->data['shipping_postcode'] = $address_info['postcode'];
 					}
 
 					if ($this->config->get('config_tax_customer') == 'payment') {
@@ -49,18 +49,18 @@ class ControllerAccountLogin extends Controller {
 						$this->session->data['payment_zone_id'] = $address_info['zone_id'];
 					}
 				} else {
-					unset($this->session->data['shipping_country_id']);	
-					unset($this->session->data['shipping_zone_id']);	
+					unset($this->session->data['shipping_country_id']);
+					unset($this->session->data['shipping_zone_id']);
 					unset($this->session->data['shipping_postcode']);
-					unset($this->session->data['payment_country_id']);	
-					unset($this->session->data['payment_zone_id']);	
+					unset($this->session->data['payment_country_id']);
+					unset($this->session->data['payment_zone_id']);
 				}
 
-				$this->redirect($this->url->link('account/account', '', 'SSL')); 
+				$this->redirect($this->url->link('account/account', '', 'SSL'));
 			}
-		}		
+		}
 
-		if ($this->customer->isLogged()) {  
+		if ($this->customer->isLogged()) {
 			$this->redirect($this->url->link('account/account', '', 'SSL'));
 		}
 
@@ -80,7 +80,7 @@ class ControllerAccountLogin extends Controller {
 				if ($this->config->get('config_tax_customer') == 'shipping') {
 					$this->session->data['shipping_country_id'] = $address_info['country_id'];
 					$this->session->data['shipping_zone_id'] = $address_info['zone_id'];
-					$this->session->data['shipping_postcode'] = $address_info['postcode'];	
+					$this->session->data['shipping_postcode'] = $address_info['postcode'];
 				}
 
 				if ($this->config->get('config_tax_customer') == 'payment') {
@@ -88,18 +88,18 @@ class ControllerAccountLogin extends Controller {
 					$this->session->data['payment_zone_id'] = $address_info['zone_id'];
 				}
 			} else {
-				unset($this->session->data['shipping_country_id']);	
-				unset($this->session->data['shipping_zone_id']);	
+				unset($this->session->data['shipping_country_id']);
+				unset($this->session->data['shipping_zone_id']);
 				unset($this->session->data['shipping_postcode']);
-				unset($this->session->data['payment_country_id']);	
-				unset($this->session->data['payment_zone_id']);	
+				unset($this->session->data['payment_country_id']);
+				unset($this->session->data['payment_zone_id']);
 			}
 
 			// Added strpos check to pass McAfee PCI compliance test (http://forum.opencart.com/viewtopic.php?f=10&t=12043&p=151494#p151295)
 			if (isset($this->request->post['redirect']) && (strpos($this->request->post['redirect'], $this->config->get('config_url')) !== false || strpos($this->request->post['redirect'], $this->config->get('config_ssl')) !== false)) {
 				$this->redirect(str_replace('&amp;', '&', $this->request->post['redirect']));
 			} else {
-				$this->redirect($this->url->link('account/account', '', 'SSL')); 
+				$this->redirect($this->url->link('account/account', '', 'SSL'));
 			}
 		}
 
@@ -107,7 +107,7 @@ class ControllerAccountLogin extends Controller {
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_home'),
-			'href'      => $this->url->link('common/home'),       	
+			'href'      => $this->url->link('common/home'),
 			'separator' => false
 		);
 
@@ -119,7 +119,7 @@ class ControllerAccountLogin extends Controller {
 
 		$this->data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_login'),
-			'href'      => $this->url->link('account/login', '', 'SSL'),      	
+			'href'      => $this->url->link('account/login', '', 'SSL'),
 			'separator' => $this->language->get('text_separator')
 		);
 
@@ -154,7 +154,7 @@ class ControllerAccountLogin extends Controller {
 		} elseif (isset($this->session->data['redirect'])) {
 			$this->data['redirect'] = $this->session->data['redirect'];
 
-			unset($this->session->data['redirect']);		  	
+			unset($this->session->data['redirect']);
 		} else {
 			$this->data['redirect'] = '';
 		}
@@ -191,7 +191,7 @@ class ControllerAccountLogin extends Controller {
 			'common/content_top',
 			'common/content_bottom',
 			'common/footer',
-			'common/header'	
+			'common/header'
 		);
 
 		$this->response->setOutput($this->render());
@@ -215,4 +215,3 @@ class ControllerAccountLogin extends Controller {
 		}
 	}
 }
-?>

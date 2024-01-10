@@ -8,13 +8,13 @@ class ControllerPaymentSagepay extends Controller {
 		if ($this->config->get('sagepay_test') == 'live') {
 			$this->data['action'] = 'https://live.sagepay.com/gateway/service/vspform-register.vsp';
 		} elseif ($this->config->get('sagepay_test') == 'test') {
-			$this->data['action'] = 'https://test.sagepay.com/gateway/service/vspform-register.vsp';		
+			$this->data['action'] = 'https://test.sagepay.com/gateway/service/vspform-register.vsp';
 		} elseif ($this->config->get('sagepay_test') == 'sim') {
 			$this->data['action'] = 'https://test.sagepay.com/simulator/vspformgateway.asp';
 		}
 
 		$vendor = $this->config->get('sagepay_vendor');
-		$password = $this->config->get('sagepay_password');		
+		$password = $this->config->get('sagepay_password');
 
 		$this->load->model('checkout/order');
 
@@ -33,7 +33,7 @@ class ControllerPaymentSagepay extends Controller {
 		$data['CustomerName'] = html_entity_decode($order_info['payment_firstname'] . ' ' . $order_info['payment_lastname'], ENT_QUOTES, 'UTF-8');
 		$data['SendEMail'] = '1';
 		$data['CustomerEMail'] = $order_info['email'];
-		$data['VendorEMail'] = $this->config->get('config_email');  
+		$data['VendorEMail'] = $this->config->get('config_email');
 
 		$data['BillingFirstnames'] = $order_info['payment_firstname'];
 		$data['BillingSurname'] = $order_info['payment_lastname'];
@@ -88,7 +88,7 @@ class ControllerPaymentSagepay extends Controller {
 				$data['DeliveryState'] = $order_info['payment_zone_code'];
 			}
 
-			$data['DeliveryPhone'] = $order_info['telephone'];			
+			$data['DeliveryPhone'] = $order_info['telephone'];
 		}
 
 		$data['AllowGiftAid'] = '0';
@@ -104,7 +104,7 @@ class ControllerPaymentSagepay extends Controller {
 
 		$crypt_data = array();
 
-		foreach($data as $key => $value){
+		foreach ($data as $key => $value) {
 			$crypt_data[] = $key . '=' . $value;
 		}
 
@@ -114,15 +114,15 @@ class ControllerPaymentSagepay extends Controller {
 			$this->template = $this->config->get('config_template') . '/template/payment/sagepay.tpl';
 		} else {
 			$this->template = 'default/template/payment/sagepay.tpl';
-		}	
+		}
 
-		$this->render();		
+		$this->render();
 	}
 
 	public function success() {
 		if (isset($this->request->get['crypt'])) {
 			$string = base64_decode(str_replace(' ', '+', $this->request->get['crypt']));
-			$password = $this->config->get('sagepay_password');	
+			$password = $this->config->get('sagepay_password');
 
 			$output = utf8_encode($this->simpleXor($string, $password));
 
@@ -135,7 +135,7 @@ class ControllerPaymentSagepay extends Controller {
 
 				$message = '';
 
-				if (isset($data['VPSTxId'])) { 
+				if (isset($data['VPSTxId'])) {
 					$message .= 'VPSTxId: ' . $data['VPSTxId'] . "\n";
 				}
 
@@ -184,7 +184,7 @@ class ControllerPaymentSagepay extends Controller {
 				$this->redirect($this->url->link('checkout/success'));
 			}
 		}
-	}	 
+	}
 
 	protected function simpleXor($string, $password) {
 		$data = array();
@@ -199,7 +199,7 @@ class ControllerPaymentSagepay extends Controller {
 			$output .= chr(ord(substr($string, $i, 1)) ^ ($data[$i % strlen($password)]));
 		}
 
-		return $output;		
+		return $output;
 	}
 
 	protected function getToken($string) {
@@ -222,12 +222,12 @@ class ControllerPaymentSagepay extends Controller {
 			'Last4Digits',
 			'PayerStatus',
 			'CardType'
-		);		
+		);
 
 		$output = array();
 		$data = array();
 
-		for ($i = count($tokens) - 1; $i >= 0; $i--){
+		for ($i = count($tokens) - 1; $i >= 0; $i--) {
 			$start = strpos($string, $tokens[$i]);
 
 			if ($start !== false) {
@@ -238,20 +238,19 @@ class ControllerPaymentSagepay extends Controller {
 
 		sort($data);
 
-		for ($i = 0; $i < count($data); $i++){
+		for ($i = 0; $i < count($data); $i++) {
 			$start = $data[$i]['start'] + strlen($data[$i]['token']) + 1;
 
 			if ($i == (count($data) - 1)) {
 				$output[$data[$i]['token']] = substr($string, $start);
 			} else {
-				$length = $data[$i+1]['start'] - $data[$i]['start'] - strlen($data[$i]['token']) - 2;
+				$length = $data[$i + 1]['start'] - $data[$i]['start'] - strlen($data[$i]['token']) - 2;
 
 				$output[$data[$i]['token']] = substr($string, $start, $length);
-			}      
+			}
 
 		}
 
 		return $output;
-	}	
+	}
 }
-?>

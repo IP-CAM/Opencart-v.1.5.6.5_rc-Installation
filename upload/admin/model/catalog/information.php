@@ -3,7 +3,7 @@ class ModelCatalogInformation extends Model {
 	public function addInformation($data) {
 		$this->db->query("INSERT INTO " . DB_PREFIX . "information SET sort_order = '" . (int)$data['sort_order'] . "', bottom = '" . (isset($data['bottom']) ? (int)$data['bottom'] : 0) . "', status = '" . (int)$data['status'] . "'");
 
-		$information_id = $this->db->getLastId(); 
+		$information_id = $this->db->getLastId();
 
 		foreach ($data['information_description'] as $language_id => $value) {
 			$this->db->query("INSERT INTO " . DB_PREFIX . "information_description SET information_id = '" . (int)$information_id . "', language_id = '" . (int)$language_id . "', title = '" . $this->db->escape($value['title']) . "', description = '" . $this->db->escape($value['description']) . "'");
@@ -57,7 +57,7 @@ class ModelCatalogInformation extends Model {
 			}
 		}
 
-		$this->db->query("DELETE FROM " . DB_PREFIX . "url_alias WHERE query = 'information_id=" . (int)$information_id. "'");
+		$this->db->query("DELETE FROM " . DB_PREFIX . "url_alias WHERE query = 'information_id=" . (int)$information_id . "'");
 
 		if ($data['keyword']) {
 			$this->db->query("INSERT INTO " . DB_PREFIX . "url_alias SET query = 'information_id=" . (int)$information_id . "', keyword = '" . $this->db->escape($data['keyword']) . "'");
@@ -74,7 +74,7 @@ class ModelCatalogInformation extends Model {
 		$this->db->query("DELETE FROM " . DB_PREFIX . "url_alias WHERE query = 'information_id=" . (int)$information_id . "'");
 
 		$this->cache->delete('information');
-	}	
+	}
 
 	public function getInformation($information_id) {
 		$query = $this->db->query("SELECT DISTINCT *, (SELECT keyword FROM " . DB_PREFIX . "url_alias WHERE query = 'information_id=" . (int)$information_id . "') AS keyword FROM " . DB_PREFIX . "information WHERE information_id = '" . (int)$information_id . "'");
@@ -89,12 +89,12 @@ class ModelCatalogInformation extends Model {
 			$sort_data = array(
 				'id.title',
 				'i.sort_order'
-			);		
+			);
 
 			if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-				$sql .= " ORDER BY " . $data['sort'];	
+				$sql .= " ORDER BY " . $data['sort'];
 			} else {
-				$sql .= " ORDER BY id.title";	
+				$sql .= " ORDER BY id.title";
 			}
 
 			if (isset($data['order']) && ($data['order'] == 'DESC')) {
@@ -106,14 +106,14 @@ class ModelCatalogInformation extends Model {
 			if (isset($data['start']) || isset($data['limit'])) {
 				if ($data['start'] < 0) {
 					$data['start'] = 0;
-				}		
+				}
 
 				if ($data['limit'] < 1) {
 					$data['limit'] = 20;
-				}	
+				}
 
 				$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
-			}	
+			}
 
 			$query = $this->db->query($sql);
 
@@ -127,9 +127,9 @@ class ModelCatalogInformation extends Model {
 				$information_data = $query->rows;
 
 				$this->cache->set('information.' . (int)$this->config->get('config_language_id'), $information_data);
-			}	
+			}
 
-			return $information_data;			
+			return $information_data;
 		}
 	}
 
@@ -176,12 +176,11 @@ class ModelCatalogInformation extends Model {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "information");
 
 		return $query->row['total'];
-	}	
+	}
 
 	public function getTotalInformationsByLayoutId($layout_id) {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "information_to_layout WHERE layout_id = '" . (int)$layout_id . "'");
 
 		return $query->row['total'];
-	}	
+	}
 }
-?>
