@@ -1,0 +1,22 @@
+parameters:
+    level: 0
+    paths:
+        - ./upload/
+    excludePaths:
+        - ./upload/catalog/controller/extension/payment/wechat_pay.php
+        - ./upload/catalog/model/extension/payment/alipay.php
+        - ./upload/system/library/openbay.php
+        - ./upload/system/library/amazonus.php
+        - ./upload/system/library/ebay.php
+        - ./upload/system/library/amazon.php
+        - ./upload/system/database/postgre.php
+        - ./upload/system/database/mysql.php
+        - ./upload/system/database/mmsql.php
+        - ./upload/install/controller/upgrade.php
+        - ./upload/index.php
+        - ./upload/admin/index.php
+        - ./upload/catalog/controller/payment/authorizenet_sim.php
+        - ./upload/admin/model/setting/extension.php
+    tmpDir: .cache
+    ignoreErrors:
+
