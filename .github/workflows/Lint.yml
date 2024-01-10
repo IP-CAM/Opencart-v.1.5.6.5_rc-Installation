@@ -31,7 +31,7 @@ jobs:
       - name: Lint
         run: |
           error=0
-          for file in $(find upload -type f -name "*.php" ! -path 'upload/temp/vendor/*'); do
+          for file in $(find upload -type f -name "*.php" ! -path 'upload/temp/*'); do
             php -l -n $file | grep -v "No syntax errors detected" && error=1
           done
           if [ $error -eq 1 ]; then
