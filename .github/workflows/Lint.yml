@@ -54,11 +54,11 @@ jobs:
       - name: PHPStan
         run: |
           composer require phpstan/phpstan 1.10.55
-          ./upload/temp/vendor/bin/phpstan analyze --no-progress
+          ./upload/temp/phpstan analyze --no-progress
 
       - name: Code style
         if: matrix.php == '8.3'
         run: |
           composer require --dev -w friendsofphp/php-cs-fixer v3.46.0
-          ./upload/temp/vendor/bin/php-cs-fixer fix --dry-run --diff --ansi || true
-          ./upload/temp/vendor/bin/php-cs-fixer fix --dry-run --format=checkstyle | cs2pr
+          ./upload/temp/php-cs-fixer fix --dry-run --diff --ansi || true
+          ./upload/temp/php-cs-fixer fix --dry-run --format=checkstyle | cs2pr
