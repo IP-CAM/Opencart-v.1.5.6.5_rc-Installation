@@ -31,7 +31,7 @@ jobs:
       - name: Lint
         run: |
           error=0
-          for file in $(find upload -type f -name "*.php" ! -path 'upload/system/storage/vendor/*'); do
+          for file in $(find upload -type f -name "*.php" ! -path 'upload/temp/vendor/*'); do
             php -l -n $file | grep -v "No syntax errors detected" && error=1
           done
           if [ $error -eq 1 ]; then
@@ -49,16 +49,16 @@ jobs:
             ./.cache
             ./.php-cs-fixer.cache
           key: OC3.0-PHP${{ matrix.php }}-${{ hashFiles('**/composer.lock') }}
-          restore-keys: OC3.0-PHP${{ matrix.php }}-
+          restore-keys: OC1.5-PHP${{ matrix.php }}-
 
       - name: PHPStan
         run: |
           composer require phpstan/phpstan 1.10.55
-          ./upload/system/storage/vendor/bin/phpstan analyze --no-progress
+          ./upload/temp/vendor/bin/phpstan analyze --no-progress
 
       - name: Code style
         if: matrix.php == '8.3'
         run: |
           composer require --dev -w friendsofphp/php-cs-fixer v3.46.0
-          ./upload/system/storage/vendor/bin/php-cs-fixer fix --dry-run --diff --ansi || true
-          ./upload/system/storage/vendor/bin/php-cs-fixer fix --dry-run --format=checkstyle | cs2pr
+          ./upload/temp/vendor/bin/php-cs-fixer fix --dry-run --diff --ansi || true
+          ./upload/temp/vendor/bin/php-cs-fixer fix --dry-run --format=checkstyle | cs2pr

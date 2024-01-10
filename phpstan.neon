@@ -17,6 +17,7 @@ parameters:
         - ./upload/admin/index.php
         - ./upload/catalog/controller/payment/authorizenet_sim.php
         - ./upload/admin/model/setting/extension.php
+        - ./upload/temp/
     tmpDir: .cache
     ignoreErrors:
 
